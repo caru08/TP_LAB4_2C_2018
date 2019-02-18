@@ -1,0 +1,46 @@
+<div class="dialog-container">
+    <div class="flex-h expand-w dialog-title">
+        <div class="sub-titles">
+            Registrate!
+        </div>
+        <div class="expand-right flex-10" matTooltip="cerrar" matTooltipPosition="right">
+            <div (click)="cancelClick()">
+                <mat-icon class="mat-icon-button">clear</mat-icon>
+            </div>
+        </div>
+    </div>
+
+    <div class="expand-w dialog-content">
+        <circle-loader [loading]="loading"></circle-loader>
+        <div class="flex-v flex-80 columns-container" [formGroup]="formValidator">
+            <mat-form-field>
+                <input matInput placeholder="Nombre" [(ngModel)]="model.name" formControlName="name">
+                <input-error-handler [form-group-name]="formValidator.controls.name"></input-error-handler>
+            </mat-form-field>
+            <mat-form-field class="first-item-panel">
+                <input matInput placeholder="Apellido" [(ngModel)]="model.lastname" formControlName="lastname">
+                <input-error-handler [form-group-name]="formValidator.controls.lastname"></input-error-handler>
+            </mat-form-field>
+            <mat-form-field class="first-item-panel">
+                <input matInput placeholder="Email" [(ngModel)]="model.email" formControlName="email">
+                <input-error-handler [form-group-name]="formValidator.controls.email"></input-error-handler>
+            </mat-form-field>
+            <mat-form-field class="first-item-panel">
+                <input matInput placeholder="Contraseña" [(ngModel)]="model.pass" formControlName="pass"
+                    type="password">
+                <input-error-handler [form-group-name]="formValidator.controls.pass">
+                </input-error-handler>
+            </mat-form-field>
+            <mat-form-field class="first-item-panel">
+                <input matInput placeholder="Repita Contraseña" [(ngModel)]="model.secondpass"
+                    (focusout)="onfocusoutSecondPass($event)" formControlName="secondpass" type="password">
+                <input-error-handler [form-group-name]="formValidator.controls.secondpass" [error-message]="errormessage">
+                </input-error-handler>
+            </mat-form-field>
+        </div>
+        <div class="flex-h expand-w expand-center actions-button-container">
+            <button mat-raised-button color="primary"  [disabled]="!formValidator.valid || (errormessage !== '')" (click)="saveClick()">Registrarse</button>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div *ngIf="formGroup.touched">
+  <div *ngIf="collection && collection.length == 0; then collection_error else custom_errors"></div>
+
+   <ng-template #collection_error>
+     <mat-error>
+      No se encontraron registros
+     </mat-error>
+   </ng-template>
+
+  <ng-template #custom_errors>
+    <mat-error *ngIf="formGroup.hasError('required')">
+     Campo requerido
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('maxlength')">
+      El valor excede el limite
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('minlength')">
+      El valor es inferior al límite
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('matDatepickerMax')">
+      La fecha es mayor
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('matDatepickerMin')">
+      La fecha es menor
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('email')">
+      Email inválido
+    </mat-error>
+    <mat-error *ngIf="formGroup.hasError('pattern')">
+      Valor inválido
+    </mat-error>
+    <mat-error *ngIf="errorMessage">
+        {{errorMessage}}
+      </mat-error>
+  </ng-template>
+
+
+</div>

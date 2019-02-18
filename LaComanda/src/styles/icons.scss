@@ -1,0 +1,84 @@
+$font-path: "../assets/fonts" !default;
+$icon-path: "../assets/icon" !default;
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('#{$font-path}/material-icons.woff') format('woff'),
+        url('#{$icon-path}/smpt-icon.svg') format('svg');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+}
+
+@font-face {
+  font-family: 'Smpt Icon';
+  src:  url('#{$icon-path}/smpt-icon.eot?608vgr');
+  src:  url('#{$icon-path}/smpt-icon.eot?608vgr#iefix') format('embedded-opentype'),
+  url('#{$icon-path}/smpt-icon.ttf?608vgr') format('truetype'),
+  url('#{$icon-path}/smpt-icon.woff?608vgr') format('woff'),
+  url('#{$icon-path}/smpt-icon.svg?608vgr#smpt') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[icon] {
+  font-family: 'Smpt Icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  display: inline-block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[icon="pie-chart"]:before {
+  content: "\e99a";
+}
+
+[icon="stats-dots"]:before {
+  content: "\e99b";
+}
+
+[icon="stats-bars"]:before {
+  content: "\e99c";
+}
+/*
+.icon-saocom-class{
+  background-image: url("../assets/img/saocom-world-title.svg");
+  background-repeat-x: no-repeat;
+  background-repeat-y: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.icon-world-class{
+  background-image: url("../assets/img/saocom-world.svg");
+  background-repeat-x: no-repeat;
+  background-repeat-y: no-repeat;
+  background-position: center;
+}
+
+.icon-saocom-title-class{
+  background-image: url("../assets/img/saocom.svg");
+  background-repeat-x: no-repeat;
+  background-repeat-y: no-repeat;
+  background-size: 100%;
+}
+*/

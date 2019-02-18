@@ -1,0 +1,375 @@
+@import '~@angular/material/theming';
+@import 'variables';
+
+@include mat-core();
+
+$mat-smpt-pallete: (
+  50: #e1f5fe,
+  100: #b3e5fc,
+  200: #81d4fa,
+  300: #4fc3f7,
+  400: #29b6f6,
+  500: $second-detail-color, //subrayado de tabs
+  600: #039be5,
+  700: #0288d1,
+  800: #0277bd, //no
+  900: #01579b, //no
+  A100: #80d8ff,
+  A200: $second-detail-color, //detalle radio button
+  A400: #00b0ff,
+  A700: #0091ea,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: white,
+  )
+);
+
+$smpt-app-primary: mat-palette($mat-smpt-pallete);
+$smpt-app-accent: mat-palette($mat-smpt-pallete, A200, A100, A400);
+$smpt-app-warn: mat-palette($mat-red);
+$smpt-app-theme: mat-light-theme($smpt-app-primary, $smpt-app-accent, $smpt-app-warn);
+
+@include angular-material-theme($smpt-app-theme);
+
+body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: block;
+  font-family: "Roboto";
+  overflow: hidden;
+  background-color: $second-background-color;
+}
+
+main{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: block;
+  font-family: "Roboto";
+  overflow: hidden;
+  flex: 1;
+}
+
+.layout-fill{
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.flex{
+  display: flex;
+  &-v{
+    display: flex;
+    flex-direction: column;
+    &-center{
+      vertical-align: middle;
+    }
+  }
+  &-h{
+    display: flex;
+    flex-direction: row;
+    &-center{
+      align-items: center;
+    }
+    &-right{
+      align-items: flex-end;
+    }
+  }
+  &-grow {
+    &-0{
+      flex-grow:0;
+    }
+    &-1{
+      flex-grow:1;
+    }
+    &-2{
+      flex-grow:2;
+    }
+  }
+  &-10{
+    flex: 10%;
+  }
+  &-20{
+    flex: 20%;
+  }
+  &-25{
+    flex:25%;
+  }
+  &-30{
+    flex: 30%;
+  }
+  &-35{
+    flex:35%;
+  }
+  &-40{
+    flex: 40%;
+  }
+  &-50{
+    flex: 50%;
+  }
+  &-60{
+    flex: 60%;
+  }
+  &-70{
+    flex: 70%;
+  }
+  &-80{
+    flex: 80%;
+  }
+  &-90{
+    flex: 90%;
+  }
+  &-100{
+    flex:100%;
+  }
+}
+
+.expand{
+  width: 100%;
+  height: 100%;
+  &-w{
+    width: 100%;
+  }
+  &-h{
+    height: 100%;
+  }
+  &-right{
+    display: flex;
+    justify-content: flex-end !important;
+  }
+  &-center{
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.size{
+  &-h{
+    &-30{
+      width: 30%;
+    }
+    &-40{
+      width: 40%;
+    }
+    &-50{
+      //half-page
+      width: 50%;
+    }
+    &-60{
+      width: 60%;
+    }
+    &-70{
+      width: 70%;
+    }
+    &-95{
+      width: 95%;
+    }
+  }
+}
+
+.row-container{
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+}
+
+.full-row-button{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  transition-duration: .4s;
+  transition-property: color,margin;
+  transition-timing-function: cubic-bezier(.25,.8,.25,1)
+}
+
+.menu-vertical-button{
+  width: 100%;
+  height: 50px;
+  text-align: start !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  align-items: center;
+}
+
+.scrollable-container{
+  position: relative;
+}
+
+.scrollable-list-container{
+  min-width: 150px;
+  max-height: 500px;
+}
+
+.cards-container{
+  border-radius: 20px;
+  margin: 10px 20px;
+  padding: 24px 12px;
+  background-color: $sixth-background-color;
+  width: 30%;
+}
+
+.cards-content{
+  padding: 0px 12px;
+}
+
+.container-black-shadow{
+  box-shadow: 1px 3px 4px $first-background-color;
+}
+
+.error-message{
+  color: $error-font-color;
+  font-weight: $bold-first-size;
+  text-shadow: 1px 0px 1px black;
+  letter-spacing: 0.5px;
+}
+
+.small-error-message{
+  color: $error-font-color;
+  font-weight: $bold-first-size;
+  letter-spacing: 0.5px;
+}
+
+.clarification-message{
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+  color: $current-font-color;
+}
+
+.actions-button-container{
+  padding-top: 20px;
+}
+
+.cancel-button{
+  margin-left: 10px !important;
+}
+
+.small-circle-loader-container{
+  position: relative;
+}
+
+.mat-selects-container{
+  width: 70%;
+}
+
+.columns-container{
+  margin-right: 1.5em;
+}
+
+.panel-container{
+  margin-left: 1.5em;
+}
+
+.dialog-container{
+  border: 2px solid $dialog-border-color !important;
+  padding: 1em;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-title{
+  padding-bottom: 5px;
+  border-bottom: 1px solid $cero-detail-color;
+  border-image-slice: 1;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+}
+
+.dialog-content{
+  padding-top: 20px;
+}
+
+.dialog-list-container{
+  max-height: 25em;
+}
+
+.full-form-container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.full-form-content{
+  border-radius: 20px;
+  margin: 10px 20px;
+  padding: 24px 12px;
+  background-color: $sixth-background-color;
+  width: 100%;
+}
+
+.row-icon-container{
+  display: flex;
+  align-items: center;
+  margin-left: 1.5em;
+}
+
+.list-icon-container{
+  display: flex;
+  align-items: flex-start;
+  margin-left: 0.5em;
+}
+
+.first-item-panel{
+  margin-top: 1em;
+}
+
+.two-spaces-item-panel{
+  margin-top: 2em;
+}
+
+.panel-disabled-container{
+  position: relative;
+}
+
+.panel-disabled{
+  background-color: $disabled-color;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.small-containers{
+  margin: 0.5em;
+}
+
+.fields-same-line{
+  margin-left: 1.0em;
+}
+
+.content-inside-card{
+  padding: 1em 1em 1em 1em;
+  &-first-child{
+    padding-top: 0em;
+  }
+}
+
+.error-after-input{
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 2.3em;
+  top: calc(100% - 1.66666667em);
+  font-weight: 200;
+  font-size: x-small;
+}

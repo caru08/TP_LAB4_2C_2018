@@ -1,0 +1,11 @@
+@import "../../../../styles/_variables.scss";
+
+:host{
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 2.3em;
+  top: calc(100% - 1.66666667em);
+  font-weight: 200;
+  font-size: x-small;
+}

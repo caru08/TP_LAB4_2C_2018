@@ -1,0 +1,99 @@
+
+@import "../assets/css/compass/css3";
+
+$side-nav-size: 250px;
+
+//#region Paleta Negra y Naranja
+
+$first-background-color: #0c0e0e;
+$second-background-color: #0c0e0e;
+$third-background-color: #123660;
+$fourth-background-color: #17477D;
+$fifth-background-color: #1B5698; //SIDE NAV COLOR FINAL
+$sixth-background-color: #fafafa;
+$seventh-background-color: #6D93BD;
+$eighth-background-color: #97B2D0 ;
+$ninth-background-color: #84CEDD;
+
+
+//FONTS COLOR
+$general-font-color: #808080;
+$error-font-color: #d3494a;
+$bold-first-size: 500;
+$bold-second-size: 400;
+$small-titles-color: rgba(74, 74, 74, 0.97);
+$third-titles-color: rgba(255, 255, 255, 0.9);
+$current-font-color: rgba(255, 255, 255, 0.7);
+$list-fonts-color: #808080;
+$card-font-color: #000000;
+
+
+$cero-detail-color: $fourth-background-color;
+$first-detail-color: $third-background-color;
+$second-detail-color: #026C9C;
+$third-detail-color: #024563;
+$fourth-detail-color: #9be0ff;
+$fifth-detail-color: #add8e6;
+$sixth-detail-color: #dbecf3;
+$seventh-detail-color:#eaf2f5;
+
+//ARCHITECTURE COLOR
+$side-nav-color: #e8e8e8;
+$nav-bar-color: #e6ecf0;
+$button-icon-color: #606060;
+$button-disabled-icon-color: #848a8e;
+$button-hover-color: $first-detail-color;
+$content-color: #ffffff;
+$dialog-border-color: $second-detail-color;
+$button-color-dark-background: #F2F2F2;
+$disabled-color: rgba(255,255,255,.4);
+
+//CONTROLLS COLORES
+
+//DISABLED CONTROLS
+$disabled-color-control: $seventh-background-color;
+
+//LIST AND GRIDS
+$row-color: #e6ecf0;
+$row-color-hover: #e1e3e4;
+$row-border-color: #b3b3b3;
+
+
+//DIALOGS
+$small-dialogs-backgroud: #e6ecf0;
+$small-dialogs-contents: #656565;
+$success-icons-color: #05b713;
+
+
+
+//BUTTON & STICKERS
+$disabled-button-color: #989898;
+$enable-button-color: #595959;
+$accept-button-color: #3adb76;
+$accept-button-color-hover: #33c369;
+$middle-button-color: #ffe552;
+$middle-button-color-hover: #cab047;
+$cancel-button-color: #ff6347;
+$cancel-button-color-hover: #d6593e;
+$confirm-button-color: #353be0;
+$confirm-button-color-hover: #3437c9;
+$background-button-color: #E8DCD2;
+
+//#endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
