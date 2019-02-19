@@ -1,13 +1,31 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { configs } from '../globalConfigs';
+import { Observable, Subject } from 'rxjs';
+import { BaseService } from './baseService.service';
+import { ParamsService } from './params.service';
+import { Usuario } from '../models/usuario';
 
 
 @Injectable()
 export class AuthenticationService{
 
+    public sessionChange: Subject<any> = new Subject();
+
     constructor(private MiAuth:AngularFireAuth,
+        private baseService: BaseService,
+        private paramsService: ParamsService,
         public afDB: AngularFireDatabase){
+            this.MiAuth.authState.subscribe(user => {
+                debugger;
+                if(user){
+                    this.logInFromDataBase();
+                    this.getUserData(user.uid);
+                }else{
+                    this.sessionChange.next(null);
+                }
+            });
     }
 
     registerUserAndLogin(email:string, pass:string){
@@ -30,13 +48,14 @@ export class AuthenticationService{
         return this.MiAuth.auth.currentUser.uid;
     }
 
-    isLogged(){
-        return this.MiAuth.auth.currentUser;
+    isLogged():boolean {
+        return this.MiAuth.auth.currentUser ? true : false;
     }
 
     logOut(){
+        this.paramsService.setUser(null);
         this.MiAuth.auth.signOut();
-        this.logoutFromDatabase();
+        this.logoutFromDatabase();        
     }
 
     deleteUserLogged(){
@@ -57,5 +76,19 @@ export class AuthenticationService{
     }
      getVerification(){
         return this.MiAuth.auth.currentUser.emailVerified;
+    }
+
+    private getUserData(uid){
+        this.baseService.getEntityByUId(uid, configs.apis.usuarios)
+        .subscribe(response =>{
+            debugger;
+            if(response[0]){
+                let model:any = response[0].payload.val();
+                let usuario = new Usuario(model.nombre, model.apellido, model.dni, model.anonimo, model.rol);
+                usuario.uid = model.uid;
+                this.paramsService.setUser(usuario);
+                this.sessionChange.next(usuario);
+            }        
+        })
     }
 }

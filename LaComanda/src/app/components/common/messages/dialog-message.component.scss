@@ -1,0 +1,86 @@
+@import "../../../../styles/_variables.scss";
+
+:host{
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.message-dialog{
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  background: $small-dialogs-backgroud;
+  color: $small-dialogs-contents;
+}
+
+.message-dialog-container{
+  display: flex;
+  position: relative;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.message-dialog-content{
+  padding: 1.0em;
+}
+
+.icon-container{
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-content{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  &-success{
+    border: 3px solid $success-icons-color;
+  }
+  &-confirm{
+    border: 3px solid $confirm-button-color;
+  }
+  &-error{
+    border: 3px solid $cancel-button-color;
+  }
+}
+
+
+.icon-message{
+  height: 40px;
+  width: 40px;
+  font-size: 40px;
+  &-success{
+    color: $success-icons-color;
+  }
+  &-error{
+    color: $cancel-button-color;
+  }
+}
+
+.icon-message-confirm{
+  height: 60px;
+  width: 60px;
+  font-size: 60px;
+  color: $confirm-button-color;
+}
+
+.text-container{
+  margin-left: 10px;
+}
+
+.text-content{
+  height: 70%;
+}
+
+.accept-button{
+  position: absolute;
+  bottom: 1.0em;
+  right: 1.0em;
+}
+
+
+

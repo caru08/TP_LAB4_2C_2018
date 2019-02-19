@@ -27,15 +27,17 @@ import '../styles/icons.scss';
 import '../styles/controllsStyle.scss';
 import '../styles/workspace.scss';
 
-import { RoutesHandler, AuthenticationService, BaseService, MessageHandler } from './services';
+import { RoutesHandler, AuthenticationService, BaseService, MessageHandler, ParamsService, MainGuard } from './services';
 
 import { HomeComponent } from './components/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { InputErrorHandlerComponent } from './components/common/error-handler/input-error-handler.component';
 import { CircleLoaderComponent } from './components/common/loaders/circle-loader.component';
 import { SuccessMessageComponent } from './components/common/messages/success-message.component';
-import { RegisterComponent } from './components/login/register.component';
+import { ConfirmDialogMessageComponent } from './components/common/messages/confirm-dialog-message.component';
 
+import { RegisterComponent } from './components/login/register.component';
+import { BebibasComponent } from './components/bebidas/bebidas.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { RegisterComponent } from './components/login/register.component';
     InputErrorHandlerComponent,
     CircleLoaderComponent,
     RegisterComponent,
-    SuccessMessageComponent
+    SuccessMessageComponent,
+    BebibasComponent,
+    ConfirmDialogMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -98,12 +102,15 @@ import { RegisterComponent } from './components/login/register.component';
     RoutesHandler,
     AuthenticationService,
     BaseService,
-    MessageHandler
+    MessageHandler,
+    ParamsService,
+    MainGuard
   ],
   entryComponents:[
     LoginComponent,
     RegisterComponent,
-    SuccessMessageComponent
+    SuccessMessageComponent,
+    ConfirmDialogMessageComponent
   ],
 
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+
+@import "../../../../styles/_variables.scss";
+
+
+:host {
+
+  .mat-snack-bar-container {
+    margin: 0px !important;
+    min-width: 400px !important;
+    min-height: 65px !important;
+    background-color: $success-color;
+    }
+
+}

@@ -4,14 +4,14 @@ export const configs = {
     authDomain: "appcomandalab4.firebaseapp.com",
     databaseURL: "https://appcomandalab4.firebaseio.com",
     projectId: "appcomandalab4",
-    storageBucket: "",
+    storageBucket: "appcomandalab4.appspot.com",
     messagingSenderId: "171406322117"
   },
   googleMaps:{
     apiKey: 'AIzaSyChyZ87vIo4bamrWJtWfI5I69Ib1snmWlA'
   },
   apis: {
-    usuarios: '/usuarios',
+    usuarios: 'usuarios/',
 
   }
 

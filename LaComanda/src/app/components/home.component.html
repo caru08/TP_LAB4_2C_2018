@@ -11,15 +11,27 @@
         </div>
       </div>
     </div>
-    <div class="flex-grow-1 row-container">
-    </div>
-    <div class="expand-right">
-        <button mat-button class="full-row-button" (click)="loginClick()">
-            <span style="color:white;">Login</span>
+    <div class="flex-grow-1 row-container expand-center">
+      <div *ngFor="let module of modules">
+        <button mat-button class="full-row-button" class="module-container" (click)="moduleClick(module)">
+          <span style="color:white;">{{module.name}}</span>
         </button>
+      </div>
+    </div>
+    <div class="expand-right" *ngIf="!isLogged">
+      <button mat-button class="full-row-button" (click)="loginClick()">
+        <span style="color:white;">Login</span>
+      </button>
+    </div>
+    <div class="expand-right" *ngIf="isLogged">
+      <button mat-button [matMenuTriggerFor]="menu" class="full-row-button" style="color:white">{{userName}}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logoutClick()">Salir</button>
+      </mat-menu>
     </div>
   </div>
 </header>
-<main>
-  
+<main style="width:100%; height:100%">
+  <router-outlet>
+  </router-outlet>
 </main>

@@ -58,8 +58,8 @@ export class CustomValidators {
     ]));
   }
 
-  public static getPositiveIntegerNumber(){
-    return new FormControl({value: '', disabled:true}, Validators.compose([
+  public static getPositiveIntegerNumber(value?, disabled?){
+    return new FormControl({value: value? value : '', disabled:disabled}, Validators.compose([
       Validators.pattern('[0-9]+'),
       Validators.required
     ]));

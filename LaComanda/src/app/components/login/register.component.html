@@ -26,6 +26,10 @@
                 <input-error-handler [form-group-name]="formValidator.controls.email"></input-error-handler>
             </mat-form-field>
             <mat-form-field class="first-item-panel">
+                <input matInput placeholder="Dni" [(ngModel)]="model.dni" formControlName="dni">
+                <input-error-handler [form-group-name]="formValidator.controls.dni"></input-error-handler>
+            </mat-form-field>
+            <mat-form-field class="first-item-panel">
                 <input matInput placeholder="Contraseña" [(ngModel)]="model.pass" formControlName="pass"
                     type="password">
                 <input-error-handler [form-group-name]="formValidator.controls.pass">

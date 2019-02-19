@@ -102,6 +102,28 @@ input:-webkit-autofill {
   color: $general-font-color;
 }
 
+.success-snack{
+  margin: 0px !important;
+    min-width: 400px !important;
+    min-height: 65px !important;
+    background-color: $success-color !important;
+    color: black !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.error-snack{
+  margin: 0px !important;
+    min-width: 400px !important;
+    min-height: 65px !important;
+    background-color: $error-color !important;
+    color: black !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 
 //#endregion
 
@@ -110,11 +132,12 @@ input:-webkit-autofill {
 .mat-dialog-container{
   padding: 0px !important;
   border-radius: 10px !important;
-  min-width: 350px;
-  min-height: 150px;
+  min-width: 350px !important;
+  min-height: 150px !important;
   max-height: 600px !important;
   max-width: 800px !important;
   display: flex !important;
+  background-color: red;
 }
 
 .mat-dialog-container::-webkit-scrollbar-track{

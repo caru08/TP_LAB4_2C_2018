@@ -30,6 +30,8 @@ export class MainGuard implements CanActivate, CanActivateChild {
   ) {}
 
   canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):any{
+    debugger;
+    return true;
     /*if(this.loginService.sessionCheck){
       return this.loginService.getSessionLogged();
     } else {
@@ -39,6 +41,7 @@ export class MainGuard implements CanActivate, CanActivateChild {
         })
       })
     }*/
+  
   }
 
   canActivateChild(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):boolean {

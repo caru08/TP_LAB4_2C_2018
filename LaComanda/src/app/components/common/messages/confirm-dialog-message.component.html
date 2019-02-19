@@ -1,0 +1,18 @@
+<div class="message-dialog">
+  <div class="message-dialog-container ">
+    <div class="message-dialog-content flex-v expand-w">
+      <div class="flex-h flex-h-center text-content ">
+        <div class="flex-v flex-20 expand-h icon-container">
+          <div class="icon-content">
+            <mat-icon class="icon-message-confirm">help_outline</mat-icon>
+          </div>
+        </div>
+        <div class="flex-v flex-80 text-container">{{message}}</div>
+      </div>
+      <div class="flex-h accept-button">
+        <button mat-raised-button color="primary" (click)="accept()">Aceptar</button>
+        <button mat-raised-button color="primary" (click)="cancel()" class="cancel-button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

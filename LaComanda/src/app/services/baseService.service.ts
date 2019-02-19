@@ -1,34 +1,42 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Injectable } from '@angular/core';
+import { Injectable, Query } from '@angular/core';
+
 
 @Injectable()
 export class BaseService {
 
-    constructor(public db:AngularFireDatabase){
+    constructor(public db: AngularFireDatabase) {
     }
 
-    public getKey(ruta:string){
+    public getKey(ruta: string) {
         return this.db.database.ref().child(ruta).push().key;
     }
-        
-    public addEntity(ruta:string, data){ //then
+
+    public addEntity(ruta: string, data) { //then
         let key = this.getKey(ruta);
         return this.db.database.ref().child(ruta + key)
-        .update(data);
+            .update(data);
     }
 
-    public updateEntity(ruta, key, data){ //then
-        return this.db.database.ref().child(ruta + key)
-        .update(data);
+    public updateEntity(ruta, key, data) { //then
+        return this.db.database.ref().child(ruta + key).update(data);
     }
 
     public obtenerLista(path) { //subscribe
-        return  this.db.list<any>(path).valueChanges()
+        return this.db.list<any>(path).valueChanges()
     }
 
-    public getEntityById(id, path){
-       return this.db.list('path', ref => ref.orderByChild('id').equalTo(id))        
+    public getEntityById(id, path) {
+        return this.db.list(path, ref => ref.orderByChild('id').equalTo(id))
+    }
+
+    public getEntityByUId(id, path) { //subscribe
+       return this.db.list(path, ref => ref.orderByChild('uid').equalTo(id)).snapshotChanges();
+    }
+
+    public getEntityByKey(key, path) {
+        return this.db.list(path, ref => ref.orderByChild('key').equalTo(key)).snapshotChanges();
     }
 
 }
