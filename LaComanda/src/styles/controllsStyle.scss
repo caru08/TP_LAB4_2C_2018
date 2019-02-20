@@ -1,7 +1,7 @@
 @import 'variables';
 
 .mat-drawer-container {
-  background-color: $third-background-color;
+  background-color: $first-background-color;
   color: $content-color;
 }
 
@@ -11,6 +11,10 @@ input:-webkit-autofill {
 }
 
 .mat-form-field-invalid .mat-form-field-placeholder{
+  color: $current-font-color!important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-label{
   color: $current-font-color!important;
 }
 
@@ -41,6 +45,11 @@ input:-webkit-autofill {
 .mat-raised-button{
   color: $enable-button-color !important;
   background-color: $background-button-color !important;
+}
+
+.mat-icon{
+  height: 30px !important;
+  width: 30px !important;
 }
 
 .mat-mini-fab{
@@ -482,6 +491,10 @@ input:-webkit-autofill {
 
 input.mat-input-element{
   color: $small-titles-color;
+}
+
+.mat-form-field-underline{
+ background-color:$fifth-background-color !important;
 }
 
 //#endregion

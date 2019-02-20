@@ -18,7 +18,6 @@ export class AuthenticationService{
         private paramsService: ParamsService,
         public afDB: AngularFireDatabase){
             this.MiAuth.authState.subscribe(user => {
-                debugger;
                 if(user){
                     this.logInFromDataBase();
                     this.getUserData(user.uid);
@@ -81,7 +80,6 @@ export class AuthenticationService{
     private getUserData(uid){
         this.baseService.getEntityByUId(uid, configs.apis.usuarios)
         .subscribe(response =>{
-            debugger;
             if(response[0]){
                 let model:any = response[0].payload.val();
                 let usuario = new Usuario(model.nombre, model.apellido, model.dni, model.anonimo, model.rol);

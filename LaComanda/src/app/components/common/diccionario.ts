@@ -10,6 +10,11 @@ export class Diccionario {
         administrador: 'administrador'
     }
 
+    static tipoProductos = {
+        bebida: 'bebida',
+        comida: 'comida'
+    }
+
     static clienteModules = [
         {
             name: 'Hacer Pedido',

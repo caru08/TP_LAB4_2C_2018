@@ -14,17 +14,22 @@ export class BaseService {
     }
 
     public addEntity(ruta: string, data) { //then
-        let key = this.getKey(ruta);
-        return this.db.database.ref().child(ruta + key)
-            .update(data);
+       return this.db.list<any>(ruta).push(data);
+       /* return this.db.database.ref().child(ruta + key)
+            .update(data);*/
     }
 
     public updateEntity(ruta, key, data) { //then
-        return this.db.database.ref().child(ruta + key).update(data);
+        return this.db.list<any>(ruta).update(key, data);;
+        //return this.db.database.ref().child(ruta + key).update(data);
     }
 
-    public obtenerLista(path) { //subscribe
+    public getList(path) { //subscribe
         return this.db.list<any>(path).valueChanges()
+    }
+
+    public getListByProperty(path, propertyName, propertyValue){ //subscribe
+        return this.db.list(path, ref => ref.orderByChild(propertyName).equalTo(propertyValue)).snapshotChanges();
     }
 
     public getEntityById(id, path) {

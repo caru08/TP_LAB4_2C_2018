@@ -1,4 +1,90 @@
-<div>
-    TITULO LISTADOS
+<div class="workspace-container">
+    <div class="workspace-content">
+        <circle-loader [loading]="loading"></circle-loader>
+        <div class="layout-fill">
+            <div class="flex-v expand">
+                <div class="flex-h">
+                    <div class="flex-80 titles">Bebidas</div>
+                    <div class="flex-20">
+                        <div class="row-icon-container expand-right">
+                            <button mat-mini-fab (click)="addBebida()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-h big-top">
+                    <div class="flex-v expand-w">
+                        <div class="flex-60" *ngFor="let item of listaItems">
+                            <div class="flex-h list-row-container">
+                                <div width="100" height="160">
+                                    <img class="imgperfil" [src]="bebida.foto">
+                                </div>
+                                <div class="flex-h list-row-content flex-70">
+                                    <div class="flex-v flex-70">
+                                        <div class="list-title">{{item.nombre}}</div>
+                                        <div class="list-description">{{item.descripcion}}</div>
+                                        <div class="list-extra-info">Tiempo de elaboración: {{item.tiempoElaboracion}}
+                                        </div>
+                                    </div>
+                                    <div class="flex-30">
+                                        <div class="list-title">$ {{item.precio}} .-</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="listaItems.length == 0" class="list-title" style="background-color:#464646; padding: 0.5em; border-radius: 5px;">No hay bebidas cargadas</div>
+                    </div>
+                    <div *ngIf="showForm" class="flex-40 columns-container">
+                        <div class="flex-v flex-100">
+                            <div [formGroup]="formValidator">
+                                <mat-form-field class="first-item-panel">
+                                    <input matInput placeholder="Nombre" [(ngModel)]="model.nombre"
+                                        formControlName="nombre">
+                                    <input-error-handler [form-group-name]="formValidator.controls.nombre">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel">
+                                    <input matInput placeholder="Descripcion" [(ngModel)]="model.descripcion"
+                                        formControlName="descripcion">
+                                    <input-error-handler [form-group-name]="formValidator.controls.descripcion">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel">
+                                    <input matInput placeholder="Precio" [(ngModel)]="model.precio" type="number"
+                                        formControlName="precio">
+                                    <input-error-handler [form-group-name]="formValidator.controls.precio">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel">
+                                    <input matInput placeholder="Tiempo Elaboracion (minutos)"
+                                        [(ngModel)]="model.tiempoElaboracion" type="number"
+                                        formControlName="tiempoElaboracion">
+                                    <input-error-handler [form-group-name]="formValidator.controls.tiempoElaboracion">
+                                    </input-error-handler>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <div class="first-item-panel">
+                                    <input class="input-file" placeholder="Cargar foto" (change)="onFileChanged($event)"
+                                        type="file" (load)="imageLoad($event)" accept="image/jpeg,image/png">
+                                </div>
+                            </div>
+
+                            <div class="flex-h expand-w expand-center actions-button-container">
+                                <button mat-raised-button color="primary"
+                                    [disabled]="!formValidator.valid || !model.foto"
+                                    (click)="saveClick()">Guardar</button>
+                                <button mat-raised-button color="primary" (click)="cancelClick()">Cancelar</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div></div>

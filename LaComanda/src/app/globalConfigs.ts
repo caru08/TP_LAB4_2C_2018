@@ -12,6 +12,7 @@ export const configs = {
   },
   apis: {
     usuarios: 'usuarios/',
+    productos: 'productos/',
 
   }
 
