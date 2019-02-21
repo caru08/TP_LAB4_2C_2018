@@ -12,7 +12,7 @@ export class MessageHandler {
 
     showSucessMessage(msg){
         let config = new MatSnackBarConfig();
-        config.duration = 400000000;
+        config.duration = 4000;
         config.data = msg;
         config.panelClass = 'success-snack';
         this.snackBar.openFromComponent(SuccessMessageComponent, config);

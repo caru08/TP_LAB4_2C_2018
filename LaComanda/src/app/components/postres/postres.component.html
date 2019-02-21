@@ -4,10 +4,10 @@
         <div class="layout-fill">
             <div class="flex-v expand">
                 <div class="flex-h">
-                    <div class="flex-80 titles">Bebidas</div>
+                    <div class="flex-80 titles">Postres</div>
                     <div class="flex-20">
                         <div class="row-icon-container expand-right">
-                            <button mat-mini-fab (click)="addBebida()">
+                            <button mat-mini-fab (click)="addItem()">
                                 <mat-icon>add</mat-icon>
                             </button>
                         </div>
@@ -31,14 +31,14 @@
                                                 </div>
                                             </div>
                                             <div class="flex-30 flex-h">
-                                                    <div class="list-title flex-50">$ {{item.precio}}.-</div>
-                                                    <div class="flex-50 expand-right">
-                                                        <button mat-icon-button [disabled]="showForm" style="margin-right: 1em;"
-                                                            (click)="editClick(item)" matTooltip="Editar">
-                                                            <mat-icon class="icon-button">mode_edit</mat-icon>
-                                                        </button>
-                                                    </div>
+                                                <div class="list-title flex-50">$ {{item.precio}}.-</div>
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-icon-button [disabled]="showForm" style="margin-right: 1em;"
+                                                        (click)="editClick(item)" matTooltip="Editar">
+                                                        <mat-icon class="icon-button">mode_edit</mat-icon>
+                                                    </button>
                                                 </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -47,7 +47,7 @@
 
                         </div>
                         <div *ngIf="listaItems.length == 0" class="list-title"
-                            style="background-color:#464646; padding: 0.5em; border-radius: 5px;">No hay bebidas
+                            style="background-color:#464646; padding: 0.5em; border-radius: 5px;">No hay postres
                             cargadas</div>
                     </div>
                     <div *ngIf="showForm" class="flex-40 columns-container">
@@ -90,7 +90,8 @@
                                 <button mat-raised-button color="primary" style="margin-right: 0.5em;"
                                     [disabled]="!formValidator.valid || !model.foto"
                                     (click)="saveClick()">Guardar</button>
-                                <button mat-raised-button color="primary"  style="margin-left: 0.5em;" (click)="cancelClick()">Cancelar</button>
+                                <button mat-raised-button color="primary" style="margin-left: 0.5em;"
+                                    (click)="cancelClick()">Cancelar</button>
 
                             </div>
 

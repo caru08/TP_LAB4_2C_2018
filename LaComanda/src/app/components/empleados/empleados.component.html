@@ -1,0 +1,119 @@
+<div class="workspace-container">
+    <div class="workspace-content">
+        <circle-loader [loading]="loading"></circle-loader>
+        <div class="layout-fill">
+            <div class="flex-v expand">
+                <div class="flex-h">
+                    <div class="flex-80 titles">Empleados</div>
+                    <div class="flex-20">
+                        <div class="row-icon-container expand-right">
+                            <button mat-mini-fab (click)="addItem()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-h big-top">
+                    <div class="flex-v expand-w">
+                        <div ng-scrollster class="expand scrollable-container">
+                            <div style="margin-right: 1em; margin-bottom: 1em;">
+                                <div class="flex-60" *ngFor="let item of listaItems">
+                                    <div class="flex-h list-row-container">
+                                        <div width="80">
+                                            <img class="imgperfil-small" src="assets/imgs/personaavatar.png">
+                                        </div>
+                                        <div class="flex-h list-row-content flex-70">
+                                            <div class="flex-v flex-70">
+                                                <div class="list-title">{{item.nombre}} {{item.apellido}}</div>
+                                                <div class="list-description">DNI: {{item.dni}}</div>
+                                                <div class="list-extra-info">Rol: {{item.rol}}
+                                                </div>
+                                            </div>
+                                            <!--<div class="flex-30 flex-h">
+                                                <div class="list-title flex-50"></div>
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="editClick(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">mode_edit</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div *ngIf="listaItems.length == 0" class="list-title"
+                            style="background-color:#464646; padding: 0.5em; border-radius: 5px;">No hay empleados
+                            cargadas</div>
+                    </div>
+                    <div *ngIf="showForm" class="flex-40 columns-container">
+                        <div class="flex-v flex-100">
+                            <div [formGroup]="formValidator">
+                                <mat-form-field>
+                                    <input matInput placeholder="Nombre" [(ngModel)]="model.nombre"
+                                        formControlName="name">
+                                    <input-error-handler [form-group-name]="formValidator.controls.name">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel">
+                                    <input matInput placeholder="Apellido" [(ngModel)]="model.apellido"
+                                        formControlName="lastname">
+                                    <input-error-handler [form-group-name]="formValidator.controls.lastname">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel" *ngIf="!isEdit">
+                                    <input matInput placeholder="Email" [(ngModel)]="model.email" 
+                                        formControlName="email">
+                                    <input-error-handler [form-group-name]="formValidator.controls.email">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel">
+                                    <input matInput placeholder="Dni" [(ngModel)]="model.dni" formControlName="dni">
+                                    <input-error-handler [form-group-name]="formValidator.controls.dni">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel" *ngIf="!isEdit">
+                                    <input matInput placeholder="Contraseña" [(ngModel)]="model.pass"
+                                        formControlName="pass" type="password">
+                                    <input-error-handler [form-group-name]="formValidator.controls.pass">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel" *ngIf="!isEdit">
+                                    <input matInput placeholder="Repita Contraseña" [(ngModel)]="model.secondpass"
+                                        (focusout)="onfocusoutSecondPass($event)" formControlName="secondpass"
+                                        type="password">
+                                    <input-error-handler [form-group-name]="formValidator.controls.secondpass"
+                                        [error-message]="errormessage">
+                                    </input-error-handler>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel">
+                                        <mat-select placeholder="Rol" formControlName="rol" [(ngModel)]="model.rol" (change)="rolChange()">
+                                          <mat-option *ngFor="let rol of roles" [value]="rol.value">
+                                            {{rol.label}}
+                                          </mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                            </div>
+
+                            <div class="flex-h expand-w expand-center actions-button-container">
+                                <button mat-raised-button color="primary" style="margin-right: 0.5em;"
+                                    [disabled]="!formValidator.valid"
+                                    (click)="saveClick()">Guardar</button>
+                                <button mat-raised-button color="primary" style="margin-left: 0.5em;"
+                                    (click)="cancelClick()">Cancelar</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

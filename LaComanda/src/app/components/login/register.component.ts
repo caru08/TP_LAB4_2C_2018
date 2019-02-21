@@ -39,8 +39,10 @@ export class RegisterComponent implements OnInit {
     saveClick(){
         if(this.formValidator.valid && !this.errormessage){
             this.loading = true;
+            this.autenticationService.addingUser = false;
             this.autenticationService.registerUserAndLogin(this.model.email, this.model.pass)
             .then(response => {
+                this.paramsService.setEmailPass(this.model.email, this.model.pass);
                 let cliente = new Usuario(this.model.name, this.model.lastname, this.model.dni, false);
                 cliente.uid = this.autenticationService.getUID();
                 this.autenticationService.logInFromDataBase();

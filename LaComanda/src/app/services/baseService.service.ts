@@ -20,12 +20,12 @@ export class BaseService {
     }
 
     public updateEntity(ruta, key, data) { //then
-        return this.db.list<any>(ruta).update(key, data);;
+        return this.db.list<any>(ruta).update(key, data);
         //return this.db.database.ref().child(ruta + key).update(data);
     }
 
     public getList(path) { //subscribe
-        return this.db.list<any>(path).valueChanges()
+        return this.db.list<any>(path).snapshotChanges()
     }
 
     public getListByProperty(path, propertyName, propertyValue){ //subscribe

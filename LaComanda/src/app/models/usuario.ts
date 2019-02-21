@@ -9,12 +9,13 @@ export class Usuario {
     rol:string;
     anonimo:boolean;
 
-    constructor(nombre, apellido, dni, anonimo, rol?){
+    constructor(nombre, apellido, dni, anonimo, rol?, uid?){
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.anonimo = anonimo;
         this.rol = rol ? rol : Diccionario.roles.cliente
+        this.uid = uid ? uid : '';
     }
 
 }

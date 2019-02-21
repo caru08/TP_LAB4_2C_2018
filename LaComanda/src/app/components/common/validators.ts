@@ -15,7 +15,7 @@ export class CustomValidators {
   public static getSmallStringValidator(value?, disabled?){
     return new FormControl({value: value ? value :'', disabled: disabled }, Validators.compose([
       Validators.required,
-      Validators.maxLength(20),
+      Validators.maxLength(30),
       Validators.minLength(2)
     ]));
   }

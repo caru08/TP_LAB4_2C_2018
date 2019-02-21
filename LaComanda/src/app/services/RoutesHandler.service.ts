@@ -1,11 +1,14 @@
+import { AuthenticationService } from './authentication.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router, CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable, Subscriber } from 'rxjs';
 
 @Injectable()
 export class RoutesHandler {
 
   constructor(private router: Router,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+            
   ) {
   }
 
@@ -26,20 +29,20 @@ export class RoutesHandler {
 @Injectable()
 export class MainGuard implements CanActivate, CanActivateChild {
 
-  constructor(
+  constructor(private authenticationService: AuthenticationService
   ) {}
 
   canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):any{
-    return true;
-    /*if(this.loginService.sessionCheck){
-      return this.loginService.getSessionLogged();
+    debugger;
+    if(this.authenticationService.sessionCheck){
+      return this.authenticationService.isLogged();
     } else {
       return new Observable<boolean>((subscriber:Subscriber<any>)=>{
-        this.loginService.sessionChange.subscribe((session:Session)=>{
-          subscriber.next(session.logged);
+        this.authenticationService.sessionChange.subscribe((session:any)=>{
+          subscriber.next(this.authenticationService.isLogged());
         })
       })
-    }*/
+    }
   
   }
 
@@ -50,6 +53,7 @@ export class MainGuard implements CanActivate, CanActivateChild {
     }
     return hasPermission;
     */
+   debugger;
    return true;
   }
 

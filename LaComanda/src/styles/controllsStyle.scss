@@ -84,6 +84,11 @@ input:-webkit-autofill {
   }
 }
 
+.mat-icon-button .mat-icon, .mat-icon-button i {
+  line-height: 30px !important;
+  font-size: 30px !important;
+}
+
 //#endregion
 
 //#region MAT_CARD_STYLES
@@ -280,6 +285,10 @@ input:-webkit-autofill {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
   background-color: $cero-detail-color;
+}
+
+.mat-select-value {
+  color: $current-font-color !important;
 }
 
 

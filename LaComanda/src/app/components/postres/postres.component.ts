@@ -12,16 +12,16 @@ import { CustomValidators } from "../common/validators";
 
 
 @Component({
-  selector: 'bebidas',
-  templateUrl: './bebidas.component.html',
-  styleUrls: ['bebidas.component.scss'],
+  selector: 'postres',
+  templateUrl: './postres.component.html',
+  styleUrls: ['postres.component.scss'],
 })
 
-export class BebibasComponent implements OnInit {
+export class PostresComponent implements OnInit {
 
   public formValidator: FormGroup;
   public loading: boolean;
-  public listaItems: any;
+  public listaItems: Array<any>;
   public showForm: boolean;
   public model: Producto;
 
@@ -33,19 +33,18 @@ export class BebibasComponent implements OnInit {
 
   ngOnInit() {
     this.listaItems = new Array<any>();
-    this.getBebidas();
+    this.getLista();
     this.setFormValidator();
   }
 
-  addBebida() {
+  addItem() {
     this.formValidator.reset();
     this.model = new Producto();
-    this.model.tipo = Diccionario.tipoProductos.bebida;
+    this.model.tipo = Diccionario.tipoProductos.postre;
     this.showForm = true;
   }
 
-  editClick(item) {
-    debugger;
+  editClick(item){
     this.showForm = true;
     this.formValidator.reset();
     this.model = item;
@@ -55,11 +54,10 @@ export class BebibasComponent implements OnInit {
     console.log("change", event);
     var file: File = event.target.files[0];
     var myReader: FileReader = new FileReader();
-    var resize = false;
 
     myReader.onloadend = (e: any) => {
       var tempImg = new Image();
-      tempImg.src = e.target.result;// myReader.result;
+      tempImg.src =  e.target.result;// myReader.result;
       tempImg.onload = () => {
         var MAX_WIDTH = 200;
         var MAX_HEIGHT = 150;
@@ -86,29 +84,29 @@ export class BebibasComponent implements OnInit {
   saveClick() {
     this.loading = true;
     let pedido: any;
-    if (this.model.key) {
+    if(this.model.key){
       pedido = this.baseService.updateEntity(configs.apis.productos, this.model.key, this.model);
-    } else {
-      pedido = this.baseService.addEntity(configs.apis.productos, this.model);
-    }
+    }else{
+      pedido =  this.baseService.addEntity(configs.apis.productos, this.model);
+    } 
     pedido.then(response => {
       this.cancelClick();
       this.loading = false;
-      this.messageHandler.showSucessMessage("La bebida se agregó correctamente");
+      this.messageHandler.showSucessMessage("El postre se agregó correctamente");
     }, error => {
       console.log(error);
       this.loading = false;
-      this.messageHandler.showErrorMessage("Ocurrio un error al guardar la bebida");
+      this.messageHandler.showErrorMessage("Ocurrio un error al guardar el postre");
     })
 
   }
 
-  private getBebidas() {
+  private getLista() {
     this.loading = true;
-    this.baseService.getListByProperty(configs.apis.productos, 'tipo', Diccionario.tipoProductos.bebida).subscribe(response => {
-      this.listaItems = response.map(bebida => {
-        let datos: any = bebida.payload.val()
-        return new Producto(bebida.key, datos.nombre, datos.descripcion, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.foto);
+    this.baseService.getListByProperty(configs.apis.productos, 'tipo', Diccionario.tipoProductos.postre).subscribe(response => {
+      this.listaItems = response.map(comida => {
+        let datos: any = comida.payload.val()
+        return new Producto(comida.key, datos.nombre, datos.descripcion, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.foto);
       });
       this.loading = false;
     })

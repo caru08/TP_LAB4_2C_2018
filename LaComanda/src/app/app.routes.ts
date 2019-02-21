@@ -1,14 +1,31 @@
+import { ComidasComponent } from './components/comidas/comidas.component';
 import { MainGuard } from './services/RoutesHandler.service';
 import { BebibasComponent } from './components/bebidas/bebidas.component';
 import { Diccionario } from './components/common/diccionario';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home.component';
+import { PostresComponent } from './components/postres/postres.component';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
+import { HacerPedidoComponent } from './components/hacer-pedido/hacer-pedido.component';
 
 
 export const ROUTES: Routes = [
   {
     path: 'bebidas', component: BebibasComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
   },
+  {
+    path: 'comidas', component: ComidasComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
+  },
+  {
+    path: 'postres', component: PostresComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
+  },
+  {
+    path: 'empleados', component: EmpleadosComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
+  },
+  {
+    path: 'hacer-pedido', component: HacerPedidoComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
+  },
+  
 
   /* { path: 'login', component: LoginViewComponent },
    { path: 'main', component: UIViewComponent, canActivate: [MainGuard], canActivateChild: [MainGuard],

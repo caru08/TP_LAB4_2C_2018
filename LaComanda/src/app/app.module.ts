@@ -1,3 +1,4 @@
+import { HacerPedidoComponent } from './components/hacer-pedido/hacer-pedido.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ApplicationRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
@@ -35,9 +36,16 @@ import { InputErrorHandlerComponent } from './components/common/error-handler/in
 import { CircleLoaderComponent } from './components/common/loaders/circle-loader.component';
 import { SuccessMessageComponent } from './components/common/messages/success-message.component';
 import { ConfirmDialogMessageComponent } from './components/common/messages/confirm-dialog-message.component';
+import { ContainerScrollBar } from './components/common/scrollbar/scrollbar.component';
+
 
 import { RegisterComponent } from './components/login/register.component';
 import { BebibasComponent } from './components/bebidas/bebidas.component';
+import { ComidasComponent } from './components/comidas/comidas.component';
+import { PostresComponent } from './components/postres/postres.component';
+import { EmpleadosComponent } from './components/empleados/empleados.component';
+
+
 
 @NgModule({
   declarations: [
@@ -49,7 +57,13 @@ import { BebibasComponent } from './components/bebidas/bebidas.component';
     RegisterComponent,
     SuccessMessageComponent,
     BebibasComponent,
-    ConfirmDialogMessageComponent
+    ConfirmDialogMessageComponent,
+    ContainerScrollBar,
+    ComidasComponent,
+    PostresComponent,
+    EmpleadosComponent,
+    HacerPedidoComponent,
+    HacerPedidoComponent
   ],
   imports: [
     BrowserModule,
@@ -111,6 +125,9 @@ import { BebibasComponent } from './components/bebidas/bebidas.component';
     RegisterComponent,
     SuccessMessageComponent,
     ConfirmDialogMessageComponent
+  ],
+  exports:[    
+    ContainerScrollBar,
   ],
 
   bootstrap: [AppComponent]

@@ -283,6 +283,7 @@ main{
   border-radius: 10px;
   width: 100%;
   height: 100%;
+  background-color: $third-background-color;
 }
 
 .dialog-title{
@@ -383,9 +384,14 @@ main{
 
 
 .imgperfil{
-  width: 15em;
+  width: 12em;
   float: right;
   border-radius: 10px;
+  &-small{
+    width: 8em;
+  float: right;
+  border-radius: 10px;
+  }
 }
 
 .big-top{

@@ -12,13 +12,14 @@ export class Diccionario {
 
     static tipoProductos = {
         bebida: 'bebida',
-        comida: 'comida'
+        comida: 'comida',
+        postre: 'postre'
     }
 
     static clienteModules = [
         {
             name: 'Hacer Pedido',
-            path: ''
+            path: '/hacer-pedido'
         },
         {
             name: "Reservar mesa",
@@ -26,6 +27,10 @@ export class Diccionario {
         }
     ];
     static mozoModules = [
+        {
+            name: 'empleados',
+            path: '/empleados'
+        }
     ]
 
     static bartenderModules = [
@@ -38,8 +43,22 @@ export class Diccionario {
         {
             name: 'Comida',
             path: '/comidas'
+        },
+        {
+            name: 'Postres',
+            path: '/postres'
+        }
+    ]
+    static administradorModules = [
+        {
+            name: 'empleados',
+            path: '/empleados'
+        },
+        {
+            name: 'Postres',
+            path: '/postres'
         }
     ]
     static socioModules = []
-    static administradorModules = []
+
 }

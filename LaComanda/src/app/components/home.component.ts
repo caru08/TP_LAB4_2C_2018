@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.isLogged = false;
+    this.loading = true;
     this.initPage();
   }
 
@@ -56,6 +57,7 @@ export class HomeComponent implements OnInit {
     this.messageHandler.openConfirmDialog("¿Está seguro que desea salir?").subscribe(result => {
       if (result) {
         this.authenticationService.logOut();
+        this.router.navigate(['./']);
       }
     });
 
@@ -70,11 +72,13 @@ export class HomeComponent implements OnInit {
   }
 
   private initPage() {
+    if (this.authenticationService.sessionCheck) this.loading = false;
     if (this.authenticationService.isLogged()) {
       this.isLogged = true;
       this.userName = this.authenticationService.getEmail();
       this.displayModules();
-    }else{
+    } else {
+      this.isLogged = false;
       this.modules = [];
     }
   }
@@ -85,10 +89,16 @@ export class HomeComponent implements OnInit {
         this.modules = Diccionario.clienteModules;
         break;
       case Diccionario.roles.mozo:
-      this.modules = Diccionario.mozoModules;
+        this.modules = Diccionario.mozoModules;
         break;
       case Diccionario.roles.bartener:
-      this.modules = Diccionario.bartenderModules;
+        this.modules = Diccionario.bartenderModules;
+        break;
+      case Diccionario.roles.cocinero:
+        this.modules = Diccionario.cocineroModules;
+        break;
+        case Diccionario.roles.administrador:
+        this.modules = Diccionario.administradorModules;
         break;
       default:
         this.modules = [];

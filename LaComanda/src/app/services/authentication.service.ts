@@ -12,12 +12,15 @@ import { Usuario } from '../models/usuario';
 export class AuthenticationService{
 
     public sessionChange: Subject<any> = new Subject();
+    public sessionCheck: boolean;
+    public addingUser:boolean;
 
     constructor(private MiAuth:AngularFireAuth,
         private baseService: BaseService,
         private paramsService: ParamsService,
         public afDB: AngularFireDatabase){
             this.MiAuth.authState.subscribe(user => {
+                if(this.addingUser) return;
                 if(user){
                     this.logInFromDataBase();
                     this.getUserData(user.uid);
@@ -26,6 +29,8 @@ export class AuthenticationService{
                 }
             });
     }
+
+    
 
     registerUserAndLogin(email:string, pass:string){
         return this.MiAuth.auth.createUserWithEmailAndPassword(email, pass)
@@ -80,6 +85,7 @@ export class AuthenticationService{
     private getUserData(uid){
         this.baseService.getEntityByUId(uid, configs.apis.usuarios)
         .subscribe(response =>{
+            this.sessionCheck = true;
             if(response[0]){
                 let model:any = response[0].payload.val();
                 let usuario = new Usuario(model.nombre, model.apellido, model.dni, model.anonimo, model.rol);

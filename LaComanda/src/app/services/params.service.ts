@@ -8,6 +8,8 @@ import { Injectable } from '@angular/core';
 export class ParamsService {
 
     user:any;
+    pass:any;
+    email: any;
 
     constructor(){
 
@@ -15,6 +17,11 @@ export class ParamsService {
 
     setUser(user){
         this.user = user;
+    }
+
+    setEmailPass(email, pass){
+        this.email = email;
+        this.pass = pass;
     }
 
     getUser(): Usuario {
