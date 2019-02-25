@@ -1,3 +1,4 @@
+import { MesasComponent } from './components/mesas/mesas.component';
 import { HacerPedidoComponent } from './components/hacer-pedido/hacer-pedido.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ApplicationRef, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -28,6 +29,7 @@ import '../styles/icons.scss';
 import '../styles/controllsStyle.scss';
 import '../styles/workspace.scss';
 
+import { OrderByPipe } from './pipes/orderBy.pipe';
 import { RoutesHandler, AuthenticationService, BaseService, MessageHandler, ParamsService, MainGuard } from './services';
 
 import { HomeComponent } from './components/home.component';
@@ -44,7 +46,7 @@ import { BebibasComponent } from './components/bebidas/bebidas.component';
 import { ComidasComponent } from './components/comidas/comidas.component';
 import { PostresComponent } from './components/postres/postres.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
-
+import { PedidosComponent } from './components/pedidos/pedidos.component';
 
 
 @NgModule({
@@ -63,7 +65,10 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
     PostresComponent,
     EmpleadosComponent,
     HacerPedidoComponent,
-    HacerPedidoComponent
+    HacerPedidoComponent,
+    OrderByPipe,
+    MesasComponent,
+    PedidosComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,10 +129,11 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
     LoginComponent,
     RegisterComponent,
     SuccessMessageComponent,
-    ConfirmDialogMessageComponent
+    ConfirmDialogMessageComponent,
   ],
   exports:[    
     ContainerScrollBar,
+    OrderByPipe,
   ],
 
   bootstrap: [AppComponent]

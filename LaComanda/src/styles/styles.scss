@@ -88,9 +88,11 @@ main{
     display: flex;
     flex-direction: row;
     &-center{
+      display: flex;
       align-items: center;
     }
     &-right{
+      display: flex;
       align-items: flex-end;
     }
   }

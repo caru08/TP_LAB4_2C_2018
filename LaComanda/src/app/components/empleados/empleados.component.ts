@@ -5,7 +5,7 @@ import { Usuario } from './../../models/usuario';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { RoutesHandler, MessageHandler, ParamsService } from "../../services";
+import { RoutesHandler, MessageHandler } from "../../services";
 import { configs } from 'src/app/globalConfigs';
 import { FormGroup } from '@angular/forms';
 import { CustomValidators } from "../common/validators";
@@ -31,8 +31,7 @@ export class EmpleadosComponent implements OnInit {
 
   constructor(private baseService: BaseService,
     private messageHandler: MessageHandler,
-    private autenticationService: AuthenticationService,
-    private paramsService: ParamsService) {
+    private autenticationService: AuthenticationService) {
 
   }
 
@@ -86,50 +85,33 @@ export class EmpleadosComponent implements OnInit {
   saveClick() {
     this.loading = true;
     let pedido: any;
-    if (this.model.key) {
-      //this.editarEmpleado();
-    } else {
+   
       this.altaEmpleado();
-    }
+    
   }
 
-  /*editarEmpleado(){
-    let model = new Usuario(this.model.nombre, this.model.apellido, this.model.dni, false, this.model.rol, this.model.uid);
-    this.baseService.updateEntity(configs.apis.usuarios, this.model.key, model)
-    .then(response => {
-      this.cancelClick();
-      this.loading = false;
-      this.messageHandler.showSucessMessage("El empleado se edito con exito");
-    }, error => {
-      console.log(error);
-      this.loading = false;
-      this.messageHandler.showErrorMessage("Ocurrio un error esitar el empleado");
-    })
-  }*/
-
   altaEmpleado() {
-    this.autenticationService.addingUser = true;
-    this.autenticationService.registerUserAndLogin(this.model.email, this.model.pass)
-      .then(response => {
-        let cliente = new Usuario(this.model.nombre, this.model.apellido, this.model.dni, false, this.model.rol);
+    this.autenticationService.createUser(this.model.email, this.model.pass)
+      .subscribe(response => {
+        var lala = this.autenticationService.getEmail();
+        let cliente = new Usuario(this.model.nombre, this.model.apellido, this.model.dni, false, this.model.email, this.model.rol);
         cliente.uid = response.user.uid;
         this.baseService.addEntity(configs.apis.usuarios, cliente)
           .then(response => {
-            this.autenticationService.addingUser = false;
-            this.autenticationService.singIn(this.paramsService.email, this.paramsService.pass);
             this.loading = false;
             this.messageHandler.showSucessMessage("Se agregó el empleado correctamente");
             this.cancelClick();
           }, error => {
-            this.autenticationService.addingUser = false;
-            this.autenticationService.singIn(this.paramsService.email, this.paramsService.pass);
+            this.autenticationService.singIn(this.autenticationService.getLoggedEmail(), this.autenticationService.getPass());
             this.autenticationService.deleteUserLogged()
               .then(response => {
                 this.loading = false;
                 this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado");
-                //CHEQUEAR ESTO CUANDO ES ALTA POR EMPLEADO
               });
           })
+      }, error => {
+        this.loading = false;
+        this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado. ", error);
       })
   }
 

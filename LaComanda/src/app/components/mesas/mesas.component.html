@@ -4,10 +4,10 @@
         <div class="layout-fill">
             <div class="flex-v expand">
                 <div class="flex-h">
-                    <div class="flex-80 titles">Bebidas</div>
+                    <div class="flex-80 titles">Mesas</div>
                     <div class="flex-20">
                         <div class="row-icon-container expand-right">
-                            <button mat-mini-fab (click)="addBebida()">
+                            <button mat-mini-fab (click)="addItem()">
                                 <mat-icon>add</mat-icon>
                             </button>
                         </div>
@@ -25,20 +25,20 @@
                                         <div class="flex-h list-row-content flex-70">
                                             <div class="flex-v flex-70">
                                                 <div class="list-title">{{item.nombre}}</div>
-                                                <div class="list-description">{{item.descripcion}}</div>
-                                                <div class="list-extra-info">Tiempo de elaboración:
-                                                    {{item.tiempoElaboracion}}
+                                                <div class="list-description">Estado: {{item.estado}}</div>
+                                                <div class="list-extra-info">Código:
+                                                    {{item.codigo}}
                                                 </div>
                                             </div>
                                             <div class="flex-30 flex-h">
-                                                    <div class="list-title flex-70">$ {{item.precio}}.-</div>
-                                                    <div class="flex-30 expand-right">
-                                                        <button mat-icon-button [disabled]="showForm" style="margin-right: 1em;"
-                                                            (click)="editClick(item)" matTooltip="Editar">
-                                                            <mat-icon class="icon-button">mode_edit</mat-icon>
-                                                        </button>
-                                                    </div>
+                                                <div class="flex-30 expand-right">
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="editClick(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">mode_edit</mat-icon>
+                                                    </button>
                                                 </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -47,7 +47,7 @@
 
                         </div>
                         <div *ngIf="listaItems.length == 0" class="list-title"
-                            style="background-color:#464646; padding: 0.5em; border-radius: 5px;">No hay bebidas
+                            style="background-color:#464646; padding: 0.5em; border-radius: 5px;">No hay mesas
                             cargadas</div>
                     </div>
                     <div *ngIf="showForm" class="flex-40 columns-container">
@@ -60,24 +60,29 @@
                                     </input-error-handler>
                                 </mat-form-field>
                                 <mat-form-field class="first-item-panel">
-                                    <input matInput placeholder="Descripcion" [(ngModel)]="model.descripcion"
-                                        formControlName="descripcion">
-                                    <input-error-handler [form-group-name]="formValidator.controls.descripcion">
+                                    <input matInput placeholder="Estado" [(ngModel)]="model.estado" [disabled]="true"
+                                        formControlName="estado">
+                                    <input-error-handler [form-group-name]="formValidator.controls.estado">
                                     </input-error-handler>
                                 </mat-form-field>
-                                <mat-form-field class="first-item-panel">
-                                    <input matInput placeholder="Precio" [(ngModel)]="model.precio" type="number"
-                                        formControlName="precio">
-                                    <input-error-handler [form-group-name]="formValidator.controls.precio">
-                                    </input-error-handler>
-                                </mat-form-field>
-                                <mat-form-field class="first-item-panel">
-                                    <input matInput placeholder="Tiempo Elaboracion (minutos)"
-                                        [(ngModel)]="model.tiempoElaboracion" type="number"
-                                        formControlName="tiempoElaboracion">
-                                    <input-error-handler [form-group-name]="formValidator.controls.tiempoElaboracion">
-                                    </input-error-handler>
-                                </mat-form-field>
+                                <div class="flex-h">
+                                    <div class="flex-70">
+                                        <mat-form-field class="first-item-panel">
+                                            <input matInput placeholder="{{model.codigo ? 'Código' : 'Generar Código'}}" [(ngModel)]="model.codigo"
+                                                formControlName="codigo">
+                                            <input-error-handler [form-group-name]="formValidator.controls.codigo">
+                                            </input-error-handler>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="flex-30 expand-right flex-h-center">
+                                        <button mat-icon-button (click)="randomString()" matTooltip="Generar código">
+                                            <mat-icon class="icon-button">autorenew</mat-icon>
+                                        </button>
+                                    </div>
+
+
+                                </div>
+
                             </div>
                             <div>
                                 <div class="first-item-panel">
@@ -88,14 +93,12 @@
 
                             <div class="flex-h expand-w expand-center actions-button-container">
                                 <button mat-raised-button color="primary" style="margin-right: 0.5em;"
-                                    [disabled]="!formValidator.valid || !model.foto"
+                                    [disabled]="!formValidator.valid || !model.foto || !model.codigo"
                                     (click)="saveClick()">Guardar</button>
-                                <button mat-raised-button color="primary"  style="margin-left: 0.5em;" (click)="cancelClick()">Cancelar</button>
-
+                                <button mat-raised-button color="primary" style="margin-left: 0.5em;"
+                                    (click)="cancelClick()">Cancelar</button>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>

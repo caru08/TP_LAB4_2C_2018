@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { RoutesHandler, MessageHandler, ParamsService } from "../services";
+import { RoutesHandler, MessageHandler } from "../services";
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register.component';
 import { Diccionario } from './common/diccionario';
@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
     public dialog: MatDialog,
     private messageHandler: MessageHandler,
-    private paramsService: ParamsService,
     private router: Router) {
     this.authenticationService.sessionChange.subscribe((user: Usuario) => this.initPage());
   }
@@ -84,7 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   private displayModules() {
-    switch (this.paramsService.getUser().rol) {
+    switch (this.authenticationService.getUser().rol) {
       case Diccionario.roles.cliente:
         this.modules = Diccionario.clienteModules;
         break;
@@ -97,8 +96,11 @@ export class HomeComponent implements OnInit {
       case Diccionario.roles.cocinero:
         this.modules = Diccionario.cocineroModules;
         break;
-        case Diccionario.roles.administrador:
+      case Diccionario.roles.administrador:
         this.modules = Diccionario.administradorModules;
+        break;
+      case Diccionario.roles.socio:
+        this.modules = Diccionario.socioModules;
         break;
       default:
         this.modules = [];

@@ -1,36 +1,98 @@
 <div class="workspace-container">
-        <div class="workspace-content">
-            <circle-loader [loading]="loading"></circle-loader>
-            <div class="layout-fill">
-                <div class="flex-v expand">
-                    <div class="flex-h">
-                        <div class="flex-v expand-w">
-                            <div ng-scrollster class="expand scrollable-container">
-                                <div style="margin-right: 1em; margin-bottom: 1em;">
-
-                                    <div style="color:white; margin-bottom: 1em;" class="titles">Comidas</div>
-                                    <div class="flex-60" *ngFor="let item of comidasList">
-                                        <div class="flex-h list-row-container">
-                                            <div width="100" height="160">
-                                                <img class="imgperfil-small" [src]="item.foto">
+    <div class="workspace-content">
+        <circle-loader [loading]="loading"></circle-loader>
+        <div class="layout-fill">
+            <div class="flex-v expand">
+                <div class="flex-h">
+                    <div class="flex-v expand-w">
+                        <div ng-scrollster class="expand scrollable-container">
+                            <div style="margin-right: 1em; margin-bottom: 1em;">
+                                <div style="color:white; margin-bottom: 1em;" class="titles">Bebidas</div>
+                                <div class="flex-60" *ngFor="let item of bebidasList | orderBy:'nombre':true">
+                                    <div class="flex-h list-row-container">
+                                        <div width="100" height="160">
+                                            <img class="imgperfil-small" [src]="item.foto">
+                                        </div>
+                                        <div class="flex-h list-row-content flex-70">
+                                            <div class="flex-v flex-70">
+                                                <div class="list-title">{{item.nombre}}</div>
+                                                <div class="list-description">{{item.descripcion}}</div>
                                             </div>
-                                            <div class="flex-h list-row-content flex-70">
-                                                <div class="flex-v flex-70">
-                                                    <div class="list-title">{{item.nombre}}</div>
-                                                    <div class="list-description">{{item.descripcion}}</div>
-                                                </div>
-                                                <div class="flex-30 flex-h">
-                                                    <div class="list-title flex-50">$ {{item.precio}}.-</div>
-                                                    <div class="flex-50 expand-right">
-                                                        <button mat-icon-button [disabled]="showForm" style="margin-right: 1em;"
-                                                            (click)="addItem(item)" matTooltip="Editar">
-                                                            <mat-icon class="icon-button">add</mat-icon>
-                                                        </button>
-                                                        <button mat-icon-button [disabled]="showForm" style="margin-right: 1em;"
-                                                        (click)="removeItem(item)" matTooltip="Editar">
+                                            <div class="flex-30 flex-h">
+                                                <div class="list-title flex-50">$ {{item.precio}}.-</div>
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="addItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">add</mat-icon>
+                                                    </button>
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="removeItem(item)"
+                                                        matTooltip="Editar">
                                                         <mat-icon class="icon-button">remove</mat-icon>
                                                     </button>
-                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="color:white; margin-bottom: 1em; margin-top: 1em;" class="titles">Comidas
+                                </div>
+                                <div class="flex-60" *ngFor="let item of comidasList | orderBy:'nombre':true">
+                                    <div class="flex-h list-row-container">
+                                        <div width="100" height="160">
+                                            <img class="imgperfil-small" [src]="item.foto">
+                                        </div>
+                                        <div class="flex-h list-row-content flex-70">
+                                            <div class="flex-v flex-70">
+                                                <div class="list-title">{{item.nombre}}</div>
+                                                <div class="list-description">{{item.descripcion}}</div>
+                                            </div>
+                                            <div class="flex-30 flex-h">
+                                                <div class="list-title flex-50">$ {{item.precio}}.-</div>
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="addItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">add</mat-icon>
+                                                    </button>
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="removeItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">remove</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="color:white; margin-bottom: 1em; margin-top: 1em;" class="titles">Postres
+                                </div>
+                                <div class="flex-60" *ngFor="let item of postresList | orderBy:'nombre':true">
+                                    <div class="flex-h list-row-container">
+                                        <div width="100" height="160">
+                                            <img class="imgperfil-small" [src]="item.foto">
+                                        </div>
+                                        <div class="flex-h list-row-content flex-70">
+                                            <div class="flex-v flex-70">
+                                                <div class="list-title">{{item.nombre}}</div>
+                                                <div class="list-description">{{item.descripcion}}</div>
+                                            </div>
+                                            <div class="flex-30 flex-h">
+                                                <div class="list-title flex-50">$ {{item.precio}}.-</div>
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="addItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">add</mat-icon>
+                                                    </button>
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="removeItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">remove</mat-icon>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -38,16 +100,55 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="pedido.productos.length" class="flex-40 columns-container">
-                            <div class="flex-v flex-100">
-                                <div class="flex-h expand-w expand-center actions-button-container">
-                                    <button mat-raised-button color="primary" style="margin-right: 0.5em;"
-                                        (click)="saveClick()">Guardar</button>    
-                                </div>    
-                            </div>    
+                    </div>
+                    <div *ngIf="productos.length" class="flex-40 columns-container">
+                        <div class="flex-v flex-100">
+                                <div ng-scrollster class="expand scrollable-container">
+                            <div style="color:white; margin-bottom: 1em;" class="titles">Pedido</div>
+                            <div class="flex-v expand-w">
+                                <mat-form-field class="first-item-panel">
+                                    <mat-select placeholder="Seleccionar mesa" [(ngModel)]="pedido.mesa">
+                                        <mat-option *ngFor="let mesa of mesas" [value]="mesa.codigo">
+                                            {{mesa.nombre}} - {{mesa.codigo}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngFor="let producto of productos | orderBy:'tipo':true">
+                                <div class="flex-h">
+                                    <div class="flex-70 flex-h-center" style="color:white">{{producto.nombre}}</div>
+                                    <div class="flex-30 expand-right" style="color:white">
+                                        <button mat-icon-button style="margin-right: 1em;"
+                                            (click)="removeItem(producto)" matTooltip="Editar">
+                                            <mat-icon class="icon-button">clear</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-v expand-w flex-h-right actions-button-container" style="color:white">
+                                Total: ${{getTotal()}}.-
+                            </div>
+                            <div class="flex-v expand-w expand-center actions-button-container">
+                                <button mat-raised-button color="primary" style="margin-right: 0.5em;"
+                                    [disabled]="!pedido.mesa || !productos.length" (click)="saveClick()">Guardar
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="codigoProducto" class="flex-40 columns-container">
+                        <div class="flex-v flex-100">
+                            <div style="color:white; margin-bottom: 1em;" class="titles">El codigo del Pedido es: {{codigoProducto}}
+                            </div>
+                            <div class="flex-v expand-w expand-center actions-button-container">
+                                <button mat-raised-button color="primary" style="margin-right: 0.5em;"
+                                    (click)="cerrarCodigo()">Aceptar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

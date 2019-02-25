@@ -16,28 +16,62 @@ export class Diccionario {
         postre: 'postre'
     }
 
+    static estadoProductos = {
+        pedido: 'pedido',
+        enPreparacion: 'enPreparacion',
+        listo: 'listo'
+    }
+
+    static estadoPedidos = {
+        enPreparacion: 'enPreparacion',
+        listo: 'listo',
+        cuentaSolicitada: 'cuentaSolicitada'
+    }
+
+    static estadoMesas = {
+        libre: 'libre',
+        ocupada: 'ocupada'
+    }
+
     static clienteModules = [
+        {
+            name: 'Menu',
+            path: '/menu'
+        },
+        {
+            name: "Mis Pedidos",
+            path: '/mis-pedidos'
+        }
+    ];
+    static mozoModules = [
         {
             name: 'Hacer Pedido',
             path: '/hacer-pedido'
         },
         {
-            name: "Reservar mesa",
-            path: ''
-        }
-    ];
-    static mozoModules = [
+            name: 'Pedidos',
+            path: '/pedidos'
+        },
         {
-            name: 'empleados',
-            path: '/empleados'
-        }
+            name: 'Mesas',
+            path: '/mesas'
+        },
     ]
 
     static bartenderModules = [
         {
             name: 'Bebidas',
             path: '/bebidas'
-        }
+        },
+        {
+            name: 'Pedidos',
+            path: '/pedidos'
+        },
+        {
+            name: 'Mesas',
+            path: '/mesas'
+        },
+
     ]
     static cocineroModules = [
         {
@@ -47,18 +81,32 @@ export class Diccionario {
         {
             name: 'Postres',
             path: '/postres'
+        },
+        {
+            name: 'Pedidos',
+            path: '/pedidos'
         }
     ]
     static administradorModules = [
+        {
+            name: 'Empleados',
+            path: '/empleados'
+        },
+        {
+            name: 'Reportes',
+            path: '/reportes'
+        }
+    ]
+    static socioModules = [
         {
             name: 'empleados',
             path: '/empleados'
         },
         {
-            name: 'Postres',
-            path: '/postres'
-        }
+            name: 'Pedidos',
+            path: '/pedidos'
+        },
+        
     ]
-    static socioModules = []
 
 }

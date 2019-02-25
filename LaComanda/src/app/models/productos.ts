@@ -20,3 +20,28 @@ export class Producto {
     }
 
 }
+
+export class ProductoPedido {
+    
+    key: string;
+    nombre:string;
+    precio:number;
+    tipo:string;
+    tiempoElaboracion:number;
+    foto:any;
+    estado:string;
+    tiempoEmpleado:number;
+    empleado:string;
+
+    constructor(key?, nombre?, precio?, tipo?, tiempoElaboracion?, estado?, tiempoEmpleado?, empleado?){
+        this.key = key ? key : '';
+        this.nombre = nombre ? nombre : '';
+        this.precio = precio ? precio : 0;
+        this.tipo = tipo ? tipo : '';
+        this.tiempoElaboracion = tiempoElaboracion ? tiempoElaboracion : 0;
+        this.estado = estado ? estado : '';
+        this.tiempoEmpleado = tiempoEmpleado ? tiempoEmpleado : '';        
+        this.empleado = empleado ? empleado : '';
+    }
+
+}

@@ -1,15 +1,16 @@
+import { Observable, Subscriber } from 'rxjs';
+import { Mesa } from './../../models/mesa';
+import { Pedido } from './../../models/pedido';
 import { Producto } from './../../models/productos';
 import { BaseService } from './../../services/baseService.service';
 import { Diccionario } from '../common/diccionario';
-import { Usuario } from './../../models/usuario';
 import { AuthenticationService } from './../../services/authentication.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { RoutesHandler, MessageHandler, ParamsService } from "../../services";
+import { Component, OnInit } from '@angular/core';
+import { MessageHandler } from "../../services";
 import { configs } from 'src/app/globalConfigs';
 import { FormGroup } from '@angular/forms';
-import { CustomValidators } from "../common/validators";
 import * as _ from "lodash";
+import { Tools } from '../common/tools';
 
 
 @Component({
@@ -27,32 +28,71 @@ export class HacerPedidoComponent implements OnInit {
     public bebidasList = new Array();
     public comidasList = new Array();
     public postresList = new Array();
-    public pedido = {clienteUid : '', clienteName: '', productos: []};
+    public pedido = new Pedido();
+    public productos = new Array<Producto>();
+    public mesas = new Array<Mesa>();
+    public codigoProducto: string = "";
 
     constructor(private baseService: BaseService,
         private messageHandler: MessageHandler,
-        private autenticationService: AuthenticationService,
-        private paramsService: ParamsService) {
+        private autenticationService: AuthenticationService) {
     }
 
     ngOnInit() {
+        this.pedido = new Pedido();
         this.getProductos();
+        this.getMesas();
     }
 
-    addItem(item){
-        this.pedido.productos.push(item);
+    addItem(item) {
+        this.productos = this.productos.concat([item]);
     }
 
-    removeItem(item){
-        debugger;
-        var index = this.pedido.productos.indexOf(item);
+    removeItem(item) {
+        let collection = Tools.deepCopy(this.productos);
+        var index = -1;
+        for (var i = 0; i < this.productos.length; i++) {
+            if (item.nombre == this.productos[i].nombre) {
+                index = i;
+                break;
+            }
+        }
         if (index > -1) {
-            this.pedido.productos.splice(index, 1);
+            collection.splice(index, 1);
+            this.productos = collection;
         }
     }
 
+    getTotal() {
+        let total = 0;
+        this.productos.forEach(producto => {
+            total += producto.precio;
+        });
+        return total;
+    }
+
+    saveClick() {
+        this.loading = true;
+        this.pedido.mapDataToServer(this.productos);
+        this.pedido.mozo = this.autenticationService.getUID();
+        this.baseService.addEntity(configs.apis.pedidos, this.pedido)
+            .then(response => {
+                this.loading = false;
+                this.codigoProducto = this.pedido.codigo;
+                this.messageHandler.showSucessMessage("El pedido se agregó con éxito");
+                this.pedido = new Pedido();
+                this.productos = new Array<Producto>();
+            }, error => {
+                this.loading = false;
+                this.messageHandler.showErrorMessage("Error al agregar el pedido");
+            })
+    }
+
+    cerrarCodigo() {
+        this.codigoProducto = "";
+    }
+
     private getProductos() {
-        debugger;
         this.loading = true;
         this.baseService.getList(configs.apis.productos).subscribe(response => {
             let todosLosProductos = response.map(comida => {
@@ -72,5 +112,16 @@ export class HacerPedidoComponent implements OnInit {
             this.loading = false;
         })
     }
+
+    private getMesas() {
+        this.baseService.getList(configs.apis.mesas).subscribe(response => {
+            this.mesas = response.map(comida => {
+                let datos: any = comida.payload.val()
+                return new Mesa(comida.key, datos.codigo, datos.nombre, datos.estado);
+            });
+        })
+    }
+
+
 
 }

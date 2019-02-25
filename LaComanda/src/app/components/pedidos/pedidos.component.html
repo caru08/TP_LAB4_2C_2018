@@ -1,0 +1,106 @@
+<div class="workspace-container">
+    <div class="workspace-content">
+        <circle-loader [loading]="loading"></circle-loader>
+        <div class="layout-fill">
+            <div class="flex-v expand">
+                <div class="flex-h">
+                    <div class="flex-v expand-w">
+                        <div ng-scrollster class="expand scrollable-container">
+                            <div style="margin-right: 1em; margin-bottom: 1em;">
+
+                                <div style="color:white; margin-bottom: 1em; margin-top: 1em;" class="titles">Pedidos
+                                </div>
+                                <div class="flex-60" *ngFor="let item of pedidos">
+                                    <div class="flex-h list-row-container">
+                                        <div class="flex-h list-row-content flex-70">
+                                            <div class="flex-v flex-70">
+                                                <div class="list-title">Código: {{item.codigo}}</div>
+                                                <div class="list-description first-item-panel">Mesa: {{item.mesa}}</div>
+                                                <div class="list-description first-item-panel">Estado:
+                                                    {{ estadosPedidos[item.estado] }}</div>
+                                            </div>
+                                            <div class="flex-30 flex-h">
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="addItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">add</mat-icon>
+                                                    </button>
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="removeItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">remove</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-60" *ngFor="let item of pedidosProductos">
+                                    <div class="flex-h list-row-container">
+                                        <div class="flex-h list-row-content flex-100">
+                                            <div class="flex-v flex-70">
+                                                <div class="list-title">Producto: {{item.nombre}}</div>
+                                                <div class="list-description first-item-panel">Tiempo Elaboración
+                                                    estandar: {{item.tiempoElaboracion}}</div>
+                                                <div class="list-description first-item-panel"
+                                                    *ngIf="item.tiempoEmpleado">Tiempo Elaboración estimado:
+                                                    {{ item.tiempoEmpleado }}</div>
+                                                <div class="list-description first-item-panel">Estado:
+                                                    {{ estadoProductos[item.estado] }}</div>
+                                            </div>
+                                            <div class="flex-30 flex-h" *ngIf="!item.showSetTime">
+                                                <div class="flex-50 expand-right"
+                                                    *ngIf="item.estado == staticEstadoProductos.pedido">
+                                                    <button mat-raised-button color="primary" style="margin-right: 1em;"
+                                                        (click)="pasarAEnPreparacion(item)"
+                                                        matTooltip="Marcar producto en preparación">
+                                                        Tomar Pedido
+                                                    </button>
+                                                </div>
+                                                <div class="flex-50 expand-right"
+                                                    *ngIf="item.estado == staticEstadoProductos.enPreparacion">
+                                                    <button mat-raised-button color="primary" style="margin-right: 1em;"
+                                                        (click)="pasarAListo(item)"
+                                                        matTooltip="Marcar producto como listo">
+                                                        Listo
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="flex-30" *ngIf="item.showSetTime">
+                                                <div class="flex-v">
+                                                    <div>
+                                                        <mat-form-field class="first-item-panel">
+                                                            <input matInput placeholder="Tiempo de Elaboración"
+                                                                type="number" [(ngModel)]="tiempoEmpleado">
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div>
+                                                        <button mat-raised-button color="primary"
+                                                            style="margin-right: 1em;"
+                                                            (click)="confirmarTiempoElaboracion(item)">
+                                                            Aceptar
+                                                        </button>
+                                                        <button mat-raised-button color="primary"
+                                                            style="margin-right: 1em;"
+                                                            (click)="cancelarTiempoElaboracion(item)">
+                                                            Cancelar
+                                                        </button>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,7 +17,7 @@
                     <div class="flex-v expand-w">
                         <div ng-scrollster class="expand scrollable-container">
                             <div style="margin-right: 1em; margin-bottom: 1em;">
-                                <div class="flex-60" *ngFor="let item of listaItems">
+                                <div class="flex-60" *ngFor="let item of listaItems | orderBy:'nombre':true">
                                     <div class="flex-h list-row-container">
                                         <div width="80">
                                             <img class="imgperfil-small" src="assets/imgs/personaavatar.png">

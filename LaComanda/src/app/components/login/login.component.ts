@@ -1,4 +1,3 @@
-import { ParamsService } from './../../services/params.service';
 import { MessageHandler } from './../../services/messageHandler.service';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
@@ -22,9 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<LoginComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private authenticationService: AuthenticationService,
-    private messageHandler: MessageHandler,
-    private paramsService: ParamsService
-  ) {
+    private messageHandler: MessageHandler) {
   }
 
   ngOnInit() {
@@ -36,19 +33,17 @@ export class LoginComponent implements OnInit {
   }
 
   saveClick() {
-    debugger;
     this.loading = true;
-    this.authenticationService.addingUser = false;
     this.authenticationService.singIn(this.model.email, this.model.pass)
       .then(response => {
-        this.paramsService.setEmailPass(this.model.email, this.model.pass);
+        this.authenticationService.setEmailPass(this.model.email, this.model.pass);
         this.loading = false;
         this.dialogRef.close();
       })
       .catch(error => {
         this.loading = false;
         console.log(error);
-        this.messageHandler.showErrorMessage("Error al iniciar sesión");
+        this.messageHandler.showErrorMessage("Error al iniciar sesión. ", error);
       })
 
   }

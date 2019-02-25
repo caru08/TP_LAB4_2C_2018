@@ -1,3 +1,4 @@
+import { Mesa } from '../../models/mesa';
 import { Producto } from './../../models/productos';
 import { BaseService } from './../../services/baseService.service';
 import { Diccionario } from '../common/diccionario';
@@ -13,23 +14,22 @@ import { Tools } from '../common/tools';
 
 
 @Component({
-  selector: 'comidas',
-  templateUrl: './comidas.component.html',
-  styleUrls: ['comidas.component.scss'],
+  selector: 'mesas',
+  templateUrl: './mesas.component.html',
+  styleUrls: ['mesas.component.scss'],
 })
 
-export class ComidasComponent implements OnInit {
+export class MesasComponent implements OnInit {
 
   public formValidator: FormGroup;
   public loading: boolean;
   public listaItems: Array<any>;
   public showForm: boolean;
-  public model: Producto;
+  public model = new Mesa();
 
 
   constructor(private baseService: BaseService,
     private messageHandler: MessageHandler) {
-
   }
 
   ngOnInit() {
@@ -38,10 +38,10 @@ export class ComidasComponent implements OnInit {
     this.setFormValidator();
   }
 
-  addBebida() {
+  addItem() {
     this.formValidator.reset();
-    this.model = new Producto();
-    this.model.tipo = Diccionario.tipoProductos.comida;
+    this.model = new Mesa();
+    this.model.estado = Diccionario.estadoMesas.libre;
     this.showForm = true;
   }
 
@@ -74,6 +74,14 @@ export class ComidasComponent implements OnInit {
     myReader.readAsDataURL(file);
   }
 
+  imageLoad(event) {
+    console.log("load", event);
+  }
+
+  randomString(){
+    this.model.codigo = this.generateRandomString();    
+  } 
+
   cancelClick() {
     this.showForm = false;
   }
@@ -82,28 +90,28 @@ export class ComidasComponent implements OnInit {
     this.loading = true;
     let pedido: any;
     if(this.model.key){
-      pedido = this.baseService.updateEntity(configs.apis.productos, this.model.key, this.model);
+      pedido = this.baseService.updateEntity(configs.apis.mesas, this.model.key, this.model);
     }else{
-      pedido =  this.baseService.addEntity(configs.apis.productos, this.model);
+      pedido =  this.baseService.addEntity(configs.apis.mesas, this.model);
     } 
     pedido.then(response => {
       this.cancelClick();
       this.loading = false;
-      this.messageHandler.showSucessMessage("La comida se agregó correctamente");
+      this.messageHandler.showSucessMessage("La Mesa se agregó correctamente");
     }, error => {
       console.log(error);
       this.loading = false;
-      this.messageHandler.showErrorMessage("Ocurrio un error al guardar la comida");
+      this.messageHandler.showErrorMessage("Ocurrio un error al guardar la mesa");
     })
 
   }
 
   private getLista() {
     this.loading = true;
-    this.baseService.getListByProperty(configs.apis.productos, 'tipo', Diccionario.tipoProductos.comida).subscribe(response => {
-      this.listaItems = response.map(comida => {
-        let datos: any = comida.payload.val()
-        return new Producto(comida.key, datos.nombre, datos.descripcion, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.foto);
+    this.baseService.getList(configs.apis.mesas).subscribe(response => {
+      this.listaItems = response.map(mesa => {
+        let datos: any = mesa.payload.val()
+        return new Mesa(mesa.key, datos.codigo, datos.nombre, datos.estado, datos.foto);
       });
       this.loading = false;
     })
@@ -112,10 +120,12 @@ export class ComidasComponent implements OnInit {
   private setFormValidator() {
     this.formValidator = new FormGroup({
       'nombre': CustomValidators.getSmallStringValidator(),
-      'descripcion': CustomValidators.getLongStringValidator(),
-      'precio': CustomValidators.getPositiveIntegerNumber(),
-      'tiempoElaboracion': CustomValidators.getPositiveIntegerNumber()
+      'codigo': CustomValidators.getSmallStringValidator('', true),
+      'estado': CustomValidators.getSmallStringValidator('', true),
     });
   }
 
+  private generateRandomString(){
+    return Tools.generateRandomString();
+  }
 }

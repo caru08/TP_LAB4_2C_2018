@@ -5,10 +5,11 @@ import { Usuario } from './../../models/usuario';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { RoutesHandler, MessageHandler, ParamsService } from "../../services";
+import { RoutesHandler, MessageHandler } from "../../services";
 import { configs } from 'src/app/globalConfigs';
 import { FormGroup } from '@angular/forms';
 import { CustomValidators } from "../common/validators";
+import { Tools } from '../common/tools';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class PostresComponent implements OnInit {
   editClick(item){
     this.showForm = true;
     this.formValidator.reset();
-    this.model = item;
+    this.model = Tools.deepCopy(item);
   }
 
   onFileChanged(event) {

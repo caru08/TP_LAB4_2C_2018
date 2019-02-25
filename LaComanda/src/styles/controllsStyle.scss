@@ -506,6 +506,10 @@ input.mat-input-element{
  background-color:$fifth-background-color !important;
 }
 
+.mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after{
+  color: $general-font-color !important;
+}
+
 //#endregion
 
 //#region SLIDES

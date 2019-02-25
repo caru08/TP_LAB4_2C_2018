@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { CustomValidators } from "../common/validators";
 import { Usuario } from './../../models/usuario';
 import { configs } from 'src/app/globalConfigs';
-import { AuthenticationService, ParamsService, MessageHandler, BaseService } from './../../services';
+import { AuthenticationService, MessageHandler, BaseService } from './../../services';
 
 @Component({
   selector: 'register',
@@ -23,8 +23,7 @@ export class RegisterComponent implements OnInit {
         @Inject (MAT_DIALOG_DATA) public data: any,
         private autenticationService: AuthenticationService,
         private baseService: BaseService,
-        private messageHandler: MessageHandler,
-        private paramsService : ParamsService
+        private messageHandler: MessageHandler
     ){
     }
 
@@ -39,35 +38,31 @@ export class RegisterComponent implements OnInit {
     saveClick(){
         if(this.formValidator.valid && !this.errormessage){
             this.loading = true;
-            this.autenticationService.addingUser = false;
             this.autenticationService.registerUserAndLogin(this.model.email, this.model.pass)
             .then(response => {
-                this.paramsService.setEmailPass(this.model.email, this.model.pass);
-                let cliente = new Usuario(this.model.name, this.model.lastname, this.model.dni, false);
+                this.autenticationService.setEmailPass(this.model.email, this.model.pass);
+                let cliente = new Usuario(this.model.name, this.model.lastname, this.model.dni,  false, this.model.email);
                 cliente.uid = this.autenticationService.getUID();
                 this.autenticationService.logInFromDataBase();
                 this.baseService.addEntity(configs.apis.usuarios, cliente)
                 .then(response =>{
                     this.loading = false;
-                    this.paramsService.setUser(cliente);
+                    this.autenticationService.setUser(cliente);
                     this.messageHandler.showSucessMessage("Se registró correctamente");
                     this.cancelClick();
                 }, error => {
                     this.autenticationService.deleteUserLogged()
                       .then(response => {
                           this.loading = false;
-                        
-                        this.messageHandler.showErrorMessage("Ocurrió un error al registrarse");
-                        //CHEQUEAR ESTO CUANDO ES ALTA POR EMPLEADO
-                
+                        this.messageHandler.showErrorMessage("Ocurrió un error al registrarse");                
                       });
                   })
                 
-            })
-
+            }, error => {
+                this.loading = false;
+                this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado. ", error);
+              })
         }
-        
-
     }
 
     onfocusoutSecondPass(event){

@@ -7,10 +7,33 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 @Injectable()
 export class MessageHandler {
 
-    constructor(private snackBar: MatSnackBar,
-        public dialog: MatDialog){}
+    static knownErrors: any = [
+        {
+            code: 'auth/email-already-in-use',
+            message: "El email ya existe"
+        },
+        {
+            code: 'auth/user-not-found',
+            message: "El email no se encuentra registrado"
+        },
+        {
+            code: 'auth/wrong-password',
+            message: "Contraseña Incorrecta"
+        },
+        {
+            code: "auth/network-request-failed",
+            message: "No hay conexión a internet"
+        },
+        {
+            code: "auth/invalid-email",
+            message: "Email inválido"
+        },
+    ];
 
-    showSucessMessage(msg){
+    constructor(private snackBar: MatSnackBar,
+        public dialog: MatDialog) { }
+
+    showSucessMessage(msg) {
         let config = new MatSnackBarConfig();
         config.duration = 4000;
         config.data = msg;
@@ -18,21 +41,29 @@ export class MessageHandler {
         this.snackBar.openFromComponent(SuccessMessageComponent, config);
     }
 
-    showErrorMessage(msg){
+    showErrorMessage(msg, error?) {
+        var mensaje = "Error desconocido";
+        if (error) {
+            for (var i = 0; i < MessageHandler.knownErrors.length; i++) {
+                if (error.code == MessageHandler.knownErrors[i].code) {
+                    mensaje = MessageHandler.knownErrors[i].message;
+                    break;
+                }
+            }
+        }
         let config = new MatSnackBarConfig();
         config.duration = 4000;
-        config.data = msg;
+        config.data = error ? msg + ' ' + mensaje : msg;
         config.panelClass = 'error-snack';
         this.snackBar.openFromComponent(SuccessMessageComponent, config);
     }
 
-    public openConfirmDialog(message:string){
+    public openConfirmDialog(message: string) {
         let dialogRef = this.dialog.open(ConfirmDialogMessageComponent, {
-          width: '300px',
-          data: { message: message }
+            data: { message: message }
         });
         return dialogRef.afterClosed();
-      }
+    }
 
 
 

@@ -1,3 +1,4 @@
+import { MesasComponent } from './components/mesas/mesas.component';
 import { ComidasComponent } from './components/comidas/comidas.component';
 import { MainGuard } from './services/RoutesHandler.service';
 import { BebibasComponent } from './components/bebidas/bebidas.component';
@@ -7,6 +8,7 @@ import { HomeComponent } from './components/home.component';
 import { PostresComponent } from './components/postres/postres.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { HacerPedidoComponent } from './components/hacer-pedido/hacer-pedido.component';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
 
 
 export const ROUTES: Routes = [
@@ -25,6 +27,12 @@ export const ROUTES: Routes = [
   {
     path: 'hacer-pedido', component: HacerPedidoComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
   },
+  {
+    path: 'mesas', component: MesasComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
+  },
+  {
+    path: 'pedidos', component: PedidosComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
+  },
   
 
   /* { path: 'login', component: LoginViewComponent },
@@ -36,18 +44,6 @@ export const ROUTES: Routes = [
        { path: 'configuration/backup', component: BackupWorkspaceComponent, outlet:'smpt' },
        { path: 'configuration/alarms', component: AlarmWorkspaceComponent, outlet:'smpt' },
        { path: 'configuration/notifications', component: NotificationsErrorsWorkspaceComponent, outlet:'smpt' },
-       { path: 'configuration/errors', component: ErrorsWorkspaceComponent, outlet:'smpt' },
-       { path: 'configuration/unavailability-events', component: UnavailabilityEventWorkspace, outlet:'smpt' },
-       { path: 'configuration/components', component: ComponentsWorkspaceComponent, outlet:'smpt' },
-       { path: 'configuration/privilege-role', component: PrivilegeRolesWorkspaceComponent, outlet:'smpt' },
-       { path: 'report', component: GraphicsReportsWorkspaceComponent, outlet:'smpt' },
-       { path: 'export', component: ExportsWorkspaceComponent, outlet:'smpt' },
-       { path: 'export/indicators', component: ExportsWorkspaceComponent, outlet:'smpt' },
-       { path: 'export/backup', component: ExportsWorkspaceComponent, outlet:'smpt' },
-       { path: 'export/alarms-notifications', component: ExportsWorkspaceComponent, outlet:'smpt' },
-       { path: 'export/notifications', component: ExportsWorkspaceComponent, outlet:'smpt' },
-       { path: 'help', component: HelpWorkspaceComponent, outlet:'smpt' },
-       { path: '**',    component: NoContentComponent, outlet:'smpt' }
      ]
    },
    { path: '**', component: LoginViewComponent },

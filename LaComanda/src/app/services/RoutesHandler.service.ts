@@ -33,7 +33,6 @@ export class MainGuard implements CanActivate, CanActivateChild {
   ) {}
 
   canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):any{
-    debugger;
     if(this.authenticationService.sessionCheck){
       return this.authenticationService.isLogged();
     } else {

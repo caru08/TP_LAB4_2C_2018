@@ -5,16 +5,17 @@ export class Usuario {
     nombre:string;
     apellido:string;
     dni:number;
-    mail:string;
+    email:string;
     rol:string;
     anonimo:boolean;
 
-    constructor(nombre, apellido, dni, anonimo, rol?, uid?){
+    constructor(nombre, apellido, dni, anonimo, email, rol?, uid?){
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.anonimo = anonimo;
         this.rol = rol ? rol : Diccionario.roles.cliente
+        this.email = email ? email : '';
         this.uid = uid ? uid : '';
     }
 
