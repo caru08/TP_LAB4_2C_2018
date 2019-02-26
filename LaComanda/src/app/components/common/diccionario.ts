@@ -25,7 +25,9 @@ export class Diccionario {
     static estadoPedidos = {
         enPreparacion: 'enPreparacion',
         listo: 'listo',
-        cuentaSolicitada: 'cuentaSolicitada'
+        cuentaSolicitada: 'cuentaSolicitada',
+        entregado: 'entregado',
+        cerrado: 'cerrado'
     }
 
     static estadoMesas = {
@@ -43,6 +45,7 @@ export class Diccionario {
             path: '/mis-pedidos'
         }
     ];
+    
     static mozoModules = [
         {
             name: 'Hacer Pedido',
@@ -99,7 +102,7 @@ export class Diccionario {
     ]
     static socioModules = [
         {
-            name: 'empleados',
+            name: 'Empleados',
             path: '/empleados'
         },
         {

@@ -47,6 +47,7 @@ import { ComidasComponent } from './components/comidas/comidas.component';
 import { PostresComponent } from './components/postres/postres.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { PedidosClienteComponent } from './components/pedidos-cliente/pedidos-cliente.component';
 
 
 @NgModule({
@@ -69,6 +70,7 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
     OrderByPipe,
     MesasComponent,
     PedidosComponent,
+    PedidosClienteComponent,
   ],
   imports: [
     BrowserModule,

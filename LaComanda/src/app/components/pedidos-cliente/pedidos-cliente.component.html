@@ -1,0 +1,77 @@
+<div class="workspace-container">
+    <div class="workspace-content">
+        <circle-loader [loading]="loading"></circle-loader>
+        <div class="layout-fill">
+            <div class="flex-v expand">
+                <div class="flex-h">
+                    <div class="flex-v expand-w">
+                        <div ng-scrollster class="expand scrollable-container">
+                            <div style="margin-right: 1em; margin-bottom: 1em;">
+                                <!--div style="color:white; margin-bottom: 1em; margin-top: 1em;" class="titles">Pedidos
+                                </div>-->
+                                <div class="flex-h">
+                                    <div class="flex-h flex-80">
+                                        <div class="flex-40" style="margin-right:2em;">
+                                            <mat-form-field class="first-item-panel">
+                                                <input matInput placeholder="Código Mesa" [(ngModel)]="codigoMesa">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="flex-40" style="margin-right:2em;">
+                                            <mat-form-field class="first-item-panel">
+                                                <input matInput placeholder="Código Pedido" [(ngModel)]="codigoPedido">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="flex-10 flex-h-center flex-v-end">
+                                            <button mat-raised-button color="primary" style="margin-right: 1em;"
+                                                (click)="consultarPedido()" [disabled]="!codigoPedido"
+                                                matTooltip="Consulta el estado de tu pedido">
+                                                Consultar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="pedido.estado" class="flex-v flex-100">
+                                    <div ng-scrollster class="expand scrollable-container">
+
+                                        <div class="flex-v" style="padding: 0 20em;">
+                                            <div style="color:white; margin-bottom: 1em; margin-top: 1em;"
+                                                class="titles">
+                                                {{ estadosPedidos[pedido.estado] }}
+                                            </div>
+                                            <div *ngFor="let producto of pedido.productos | orderBy:'tipo':true"
+                                                class="producto">
+                                                <div class="flex-h">
+                                                    <div class="flex-70 flex-h-center" style="color:white">
+                                                        {{producto.nombre}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-v expand-w flex-h-right actions-button-container total"
+                                                style="color:white">
+                                                Total: ${{getTotal()}}.-
+                                            </div>
+                                            <div class="flex-v expand-w flex-h-right actions-button-container"
+                                                style="color:white">
+                                                Tiempo Demora: {{tiempoDemora}}
+                                            </div>
+                                            <div *ngIf="pedido.estado == staticEstadoPedidos.entregado"
+                                                class="first-item-panel expand-right">
+                                                <button mat-raised-button color="primary" (click)="pedirCuenta()"
+                                                    [disabled]="!codigoPedido"
+                                                    matTooltip="Consulta el estado de tu pedido">
+                                                    Pedir Cuenta
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

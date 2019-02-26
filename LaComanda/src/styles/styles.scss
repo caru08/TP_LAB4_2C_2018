@@ -81,7 +81,12 @@ main{
     display: flex;
     flex-direction: column;
     &-center{
+      display: flex;
       vertical-align: middle;
+    }
+    &-end{
+      display: flex;
+      justify-content: flex-end;
     }
   }
   &-h{
@@ -166,6 +171,9 @@ main{
 
 .size{
   &-h{
+    &-20{
+      width: 20%;
+    }
     &-30{
       width: 30%;
     }

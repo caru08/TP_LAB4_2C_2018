@@ -19,17 +19,23 @@
                                                 <div class="list-description first-item-panel">Estado:
                                                     {{ estadosPedidos[item.estado] }}</div>
                                             </div>
-                                            <div class="flex-30 flex-h">
+                                            <div class="flex-30 flex-h"
+                                                *ngIf="item.estado == staticEstadoPedidos.listo && !isSocio">
                                                 <div class="flex-50 expand-right">
-                                                    <button mat-icon-button [disabled]="showForm"
-                                                        style="margin-right: 1em;" (click)="addItem(item)"
-                                                        matTooltip="Editar">
-                                                        <mat-icon class="icon-button">add</mat-icon>
+                                                    <button mat-raised-button color="primary" style="margin-right: 1em;"
+                                                        (click)="pasarAEntregado(item)"
+                                                        matTooltip="Marcar pedido como entregado">
+                                                        Entregado
                                                     </button>
-                                                    <button mat-icon-button [disabled]="showForm"
-                                                        style="margin-right: 1em;" (click)="removeItem(item)"
-                                                        matTooltip="Editar">
-                                                        <mat-icon class="icon-button">remove</mat-icon>
+                                                </div>
+                                            </div>
+                                            <div class="flex-30 flex-h"
+                                                *ngIf="item.estado == staticEstadoPedidos.cuentaSolicitada">
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-raised-button color="primary" style="margin-right: 1em;"
+                                                        (click)="cerrarPedido(item)"
+                                                        matTooltip="Marcar pedido como cerrado">
+                                                        Cerrar Pedido
                                                     </button>
                                                 </div>
                                             </div>
@@ -43,7 +49,7 @@
                                             <div class="flex-v flex-70">
                                                 <div class="list-title">Producto: {{item.nombre}}</div>
                                                 <div class="list-description first-item-panel">Tiempo Elaboración
-                                                    estandar: {{item.tiempoElaboracion}}</div>
+                                                    estandar : {{item.tiempoElaboracion}}</div>
                                                 <div class="list-description first-item-panel"
                                                     *ngIf="item.tiempoEmpleado">Tiempo Elaboración estimado:
                                                     {{ item.tiempoEmpleado }}</div>
@@ -94,6 +100,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div *ngIf="showNoHayProductos" class="list-title"
+                                    style="background-color:#464646; padding: 0.5em; border-radius: 5px;">
+                                    No hay pedidos pendientes
                                 </div>
 
                             </div>

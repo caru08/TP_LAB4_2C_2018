@@ -1,3 +1,4 @@
+import { PedidosClienteComponent } from './components/pedidos-cliente/pedidos-cliente.component';
 import { MesasComponent } from './components/mesas/mesas.component';
 import { ComidasComponent } from './components/comidas/comidas.component';
 import { MainGuard } from './services/RoutesHandler.service';
@@ -32,6 +33,9 @@ export const ROUTES: Routes = [
   },
   {
     path: 'pedidos', component: PedidosComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
+  },
+  {
+    path: 'mis-pedidos', component: PedidosClienteComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
   },
   
 

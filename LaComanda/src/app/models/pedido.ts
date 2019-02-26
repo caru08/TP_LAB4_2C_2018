@@ -11,14 +11,16 @@ export class Pedido {
     estado:string;
     mozo: string;
     productos:ProductoPedido[];
+    fecha: string;
 
-    constructor(key?, mesa?, estado?, productos?, mozo?, codigo?){
+    constructor(key?, mesa?, estado?, productos?, mozo?, codigo?, fecha?){
         this.key = key ? key : '';
         this.mesa = mesa ? mesa : '';
         this.estado = estado ? estado : '';
         this.mozo = mozo ? mozo : '';
         this.codigo = codigo ? codigo : '';
         this.productos = productos ? productos : new Array<ProductoPedido>();       
+        this.fecha = fecha ? fecha : '';
     }
 
     mapDataToServer(productos){
@@ -29,6 +31,14 @@ export class Pedido {
         });
         this.estado = Diccionario.estadoPedidos.enPreparacion;
         this.codigo = Tools.generateRandomString();
+    }
+
+    mapProductos(productos){
+        this.productos = new Array<ProductoPedido>();
+        productos.forEach(producto => {
+            let productoPedido = new ProductoPedido(producto.key, producto.nombre, producto.precio, producto.tipo, producto.tiempoElaboracion, Diccionario.estadoProductos.pedido, 0)
+            this.productos.push(productoPedido);
+        });
     }
 
 }

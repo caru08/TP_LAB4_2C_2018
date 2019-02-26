@@ -75,6 +75,9 @@ export class HacerPedidoComponent implements OnInit {
         this.loading = true;
         this.pedido.mapDataToServer(this.productos);
         this.pedido.mozo = this.autenticationService.getUID();
+        let fecha = new Date();
+        let fecha2 = Tools.parseServerFormatDate(fecha);
+        this.pedido.fecha = fecha2;
         this.baseService.addEntity(configs.apis.pedidos, this.pedido)
             .then(response => {
                 this.loading = false;

@@ -32,13 +32,21 @@ export class Tools {
   }
 
   static parseServerFormatDate(date: Date) {
-    return date.getFullYear() +
+    return date.getDate() + '/' +
+      (date.getMonth() + 1) +  '/' +
+      date.getFullYear() +
+      ' ' +
+      date.getHours() + ':' +
+      date.getMinutes()
+
+    /*return date.getFullYear() +
       '-' + Tools.pad(date.getMonth() + 1) +
       '-' + Tools.pad(date.getDate()) +
       'T' + Tools.pad(date.getHours()) +
       ':' + Tools.pad(date.getMinutes()) +
       ':' + Tools.pad(date.getSeconds()) +
       'Z';
+      */
   }
 
   static parseISOStringDateToShortDateString(date: string) {
@@ -70,8 +78,8 @@ export class Tools {
     return areEqual;
   }
 
-  static generateRandomString(){
-    let chars ='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  static generateRandomString() {
+    let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var result = '';
     for (var i = 5; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
     return result;
