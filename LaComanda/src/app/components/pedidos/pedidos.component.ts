@@ -96,6 +96,7 @@ export class PedidosComponent implements OnInit {
     }
 
     pasarAEntregado(item) {
+        debugger;
         item.estado = Diccionario.estadoPedidos.entregado;
         this.baseService.updateEntity(configs.apis.pedidos, item.key, item)
             .then(response => {
@@ -103,6 +104,7 @@ export class PedidosComponent implements OnInit {
             }, error => {
                 this.messageHandler.showErrorMessage("Ocurrió un error al marcar el pedido como 'Entregado'")
             })
+        this.actualizarEstadoMesa(item, Diccionario.estadoMesas.clienteComiendo);
     }
 
     cerrarPedido(item) {
@@ -113,6 +115,18 @@ export class PedidosComponent implements OnInit {
             }, error => {
                 this.messageHandler.showErrorMessage("Ocurrió un error al cerrar el pedido")
             })
+        this.actualizarEstadoMesa(item, Diccionario.estadoMesas.libre);
+    }
+
+    solicitarCuenta(item) {
+        item.estado = Diccionario.estadoPedidos.cuentaSolicitada;
+        this.baseService.updateEntity(configs.apis.pedidos, item.key, item)
+            .then(response => {
+                this.messageHandler.showSucessMessage("La cuenta fue solicitada")
+            }, error => {
+                this.messageHandler.showErrorMessage("Ocurrió un error al solicitar la cuenta")
+            })
+        this.actualizarEstadoMesa(item, Diccionario.estadoMesas.clientePagando);
     }
 
     private getPedidosMozo() {
@@ -225,7 +239,9 @@ export class PedidosComponent implements OnInit {
 
     private checkPedidosEstado(pedidos) {
         pedidos.forEach(pedido => {
-            if (pedido.estado !== Diccionario.estadoPedidos.listo && pedido.estado !== Diccionario.estadoPedidos.entregado) {
+            if (pedido.estado !== Diccionario.estadoPedidos.listo
+                && pedido.estado !== Diccionario.estadoPedidos.entregado
+                && pedido.estado !== Diccionario.estadoPedidos.cuentaSolicitada) {
                 let pedidoListo = true;
                 for (let key in pedido.productos) {
                     if (pedido.productos[key].estado !== Diccionario.estadoProductos.listo) {
@@ -243,6 +259,20 @@ export class PedidosComponent implements OnInit {
         });
     }
 
+    private actualizarEstadoMesa(item, estadoMesa) {
+        var update = false;
+        this.baseService.getListByProperty(configs.apis.mesas, 'codigo', item.mesa)
+            .subscribe(response => {
+                if (response[0]) {
+                    if (update) return;
+                    let datos: any = response[0].payload.val();
+                    let mesa = new Mesa(response[0].key, datos.codigo, datos.nombre, datos.estado, datos.foto);
+                    mesa.estado = estadoMesa;
+                    this.baseService.updateEntity(configs.apis.mesas, mesa.key, mesa);
+                    update = true;
+                }
+            })
+    }
 
 
 }

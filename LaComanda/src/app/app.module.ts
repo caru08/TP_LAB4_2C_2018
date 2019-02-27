@@ -1,6 +1,6 @@
 import { MesasComponent } from './components/mesas/mesas.component';
 import { HacerPedidoComponent } from './components/hacer-pedido/hacer-pedido.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG  } from '@angular/platform-browser';
 import { NgModule, ApplicationRef, NO_ERRORS_SCHEMA } from '@angular/core';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { AppState, InternalStateType } from './app.service';
@@ -9,7 +9,7 @@ import { RouterModule, PreloadAllModules } from '@angular/router';
 import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule,
   MatExpansionModule,  MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule,
   MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSortModule,
-  MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatStepperModule, MatSnackBarModule } from '@angular/material';
+  MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatStepperModule, MatSnackBarModule, GestureConfig } from '@angular/material';
   import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ROUTES } from './app.routes';
 import { configs } from './globalConfigs';
@@ -48,6 +48,7 @@ import { PostresComponent } from './components/postres/postres.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { PedidosClienteComponent } from './components/pedidos-cliente/pedidos-cliente.component';
+import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta-cliente.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { PedidosClienteComponent } from './components/pedidos-cliente/pedidos-cl
     MesasComponent,
     PedidosComponent,
     PedidosClienteComponent,
+    EncuestaClienteComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +127,8 @@ import { PedidosClienteComponent } from './components/pedidos-cliente/pedidos-cl
     BaseService,
     MessageHandler,
     ParamsService,
-    MainGuard
+    MainGuard,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
   ],
   entryComponents:[
     LoginComponent,

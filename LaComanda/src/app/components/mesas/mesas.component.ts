@@ -26,10 +26,13 @@ export class MesasComponent implements OnInit {
   public listaItems: Array<any>;
   public showForm: boolean;
   public model = new Mesa();
+  public labelsEstadosMesas: any;
+  public estadoMesa: string;
 
 
   constructor(private baseService: BaseService,
     private messageHandler: MessageHandler) {
+      this.labelsEstadosMesas = Diccionario.labelsEstadosMesas;
   }
 
   ngOnInit() {
@@ -42,6 +45,7 @@ export class MesasComponent implements OnInit {
     this.formValidator.reset();
     this.model = new Mesa();
     this.model.estado = Diccionario.estadoMesas.libre;
+    this.estadoMesa = this.labelsEstadosMesas[this.model.estado];
     this.showForm = true;
   }
 
@@ -49,6 +53,7 @@ export class MesasComponent implements OnInit {
     this.showForm = true;
     this.formValidator.reset();
     this.model = Tools.deepCopy(item);
+    this.estadoMesa = this.labelsEstadosMesas[this.model.estado];
   }
 
   onFileChanged(event) {

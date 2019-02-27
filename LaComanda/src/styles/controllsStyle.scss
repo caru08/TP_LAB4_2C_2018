@@ -94,7 +94,7 @@ input:-webkit-autofill {
 //#region MAT_CARD_STYLES
 
 .mat-card{
-  background: $row-border-color !important;
+  background: $cards-color !important;
 }
 
 .mat-card-header-text {
@@ -248,7 +248,7 @@ input:-webkit-autofill {
 //#region RADIO_BUTTON_STYLES
 
 .mat-radio-label{
-  color: $list-fonts-color;
+  color: $general-font-color;
 }
 
 //#endregion

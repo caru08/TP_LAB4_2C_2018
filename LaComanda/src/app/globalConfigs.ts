@@ -14,7 +14,8 @@ export const configs = {
     usuarios: 'usuarios/',
     productos: 'productos/',
     mesas: 'mesas/',
-    pedidos: 'pedidos/'
+    pedidos: 'pedidos/',
+    encuestaCliente: 'encuesta-cliente/'
   }
 
 };

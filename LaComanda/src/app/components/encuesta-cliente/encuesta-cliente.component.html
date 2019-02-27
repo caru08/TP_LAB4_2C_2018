@@ -1,0 +1,95 @@
+<div class="flex-v">
+    <mat-card class="result">
+        <mat-card-content>
+            <div class="flex-80 titles">Encuesta</div>
+
+            <div class="pregunta">
+                ¿Cómo fue la atención recibida por parte del mozo?
+            </div>
+            <div class="flex-h respuesta-container">
+                <div class="flex-50 flex-h">
+                    <span class="text-small">Muy mala</span>
+                    <mat-slider class="size-h-70" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min"
+                        [thumbLabel]="thumbLabel" [tickInterval]="tickInterval" [(ngModel)]="model.mozo"
+                        [vertical]="vertical">
+                    </mat-slider>
+                    <span class="text-small">Muy buena</span>
+                </div>
+                <div class="flex-50">
+                    <div class="resultado">{{model.mozo}}</div>
+                </div>
+            </div>
+
+            <div class="pregunta">
+                ¿Qué te pareció la comida?
+            </div>
+            <div class="flex-h respuesta-container">
+                <div class="flex-50 flex-h">
+                    <span class="text-small">Muy mala</span>
+                    <mat-slider class="size-h-70" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min"
+                        [thumbLabel]="thumbLabel" [tickInterval]="tickInterval" [(ngModel)]="model.comida"
+                        [vertical]="vertical">
+                    </mat-slider>
+                    <span class="text-small">Muy buena</span>
+                </div>
+                <div class="flex-50">
+                    <div class="resultado">{{model.comida}}</div>
+                </div>
+            </div>
+
+            <div class="pregunta">
+                ¿Cómo calificarías el restaurante?
+            </div>
+            <div class="flex-h respuesta-container">
+                <div class="flex-50 flex-h">
+                    <span class="text-small">Muy malo</span>
+                    <mat-slider class="size-h-70" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min"
+                        [thumbLabel]="thumbLabel" [tickInterval]="tickInterval" [(ngModel)]="model.restaurante"
+                        [vertical]="vertical">
+                    </mat-slider>
+                    <span class="text-small">Muy bueno</span>
+                </div>
+                <div class="flex-50">
+                    <div class="resultado">{{model.restaurante}}</div>
+                </div>
+            </div>
+
+            <div class="pregunta">
+                ¿En qué condiciones encontraste la mesa?
+            </div>
+            <div class="flex-h respuesta-container">
+                <div class="flex-50 flex-h">
+                    <span class="text-small">Muy malo</span>
+                    <mat-slider class="size-h-70" [disabled]="disabled" [invert]="invert" [max]="max" [min]="min"
+                        [thumbLabel]="thumbLabel" [tickInterval]="tickInterval" [(ngModel)]="model.mesa"
+                        [vertical]="vertical">
+                    </mat-slider>
+                    <span class="text-small">Muy bueno</span>
+                </div>
+                <div class="flex-50">
+                    <div class="resultado">{{model.mesa}}</div>
+                </div>
+            </div>
+
+            <div class="pregunta">
+                ¡Dejanos un comentario!
+            </div>
+            <div class="flex-h first-item-panel">
+                <div class="flex-50 flex-h size-h-50">
+                    <mat-form-field class="size-h-50" style="color:white;">
+                        <textarea matInput maxlength="66" [(ngModel)]="model.comentario"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="flex-h expand-w expand-center actions-button-container">
+                <button mat-raised-button color="primary" style="margin-right: 0.5em;"
+                    (click)="saveClick()">Enviar</button>
+                <button mat-raised-button color="primary" style="margin-left: 0.5em;"
+                    (click)="cancelClick()">Salir</button>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

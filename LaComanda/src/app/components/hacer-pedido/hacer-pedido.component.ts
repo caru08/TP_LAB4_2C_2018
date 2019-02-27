@@ -80,11 +80,16 @@ export class HacerPedidoComponent implements OnInit {
         this.pedido.fecha = fecha2;
         this.baseService.addEntity(configs.apis.pedidos, this.pedido)
             .then(response => {
+                debugger;
+                let mesa = _.find(this.mesas, mesa =>{
+                    return mesa.codigo == this.pedido.mesa
+                })
+                this.updateMesaState(mesa);
                 this.loading = false;
                 this.codigoProducto = this.pedido.codigo;
                 this.messageHandler.showSucessMessage("El pedido se agregó con éxito");
                 this.pedido = new Pedido();
-                this.productos = new Array<Producto>();
+                this.productos = new Array<Producto>();                
             }, error => {
                 this.loading = false;
                 this.messageHandler.showErrorMessage("Error al agregar el pedido");
@@ -117,11 +122,17 @@ export class HacerPedidoComponent implements OnInit {
     }
 
     private getMesas() {
-        this.baseService.getList(configs.apis.mesas).subscribe(response => {
+        this.baseService.getListByProperty(configs.apis.mesas, 'estado', Diccionario.estadoMesas.libre).subscribe(response => {
             this.mesas = response.map(comida => {
                 let datos: any = comida.payload.val()
-                return new Mesa(comida.key, datos.codigo, datos.nombre, datos.estado);
+                return new Mesa(comida.key, datos.codigo, datos.nombre, datos.estado, datos.foto);
             });
+        })
+    }
+
+    private updateMesaState(mesa){
+        mesa.estado = Diccionario.estadoMesas.esperandoPedido;
+        this.baseService.updateEntity(configs.apis.mesas, mesa.key, mesa).then(response =>{
         })
     }
 

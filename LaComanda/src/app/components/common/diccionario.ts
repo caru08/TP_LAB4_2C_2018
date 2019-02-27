@@ -32,7 +32,16 @@ export class Diccionario {
 
     static estadoMesas = {
         libre: 'libre',
-        ocupada: 'ocupada'
+        esperandoPedido: 'esperandoPedido',
+        clienteComiendo: 'clienteComiendo',
+        clientePagando: 'clientePagando'
+    }
+
+    static labelsEstadosMesas = {
+        libre: 'Libre',
+        esperandoPedido: 'Cliente esperando pedido',
+        clienteComiendo: 'Cliente comiendo',
+        clientePagando: 'Cliente Pagando'        
     }
 
     static clienteModules = [

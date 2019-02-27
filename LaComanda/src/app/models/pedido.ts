@@ -36,7 +36,8 @@ export class Pedido {
     mapProductos(productos){
         this.productos = new Array<ProductoPedido>();
         productos.forEach(producto => {
-            let productoPedido = new ProductoPedido(producto.key, producto.nombre, producto.precio, producto.tipo, producto.tiempoElaboracion, Diccionario.estadoProductos.pedido, 0)
+            let productoPedido = new ProductoPedido(producto.key, producto.nombre, producto.precio, producto.tipo, producto.tiempoElaboracion, 
+                Diccionario.estadoProductos.pedido, producto.tiempoEmpleado)
             this.productos.push(productoPedido);
         });
     }

@@ -37,16 +37,7 @@ export class Tools {
       date.getFullYear() +
       ' ' +
       date.getHours() + ':' +
-      date.getMinutes()
-
-    /*return date.getFullYear() +
-      '-' + Tools.pad(date.getMonth() + 1) +
-      '-' + Tools.pad(date.getDate()) +
-      'T' + Tools.pad(date.getHours()) +
-      ':' + Tools.pad(date.getMinutes()) +
-      ':' + Tools.pad(date.getSeconds()) +
-      'Z';
-      */
+      date.getMinutes();
   }
 
   static parseISOStringDateToShortDateString(date: string) {
@@ -59,6 +50,11 @@ export class Tools {
     }
     var newDate = new Date(d);
     return newDate.getFullYear() + "/" + (newDate.getMonth() + 1) + "/" + newDate.getDate();
+  }
+
+  static parseStringDateTimeToDateTime(fecha:string){
+    var fechaArray = fecha.split('/');
+
   }
 
   static objectsAreEqual(object1, object2) {

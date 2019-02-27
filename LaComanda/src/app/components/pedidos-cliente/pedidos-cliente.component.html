@@ -6,22 +6,21 @@
                 <div class="flex-h">
                     <div class="flex-v expand-w">
                         <div ng-scrollster class="expand scrollable-container">
-                            <div style="margin-right: 1em; margin-bottom: 1em;">
-                                <!--div style="color:white; margin-bottom: 1em; margin-top: 1em;" class="titles">Pedidos
-                                </div>-->
+                            <div *ngIf="!mostrarEncuesta" style="margin-right: 1em; margin-bottom: 1em;">
                                 <div class="flex-h">
-                                    <div class="flex-h flex-80">
-                                        <div class="flex-40" style="margin-right:2em;">
+                                    <div class="flex-h flex-80 expand-center" style="padding: 0 20em;">
+                                       <!-- <div class="flex-40" style="margin-right:2em;">
                                             <mat-form-field class="first-item-panel">
                                                 <input matInput placeholder="Código Mesa" [(ngModel)]="codigoMesa">
                                             </mat-form-field>
                                         </div>
-                                        <div class="flex-40" style="margin-right:2em;">
+                                        -->
+                                        <div class="size-h-80" style="margin-right:2em;">
                                             <mat-form-field class="first-item-panel">
                                                 <input matInput placeholder="Código Pedido" [(ngModel)]="codigoPedido">
                                             </mat-form-field>
                                         </div>
-                                        <div class="flex-10 flex-h-center flex-v-end">
+                                        <div class="flex-h-center flex-v-end">
                                             <button mat-raised-button color="primary" style="margin-right: 1em;"
                                                 (click)="consultarPedido()" [disabled]="!codigoPedido"
                                                 matTooltip="Consulta el estado de tu pedido">
@@ -36,7 +35,7 @@
                                         <div class="flex-v" style="padding: 0 20em;">
                                             <div style="color:white; margin-bottom: 1em; margin-top: 1em;"
                                                 class="titles">
-                                                {{ estadosPedidos[pedido.estado] }}
+                                                Estado: {{ estadosPedidos[pedido.estado] }}
                                             </div>
                                             <div *ngFor="let producto of pedido.productos | orderBy:'tipo':true"
                                                 class="producto">
@@ -50,9 +49,9 @@
                                                 style="color:white">
                                                 Total: ${{getTotal()}}.-
                                             </div>
-                                            <div class="flex-v expand-w flex-h-right actions-button-container"
+                                            <div *ngIf="tiempoDemora" class="flex-v expand-w flex-h-right actions-button-container"
                                                 style="color:white">
-                                                Tiempo Demora: {{tiempoDemora}}
+                                                {{tiempoDemora}}
                                             </div>
                                             <div *ngIf="pedido.estado == staticEstadoPedidos.entregado"
                                                 class="first-item-panel expand-right">
@@ -62,11 +61,28 @@
                                                     Pedir Cuenta
                                                 </button>
                                             </div>
+                                            <div *ngIf="(pedido.estado == staticEstadoPedidos.cuentaSolicitada || pedido.estado == staticEstadoPedidos.cerrado) && !encuestaCompletada"
+                                                class="first-item-panel expand-right">
+                                                <button mat-raised-button color="primary" (click)="completarEncuesta()"
+                                                    [disabled]="!codigoPedido"
+                                                    matTooltip="Completar encuesta de satisfacción">
+                                                    Completar Encuesta
+                                                </button>
+                                            </div>
+                                            <div *ngIf="encuestaCompletada"
+                                                class="first-item-panel expand-right titles">
+                                                Gracias por completar la encuesta.
+                                            </div>
                                         </div>
-
                                     </div>
                                 </div>
-
+                                <div *ngIf="sinPedido" class="list-title"
+                                    style="background-color:#464646; padding: 0.5em; border-radius: 5px;">
+                                    {{sinPedido}}
+                                </div>
+                            </div>
+                            <div *ngIf="mostrarEncuesta">
+                                <encuesta-cliente (close-encuesta)="encuestaCerrada($event)" [pedido-key]="pedido.key"></encuesta-cliente>
                             </div>
                         </div>
                     </div>

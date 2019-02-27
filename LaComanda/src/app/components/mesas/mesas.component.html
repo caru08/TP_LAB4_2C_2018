@@ -25,7 +25,7 @@
                                         <div class="flex-h list-row-content flex-70">
                                             <div class="flex-v flex-70">
                                                 <div class="list-title">{{item.nombre}}</div>
-                                                <div class="list-description">Estado: {{item.estado}}</div>
+                                                <div class="list-description">Estado: {{ labelsEstadosMesas[item.estado] }}</div>
                                                 <div class="list-extra-info">Código:
                                                     {{item.codigo}}
                                                 </div>
@@ -60,7 +60,7 @@
                                     </input-error-handler>
                                 </mat-form-field>
                                 <mat-form-field class="first-item-panel">
-                                    <input matInput placeholder="Estado" [(ngModel)]="model.estado" [disabled]="true"
+                                    <input matInput placeholder="Estado" [(ngModel)]="estadoMesa" [disabled]="true"
                                         formControlName="estado">
                                     <input-error-handler [form-group-name]="formValidator.controls.estado">
                                     </input-error-handler>
