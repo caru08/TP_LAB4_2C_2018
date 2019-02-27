@@ -12,8 +12,11 @@ export class Pedido {
     mozo: string;
     productos:ProductoPedido[];
     fecha: string;
+    foto: string;
+    cliente: string;
+    
 
-    constructor(key?, mesa?, estado?, productos?, mozo?, codigo?, fecha?){
+    constructor(key?, mesa?, estado?, productos?, mozo?, codigo?, fecha?, foto?, cliente?){
         this.key = key ? key : '';
         this.mesa = mesa ? mesa : '';
         this.estado = estado ? estado : '';
@@ -21,6 +24,8 @@ export class Pedido {
         this.codigo = codigo ? codigo : '';
         this.productos = productos ? productos : new Array<ProductoPedido>();       
         this.fecha = fecha ? fecha : '';
+        this.foto = foto ? foto : '';
+        this.cliente = cliente ? cliente : '';
     }
 
     mapDataToServer(productos){

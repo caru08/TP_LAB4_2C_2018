@@ -53,7 +53,7 @@ export class PedidosClienteComponent implements OnInit {
                 if (response[0]) {
                     this.sinPedido = "";
                     let datos: any = response[0].payload.val();
-                    let pedido = new Pedido(response[0].key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha);
+                    let pedido = new Pedido(response[0].key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
                     pedido.mapProductos(pedido.productos)
                     this.pedido = pedido;
                     this.consultarPorEncuesta();

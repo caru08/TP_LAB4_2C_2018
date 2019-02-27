@@ -13,7 +13,8 @@ export class Diccionario {
     static tipoProductos = {
         bebida: 'bebida',
         comida: 'comida',
-        postre: 'postre'
+        postre: 'postre',
+        cerveza: 'cerveza'
     }
 
     static estadoProductos = {
@@ -78,12 +79,17 @@ export class Diccionario {
         {
             name: 'Pedidos',
             path: '/pedidos'
+        }
+    ];
+    static cerveceroModules = [
+        {
+            name: 'Cervezas',
+            path: '/cervezas'
         },
         {
-            name: 'Mesas',
-            path: '/mesas'
-        },
-
+            name: 'Pedidos',
+            path: '/pedidos'
+        }
     ]
     static cocineroModules = [
         {
@@ -117,8 +123,7 @@ export class Diccionario {
         {
             name: 'Pedidos',
             path: '/pedidos'
-        },
-        
+        },   
     ]
 
 }

@@ -49,6 +49,7 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { PedidosClienteComponent } from './components/pedidos-cliente/pedidos-cliente.component';
 import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta-cliente.component';
+import { CervezasComponent } from './components/cervezas/cervezas.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta
     MesasComponent,
     PedidosComponent,
     PedidosClienteComponent,
-    EncuestaClienteComponent
+    EncuestaClienteComponent,
+    CervezasComponent
   ],
   imports: [
     BrowserModule,

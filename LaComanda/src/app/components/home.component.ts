@@ -100,6 +100,9 @@ export class HomeComponent implements OnInit {
       case Diccionario.roles.socio:
         this.modules = Diccionario.socioModules;
         break;
+        case Diccionario.roles.cervezero:
+        this.modules = Diccionario.cerveceroModules;
+        break;
       default:
         this.modules = [];
         break;

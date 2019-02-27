@@ -82,7 +82,7 @@
                             <div>
                                 <div class="first-item-panel">
                                     <input class="input-file" placeholder="Cargar foto" (change)="onFileChanged($event)"
-                                        type="file" accept="image/jpeg,image/png">
+                                        type="file" (load)="imageLoad($event)" accept="image/jpeg,image/png">
                                 </div>
                             </div>
 

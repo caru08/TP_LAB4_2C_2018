@@ -28,6 +28,7 @@ export class HacerPedidoComponent implements OnInit {
     public bebidasList = new Array();
     public comidasList = new Array();
     public postresList = new Array();
+    public cervezasList = new Array();
     public pedido = new Pedido();
     public productos = new Array<Producto>();
     public mesas = new Array<Mesa>();
@@ -100,6 +101,31 @@ export class HacerPedidoComponent implements OnInit {
         this.codigoProducto = "";
     }
 
+    onFileChanged(event) {
+        console.log("change", event);
+        var file: File = event.target.files[0];
+        var myReader: FileReader = new FileReader();
+        var resize = false;
+    
+        myReader.onloadend = (e: any) => {
+          var tempImg = new Image();
+          tempImg.src = e.target.result;// myReader.result;
+          tempImg.onload = () => {
+            var MAX_WIDTH = 200;
+            var MAX_HEIGHT = 150;
+            var canvas = document.createElement('canvas');
+            canvas.width = MAX_WIDTH;
+            canvas.height = MAX_HEIGHT;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(tempImg, 0, 0, MAX_WIDTH, MAX_HEIGHT);
+            var dataURL = canvas.toDataURL("image/jpeg");
+            this.pedido.foto = dataURL;
+          }
+        }
+        myReader.readAsDataURL(file);
+      }
+
+
     private getProductos() {
         this.loading = true;
         this.baseService.getList(configs.apis.productos).subscribe(response => {
@@ -115,6 +141,9 @@ export class HacerPedidoComponent implements OnInit {
             });
             this.postresList = _.filter(todosLosProductos, producto => {
                 return producto.tipo == Diccionario.tipoProductos.postre
+            });
+            this.cervezasList = _.filter(todosLosProductos, producto => {
+                return producto.tipo == Diccionario.tipoProductos.cerveza
             });
 
             this.loading = false;

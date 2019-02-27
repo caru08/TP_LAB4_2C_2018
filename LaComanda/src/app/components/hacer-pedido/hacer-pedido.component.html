@@ -7,7 +7,39 @@
                     <div class="flex-v expand-w">
                         <div ng-scrollster class="expand scrollable-container">
                             <div style="margin-right: 1em; margin-bottom: 1em;">
-                                <div style="color:white; margin-bottom: 1em;" class="titles">Bebidas</div>
+
+                                <div style="color:white; margin-bottom: 1em;" class="titles">Cervezas</div>
+                                <div class="flex-60" *ngFor="let item of cervezasList | orderBy:'nombre':true">
+                                    <div class="flex-h list-row-container">
+                                        <div width="100" height="160">
+                                            <img class="imgperfil-small" [src]="item.foto">
+                                        </div>
+                                        <div class="flex-h list-row-content flex-70">
+                                            <div class="flex-v flex-70">
+                                                <div class="list-title">{{item.nombre}}</div>
+                                                <div class="list-description">{{item.descripcion}}</div>
+                                            </div>
+                                            <div class="flex-30 flex-h">
+                                                <div class="list-title flex-50">$ {{item.precio}}.-</div>
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="addItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">add</mat-icon>
+                                                    </button>
+                                                    <button mat-icon-button [disabled]="showForm"
+                                                        style="margin-right: 1em;" (click)="removeItem(item)"
+                                                        matTooltip="Editar">
+                                                        <mat-icon class="icon-button">remove</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="color:white; margin-bottom: 1em; margin-top: 1em;" class="titles">Bebidas
+                                </div>
                                 <div class="flex-60" *ngFor="let item of bebidasList | orderBy:'nombre':true">
                                     <div class="flex-h list-row-container">
                                         <div width="100" height="160">
@@ -128,6 +160,12 @@
                                 <div class="flex-v expand-w flex-h-right actions-button-container" style="color:white">
                                     Total: ${{getTotal()}}.-
                                 </div>
+
+                                <div class="first-item-panel">
+                                    <input class="input-file" placeholder="Cargar foto" (change)="onFileChanged($event)"
+                                        type="file" (load)="imageLoad($event)" accept="image/jpeg,image/png">
+                                </div>
+
                                 <div class="flex-v expand-w expand-center actions-button-container">
                                     <button mat-raised-button color="primary" style="margin-right: 0.5em;"
                                         [disabled]="!pedido.mesa || !productos.length" (click)="saveClick()">Guardar

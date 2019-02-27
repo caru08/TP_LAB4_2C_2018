@@ -69,6 +69,9 @@ export class PedidosComponent implements OnInit {
                 this.isSocio = true;
                 this.getPedidosSocio();
                 break;
+            case Diccionario.roles.cervezero:
+                this.getPedidosCervecero();
+                break;
 
         }
     }
@@ -136,7 +139,7 @@ export class PedidosComponent implements OnInit {
                 this.pedidos = new Array<Pedido>();
                 let pedidos = response.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
                 })
                 this.checkPedidosEstado(pedidos);
                 this.pedidos = pedidos;
@@ -152,7 +155,7 @@ export class PedidosComponent implements OnInit {
                 this.pedidosProductos = new Array<ProductoPedido>();
                 let pedidos = response.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
                 })
                 this.checkPedidosEstado(pedidos);
                 pedidos.forEach(pedido => {
@@ -181,12 +184,40 @@ export class PedidosComponent implements OnInit {
                 this.pedidosProductos = new Array<ProductoPedido>();
                 let pedidos = response.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
                 })
                 this.checkPedidosEstado(pedidos);
                 pedidos.forEach(pedido => {
                     for (let key in pedido.productos) {
                         if (pedido.productos[key].tipo == Diccionario.tipoProductos.bebida && pedido.productos[key].estado != Diccionario.estadoProductos.listo) {
+                            if (pedido.productos[key].empleado == '' || pedido.productos[key].empleado == this.autenticationService.getUID()) {
+                                let datos = pedido.productos[key];
+                                let productoPedido = new ProductoPedido(key, datos.nombre, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.estado, datos.tiempoEmpleado);
+                                productoPedido['showSetTime'] = false;
+                                productoPedido['pedidoKey'] = pedido.key;
+                                this.pedidosProductos.push(productoPedido);
+                            }
+                        }
+                    }
+                })
+                this.showNoHayProductos = this.pedidosProductos.length ? false : true;
+                this.loading = false;
+            })
+    }
+
+    private getPedidosCervecero() {
+        this.loading = true;
+        this.baseService.getListByProperty(configs.apis.pedidos, 'estado', Diccionario.estadoPedidos.enPreparacion)
+            .subscribe(response => {
+                this.pedidosProductos = new Array<ProductoPedido>();
+                let pedidos = response.map(pedido => {
+                    let datos: any = pedido.payload.val()
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
+                })
+                this.checkPedidosEstado(pedidos);
+                pedidos.forEach(pedido => {
+                    for (let key in pedido.productos) {
+                        if (pedido.productos[key].tipo == Diccionario.tipoProductos.cerveza && pedido.productos[key].estado != Diccionario.estadoProductos.listo) {
                             if (pedido.productos[key].empleado == '' || pedido.productos[key].empleado == this.autenticationService.getUID()) {
                                 let datos = pedido.productos[key];
                                 let productoPedido = new ProductoPedido(key, datos.nombre, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.estado, datos.tiempoEmpleado);
@@ -213,7 +244,7 @@ export class PedidosComponent implements OnInit {
                 })
                 this.pedidos = pedidos.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
                 })
                 this.loading = false;
             })
@@ -241,7 +272,8 @@ export class PedidosComponent implements OnInit {
         pedidos.forEach(pedido => {
             if (pedido.estado !== Diccionario.estadoPedidos.listo
                 && pedido.estado !== Diccionario.estadoPedidos.entregado
-                && pedido.estado !== Diccionario.estadoPedidos.cuentaSolicitada) {
+                && pedido.estado !== Diccionario.estadoPedidos.cuentaSolicitada
+                && pedido.estado !== Diccionario.estadoPedidos.cerrado) {
                 let pedidoListo = true;
                 for (let key in pedido.productos) {
                     if (pedido.productos[key].estado !== Diccionario.estadoProductos.listo) {

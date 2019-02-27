@@ -13,12 +13,12 @@ import { Tools } from '../common/tools';
 
 
 @Component({
-  selector: 'bebidas',
-  templateUrl: './bebidas.component.html',
-  styleUrls: ['bebidas.component.scss'],
+  selector: 'cervezas',
+  templateUrl: './cervezas.component.html',
+  styleUrls: ['cervezas.component.scss'],
 })
 
-export class BebibasComponent implements OnInit {
+export class CervezasComponent implements OnInit {
 
   public formValidator: FormGroup;
   public loading: boolean;
@@ -41,12 +41,11 @@ export class BebibasComponent implements OnInit {
   addBebida() {
     this.formValidator.reset();
     this.model = new Producto();
-    this.model.tipo = Diccionario.tipoProductos.bebida;
+    this.model.tipo = Diccionario.tipoProductos.cerveza;
     this.showForm = true;
   }
 
   editClick(item) {
-    debugger;
     this.showForm = true;
     this.formValidator.reset();
     this.model = Tools.deepCopy(item);
@@ -76,6 +75,10 @@ export class BebibasComponent implements OnInit {
     myReader.readAsDataURL(file);
   }
 
+  imageLoad(event) {
+    console.log("load", event);
+  }
+
   cancelClick() {
     this.showForm = false;
   }
@@ -102,7 +105,7 @@ export class BebibasComponent implements OnInit {
 
   private getBebidas() {
     this.loading = true;
-    this.baseService.getListByProperty(configs.apis.productos, 'tipo', Diccionario.tipoProductos.bebida).subscribe(response => {
+    this.baseService.getListByProperty(configs.apis.productos, 'tipo', Diccionario.tipoProductos.cerveza).subscribe(response => {
       this.listaItems = response.map(bebida => {
         let datos: any = bebida.payload.val()
         return new Producto(bebida.key, datos.nombre, datos.descripcion, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.foto);
