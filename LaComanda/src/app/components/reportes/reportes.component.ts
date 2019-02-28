@@ -28,6 +28,7 @@ export class ReportesComponent implements OnInit {
     public maxDate = new Date();
     public rolesList = new Array<any>();
     public empleadosList = new Array<any>();
+    public empleadoSeleccionado:any;
     public reportesList = [
         {
             label: 'Reportes de Empleados',
@@ -46,7 +47,10 @@ export class ReportesComponent implements OnInit {
                 },
                 {
                     label: 'Cantidad de operaciones de los empleado',
-                    name: 'pedidosEmpleado'
+                    name: 'pedidosEmpleado',
+                    filtroFecha: true,
+                    filtroRol: true,
+                    filtroEmpleados: true
                 }
             ]
         },
@@ -125,7 +129,6 @@ export class ReportesComponent implements OnInit {
         private router: Router,
         private paramsService: ParamsService,
         private baseService: BaseService) {
-    
         for (let key in Diccionario.roles) {
             if (key != Diccionario.roles.cliente && key != Diccionario.roles.administrador) {
                 this.rolesList.push({ label: key, value: Diccionario.roles[key] });
@@ -158,13 +161,30 @@ export class ReportesComponent implements OnInit {
 
     subReporteChange() {
         this.mostrarReporte = false;
+        this.filtroEmpleado = '';
+        this.filtroRol = '';
+        this.empleadoSeleccionado = null;
+        this.filtroFechaFin = '';
+        this.filtroFechaInicio = '';
     }
 
     filtroRolChange(){
         this.filtroEmpleado = '';
+        this.empleadoSeleccionado = '';
     }
 
     filtroEmpleadoChange(){
+        debugger;
+        this.filtroRol = '';
+        if(this.subReporte.name == 'logSesion'){
+            this.filtroEmpleado = this.empleadoSeleccionado.email;
+        }
+        if(this.subReporte.name == 'pedidosEmpleado'){
+            this.filtroEmpleado = this.empleadoSeleccionado.uid;
+        }
+    }
+
+    clearRol(){
         this.filtroRol = '';
     }
 

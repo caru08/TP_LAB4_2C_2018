@@ -52,17 +52,19 @@
                                     <mat-form-field>
                                         <mat-select placeholder="Seleccionar rol" [(ngModel)]="filtroRol"
                                             (selectionChange)="filtroRolChange()">
+                                            <mat-option [value]="">--</mat-option>
                                             <mat-option *ngFor="let rol of rolesList" [value]="rol.value">
                                                 {{rol.label}}
                                             </mat-option>
-                                        </mat-select>
+                                        </mat-select>                                      
                                     </mat-form-field>
                                 </div>
                                 <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroEmpleados">
                                     <mat-form-field>
-                                        <mat-select placeholder="Seleccionar empleado" [(ngModel)]="filtroEmpleado"
+                                        <mat-select placeholder="Seleccionar empleado" [(ngModel)]="empleadoSeleccionado"
                                             (selectionChange)="filtroEmpleadoChange()">
-                                            <mat-option *ngFor="let empleado of empleadosList" [value]="empleado.email">
+                                            <mat-option [value]="">--</mat-option>
+                                            <mat-option *ngFor="let empleado of empleadosList" [value]="empleado">
                                                 {{empleado.nombre}} {{empleado.apellido}}
                                             </mat-option>
                                         </mat-select>
@@ -79,6 +81,10 @@
                                     [filtro-fecha-inicio]="filtroFechaInicio" [filtro-fecha-fin]="filtroFechaFin"
                                     [filtro-empleado]="filtroEmpleado">
                                 </reporte-operacion-sector>
+                                <reporte-operaciones-empleados *ngIf="subReporte.name == 'pedidosEmpleado'"
+                                    [filtro-fecha-inicio]="filtroFechaInicio" [filtro-fecha-fin]="filtroFechaFin"
+                                    [filtro-empleado]="filtroEmpleado" [filtro-rol]="filtroRol">
+                                </reporte-operaciones-empleados>                                
                             </div>
                         </div>
                     </div>

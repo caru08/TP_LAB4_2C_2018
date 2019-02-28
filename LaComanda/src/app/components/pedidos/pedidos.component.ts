@@ -178,7 +178,7 @@ export class PedidosComponent implements OnInit {
                             && pedido.productos[key].estado != Diccionario.estadoProductos.listo) {
                             if (pedido.productos[key].empleado == '' || pedido.productos[key].empleado == this.autenticationService.getUID()) {
                                 let datos = pedido.productos[key];
-                                let productoPedido = new ProductoPedido(key, datos.nombre, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.estado, datos.tiempoEmpleado);
+                                let productoPedido = new ProductoPedido(key, datos.nombre, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.estado, datos.tiempoEmpleado, datos.empleado);
                                 productoPedido['showSetTime'] = false;
                                 productoPedido['pedidoKey'] = pedido.key;
                                 this.pedidosProductos.push(productoPedido);
@@ -206,7 +206,7 @@ export class PedidosComponent implements OnInit {
                         if (pedido.productos[key].tipo == Diccionario.tipoProductos.bebida && pedido.productos[key].estado != Diccionario.estadoProductos.listo) {
                             if (pedido.productos[key].empleado == '' || pedido.productos[key].empleado == this.autenticationService.getUID()) {
                                 let datos = pedido.productos[key];
-                                let productoPedido = new ProductoPedido(key, datos.nombre, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.estado, datos.tiempoEmpleado);
+                                let productoPedido = new ProductoPedido(key, datos.nombre, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.estado, datos.tiempoEmpleado, datos.empleado);
                                 productoPedido['showSetTime'] = false;
                                 productoPedido['pedidoKey'] = pedido.key;
                                 this.pedidosProductos.push(productoPedido);
@@ -234,7 +234,7 @@ export class PedidosComponent implements OnInit {
                         if (pedido.productos[key].tipo == Diccionario.tipoProductos.cerveza && pedido.productos[key].estado != Diccionario.estadoProductos.listo) {
                             if (pedido.productos[key].empleado == '' || pedido.productos[key].empleado == this.autenticationService.getUID()) {
                                 let datos = pedido.productos[key];
-                                let productoPedido = new ProductoPedido(key, datos.nombre, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.estado, datos.tiempoEmpleado);
+                                let productoPedido = new ProductoPedido(key, datos.nombre, datos.precio, datos.tipo, datos.tiempoElaboracion, datos.estado, datos.tiempoEmpleado, datos.empleado);
                                 productoPedido['showSetTime'] = false;
                                 productoPedido['pedidoKey'] = pedido.key;
                                 this.pedidosProductos.push(productoPedido);

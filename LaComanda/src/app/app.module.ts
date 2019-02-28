@@ -64,6 +64,7 @@ import { CervezasComponent } from './components/cervezas/cervezas.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReporteEmpleadoSesionComponent } from './components/reportes/subReportes/reporte-empleado-sesion.component';
 import { ReportesOperacionSectorComponent } from './components/reportes/subReportes/reporte-operaciones-sector.component';
+import { ReporteOperacionesEmpleadosComponent } from './components/reportes/subReportes/reporte-operaciones-empleados.component';
 
 export const DateFormat = {
   parse: {
@@ -105,7 +106,8 @@ export const DateFormat = {
     ReportesComponent,
     ReporteEmpleadoSesionComponent,
     CrudTableComponent,
-    ReportesOperacionSectorComponent
+    ReportesOperacionSectorComponent,
+    ReporteOperacionesEmpleadosComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Diccionario } from './../components/common/diccionario';
 import { ProductoPedido } from './productos';
 import { Tools } from '../components/common/tools';
+import { DataRowOutlet } from '@angular/cdk/table';
 
 export class Pedido {
 
@@ -33,7 +34,8 @@ export class Pedido {
     mapDataToServer(productos){
         this.productos = new Array<ProductoPedido>();
         productos.forEach(producto => {
-            let productoPedido = new ProductoPedido(producto.key, producto.nombre, producto.precio, producto.tipo, producto.tiempoElaboracion, Diccionario.estadoProductos.pedido, 0)
+            let productoPedido = new ProductoPedido(producto.key, producto.nombre, producto.precio, producto.tipo, producto.tiempoElaboracion, 
+                Diccionario.estadoProductos.pedido, 0, producto.empleado)
             this.productos.push(productoPedido);
         });
         this.estado = Diccionario.estadoPedidos.enPreparacion;
@@ -44,7 +46,7 @@ export class Pedido {
         this.productos = new Array<ProductoPedido>();
         productos.forEach(producto => {
             let productoPedido = new ProductoPedido(producto.key, producto.nombre, producto.precio, producto.tipo, producto.tiempoElaboracion, 
-                Diccionario.estadoProductos.pedido, producto.tiempoEmpleado)
+                Diccionario.estadoProductos.pedido, producto.tiempoEmpleado, producto.empleado)
             this.productos.push(productoPedido);
         });
     }

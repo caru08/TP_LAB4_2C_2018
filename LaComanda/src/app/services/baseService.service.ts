@@ -33,8 +33,9 @@ export class BaseService {
     }
 
     public getListByProperty(path, propertyName, propertyValue){ //subscribe
-        return this.db.list(path, ref => ref.orderByChild(propertyName).equalTo(propertyValue)).snapshotChanges();
+        return this.db.list(path, ref => ref.orderByChild(propertyName).equalTo(propertyValue)).snapshotChanges();    
     }
+    
 
     public getEntityById(id, path) {
         return this.db.list(path, ref => ref.orderByChild('id').equalTo(id))
