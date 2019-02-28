@@ -1,0 +1,29 @@
+<div style="margin-top: 2em;">
+    <circle-loader [loading]="loading"></circle-loader>
+    <div class="layout-fill">
+        <div class="flex-v expand">
+            <div class="flex-h">
+                <div class="flex-v expand-w" style="color: white">
+                    <crud-table [collection]="tableDate ? tableDate : {}" [columns]="columns">
+                        <ng-template let-column="column" let-element="element">
+                            <div>
+                                <div *ngIf="column.name == 'codigo'">
+                                    {{element.codigo}}
+                                </div>
+                                <div *ngIf="column.name == 'cliente'">
+                                    {{element.cliente}}
+                                </div>
+                                <div *ngIf="column.name == 'fecha'">
+                                    {{element.fecha}}
+                                </div>
+                                <div *ngIf="column.name == 'mesa'">
+                                    {{element.mesa}}
+                                </div>                        
+                            </div>
+                        </ng-template>
+                    </crud-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

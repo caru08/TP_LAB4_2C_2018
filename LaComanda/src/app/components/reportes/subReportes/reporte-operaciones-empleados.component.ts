@@ -82,10 +82,13 @@ export class ReporteOperacionesEmpleadosComponent implements OnInit, OnChanges {
 
     private setColumns() {
         this.columns = new Array<TableColumn>();
-        this.columns.push(new TableColumn('rol', 'Rol', true, 'start', 10, 25));
-        this.columns.push(new TableColumn('nombreEmpleado', 'Empleado', true, 'start', 30, 20));
-        this.columns.push(new TableColumn('fecha', 'Fecha del Pedido', true, 'start', 25, 20));
-        this.columns.push(new TableColumn('producto', 'Producto pedido', true, 'start', 25, 20));
+        this.columns.push(new TableColumn('rol', 'Rol', false, 'start', 10, 25));
+        this.columns.push(new TableColumn('nombreEmpleado', 'Empleado', false, 'start', 20, 20));
+        this.columns.push(new TableColumn('fechaPedido', 'Fecha del Pedido', false, 'start', 15, 20));
+        this.columns.push(new TableColumn('fechaEntregado', 'Fecha de Entrega', false, 'start', 15, 20));
+        this.columns.push(new TableColumn('tiempoDefinido', 'Tiempo Definido (minutos)', false, 'start', 10, 20));
+        this.columns.push(new TableColumn('tiempoEstimado', 'Tiempo Estimado (minutos)', false, 'start', 10, 20));
+        this.columns.push(new TableColumn('producto', 'Producto pedido', false, 'start', 15, 20));
     }
 
     private getData() {
@@ -104,12 +107,14 @@ export class ReporteOperacionesEmpleadosComponent implements OnInit, OnChanges {
                     let dataSinFiltro = new Array<any>();
                     response.forEach(pedido => {
                         let datosPedido: any = pedido.payload.val();
-                        dataSinFiltro.push({ rol: Diccionario.roles.mozo, empleado: datosPedido.mozo, fecha: datosPedido.fecha, producto: '' });
+                        dataSinFiltro.push({ rol: Diccionario.roles.mozo, empleado: datosPedido.mozo, fecha: datosPedido.fecha, 
+                            fechaEntregado: datosPedido.fechaEntrega, producto: '' });
                         datosPedido.productos.forEach(producto => {
                             let rol = producto.tipo == Diccionario.tipoProductos.bebida ? Diccionario.roles.bartener :
                                 producto.tipo == Diccionario.tipoProductos.cerveza ? Diccionario.roles.cervezero :
                                     Diccionario.roles.cocinero;
-                            dataSinFiltro.push({ rol: rol, empleado: producto.empleado, fecha: datosPedido.fecha, producto: producto.nombre });
+                            dataSinFiltro.push({ rol: rol, empleado: producto.empleado, fecha: datosPedido.fecha,
+                                fechaEntregado: datosPedido.fechaEntrega, tiempoDefinido: producto.tiempoElaboracion, tiempoEstimado: producto.tiempoEmpleado, producto: producto.nombre });
                         });
                     })
                     if (this.filtroRol) {

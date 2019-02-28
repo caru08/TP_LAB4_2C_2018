@@ -13,9 +13,18 @@
                                 <div *ngIf="column.name == 'nombreEmpleado'">
                                     {{getNombreEmpleado(element)}}
                                 </div>
-                                <div *ngIf="column.name == 'fecha'">
+                                <div *ngIf="column.name == 'fechaPedido'">
                                     {{element.fecha}}
                                 </div>
+                                <div *ngIf="column.name == 'fechaEntregado'">
+                                    {{element.fechaEntregado}}
+                                </div>
+                                <div *ngIf="column.name == 'tiempoDefinido'">
+                                    {{element.tiempoDefinido}}
+                                </div>
+                                <div *ngIf="column.name == 'tiempoEstimado'">
+                                    {{element.tiempoEstimado}}
+                                </div>                                
                                 <div *ngIf="column.name == 'producto'">
                                     {{element.producto}}
                                 </div>                                

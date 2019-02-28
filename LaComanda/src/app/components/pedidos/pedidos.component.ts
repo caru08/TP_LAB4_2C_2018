@@ -169,7 +169,8 @@ export class PedidosComponent implements OnInit {
                 this.pedidosProductos = new Array<ProductoPedido>();
                 let pedidos = response.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, 
+                        datos.fecha, datos.foto, datos.cliente, datos.fechaEntrega);
                 })
                 this.checkPedidosEstado(pedidos);
                 pedidos.forEach(pedido => {
@@ -198,7 +199,8 @@ export class PedidosComponent implements OnInit {
                 this.pedidosProductos = new Array<ProductoPedido>();
                 let pedidos = response.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, 
+                        datos.fecha, datos.foto, datos.cliente, datos.fechaEntrega);
                 })
                 this.checkPedidosEstado(pedidos);
                 pedidos.forEach(pedido => {
@@ -226,7 +228,8 @@ export class PedidosComponent implements OnInit {
                 this.pedidosProductos = new Array<ProductoPedido>();
                 let pedidos = response.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, 
+                        datos.codigo, datos.fecha, datos.foto, datos.cliente, datos.fechaEntrega);
                 })
                 this.checkPedidosEstado(pedidos);
                 pedidos.forEach(pedido => {
@@ -258,7 +261,8 @@ export class PedidosComponent implements OnInit {
                 })
                 this.pedidos = pedidos.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, 
+                        datos.codigo, datos.fecha, datos.foto, datos.cliente, datos.fechaEntrega);
                 })
                 this.loading = false;
             })

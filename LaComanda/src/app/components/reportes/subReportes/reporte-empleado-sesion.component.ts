@@ -30,11 +30,7 @@ export class ReporteEmpleadoSesionComponent implements OnInit, OnChanges {
     public totalData = new Array<any>();
     public subscribeData: any;
 
-    constructor(private authenticationService: AuthenticationService,
-        public dialog: MatDialog,
-        private messageHandler: MessageHandler,
-        private router: Router,
-        private paramsService: ParamsService,
+    constructor(public dialog: MatDialog,
         private baseService: BaseService) {
     }
 
@@ -77,10 +73,10 @@ export class ReporteEmpleadoSesionComponent implements OnInit, OnChanges {
 
     private setColumns() {
         this.columns = new Array<TableColumn>();
-        this.columns.push(new TableColumn('rol', 'Rol', true, 'start', 10, 25));
-        this.columns.push(new TableColumn('usuarioEmail', 'Email Empleado', true, 'start', 30, 20));
-        this.columns.push(new TableColumn('fechaInicio', 'Horario Inicio Sesión', true, 'start', 25, 20));
-        this.columns.push(new TableColumn('fechaFin', 'Horario Fin Sesión', true, 'start', 25, 20));
+        this.columns.push(new TableColumn('rol', 'Rol', false, 'start', 10, 25));
+        this.columns.push(new TableColumn('usuarioEmail', 'Email Empleado', false, 'start', 30, 20));
+        this.columns.push(new TableColumn('fechaInicio', 'Horario Inicio Sesión', false, 'start', 25, 20));
+        this.columns.push(new TableColumn('fechaFin', 'Horario Fin Sesión', false, 'start', 25, 20));
     }
 
     private getData() {

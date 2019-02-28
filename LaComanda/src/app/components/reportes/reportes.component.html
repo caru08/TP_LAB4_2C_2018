@@ -70,6 +70,16 @@
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
+                                <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroTipoProducto">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Seleccionar tipo de Producto" [(ngModel)]="filtroTipoProducto"
+                                        (selectionChange)="filtroTipoProductosChange()">
+                                            <mat-option *ngFor="let tipo of tiposDeProductos" [value]="tipo">
+                                                {{tipo.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
                             </div>
 
                             <div *ngIf="mostrarReporte">
@@ -84,7 +94,14 @@
                                 <reporte-operaciones-empleados *ngIf="subReporte.name == 'pedidosEmpleado'"
                                     [filtro-fecha-inicio]="filtroFechaInicio" [filtro-fecha-fin]="filtroFechaFin"
                                     [filtro-empleado]="filtroEmpleado" [filtro-rol]="filtroRol">
-                                </reporte-operaciones-empleados>                                
+                                </reporte-operaciones-empleados> 
+                                <report-productos-vendidos *ngIf="subReporte.name == 'productosMasVendidos'">
+                                </report-productos-vendidos>       
+                                <reporte-pedidos-cancelados *ngIf="subReporte.name == 'pedidosCancelados'">
+                                </reporte-pedidos-cancelados>   
+                                <reporte-mesas-usos *ngIf="subReporte.name == 'mesasUsadas'">                                    
+                                </reporte-mesas-usos>  
+                                <reporte-mesa-facturacion *ngIf="subReporte.name == 'mesasMayorFactura'"></reporte-mesa-facturacion>                                                        
                             </div>
                         </div>
                     </div>

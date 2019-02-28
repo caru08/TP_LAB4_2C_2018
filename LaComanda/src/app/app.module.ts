@@ -1,3 +1,4 @@
+import { ReporteMesasUsosComponent } from './components/reportes/subReportes/reporte-mesas-usos.component';
 import { CrudTableComponent } from './components/common/lists/crud-table.component';
 import { ConfirmMessageComponent } from './components/common/messages/confirm-message.component';
 import { MesasComponent } from './components/mesas/mesas.component';
@@ -65,6 +66,9 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReporteEmpleadoSesionComponent } from './components/reportes/subReportes/reporte-empleado-sesion.component';
 import { ReportesOperacionSectorComponent } from './components/reportes/subReportes/reporte-operaciones-sector.component';
 import { ReporteOperacionesEmpleadosComponent } from './components/reportes/subReportes/reporte-operaciones-empleados.component';
+import { ReporteProductosVendidosComponent } from './components/reportes/subReportes/reporte-productos-vendidos.component';
+import { ReportesPedidosCanceladosComponent } from './components/reportes/subReportes/reporte-pedidos-cancelados.component';
+import { ReporteMesasFacturacionComponent } from './components/reportes/subReportes/reporte-mesa-facturacion.component';
 
 export const DateFormat = {
   parse: {
@@ -107,7 +111,11 @@ export const DateFormat = {
     ReporteEmpleadoSesionComponent,
     CrudTableComponent,
     ReportesOperacionSectorComponent,
-    ReporteOperacionesEmpleadosComponent
+    ReporteOperacionesEmpleadosComponent,
+    ReporteProductosVendidosComponent,
+    ReportesPedidosCanceladosComponent,
+    ReporteMesasUsosComponent,
+    ReporteMesasFacturacionComponent
   ],
   imports: [
     BrowserModule,

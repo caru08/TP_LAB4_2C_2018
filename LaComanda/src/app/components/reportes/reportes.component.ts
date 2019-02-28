@@ -24,11 +24,13 @@ export class ReportesComponent implements OnInit {
     public filtroFechaFin: any;
     public filtroRol: any;
     public filtroEmpleado: any;
+    public filtroTipoProducto: any;
     public mostrarReporte: boolean;
     public maxDate = new Date();
     public rolesList = new Array<any>();
+    public tiposDeProductos = new Array<any>();
     public empleadosList = new Array<any>();
-    public empleadoSeleccionado:any;
+    public empleadoSeleccionado: any;
     public reportesList = [
         {
             label: 'Reportes de Empleados',
@@ -59,11 +61,8 @@ export class ReportesComponent implements OnInit {
             subReportes: [
                 {
                     label: 'Productos más vendidos',
-                    name: 'productosVendidos',
-                },
-                {
-                    label: 'Productos menos vendido',
-                    name: 'productosVendidos',
+                    name: 'productosMasVendidos',
+                    filtroTipoProducto: true,
                 },
                 {
                     label: 'Tiempo de entrega de pedidos',
@@ -83,16 +82,8 @@ export class ReportesComponent implements OnInit {
                     name: 'mesasUsadas',
                 },
                 {
-                    label: 'Mesas menos usadas',
-                    name: 'mesasNoUsadas',
-                },
-                {
                     label: 'Mesas que más facturaron',
                     name: 'mesasMayorFactura',
-                },
-                {
-                    label: 'Mesas que menos facturaron',
-                    name: 'mesasMenorFactura',
                 }
             ]
         },
@@ -134,25 +125,31 @@ export class ReportesComponent implements OnInit {
                 this.rolesList.push({ label: key, value: Diccionario.roles[key] });
             }
         }
+        for (let key in Diccionario.tipoProductos) {
+            this.tiposDeProductos.push({ label: key, value: Diccionario.tipoProductos[key] });
+        }
     }
 
     ngOnInit() {
         this.loading = true;
         this.baseService.getList(configs.apis.usuarios).subscribe(response => {
             let lista = _.filter(response, item => {
-              return item.payload.val().rol != Diccionario.roles.cliente && item.payload.val().rol != Diccionario.roles.administrador
+                return item.payload.val().rol != Diccionario.roles.cliente && item.payload.val().rol != Diccionario.roles.administrador
             }).map(item => {
-              let datos = item.payload.val();
-              datos['key'] = item.key;
-              return datos;
+                let datos = item.payload.val();
+                datos['key'] = item.key;
+                return datos;
             });
             this.empleadosList = lista;
             this.loading = false;
-          })      
+        })
+
     }
 
     buscar() {
-        this.mostrarReporte = true;
+       
+            this.mostrarReporte = true;
+        
     }
 
     tipoReporteChange() {
@@ -168,24 +165,23 @@ export class ReportesComponent implements OnInit {
         this.filtroFechaInicio = '';
     }
 
-    filtroRolChange(){
+    filtroRolChange() {
         this.filtroEmpleado = '';
         this.empleadoSeleccionado = '';
     }
 
-    filtroEmpleadoChange(){
-        debugger;
+    filtroEmpleadoChange() {
         this.filtroRol = '';
-        if(this.subReporte.name == 'logSesion'){
+        if (this.subReporte.name == 'logSesion') {
             this.filtroEmpleado = this.empleadoSeleccionado.email;
         }
-        if(this.subReporte.name == 'pedidosEmpleado'){
+        if (this.subReporte.name == 'pedidosEmpleado') {
             this.filtroEmpleado = this.empleadoSeleccionado.uid;
         }
     }
 
-    clearRol(){
-        this.filtroRol = '';
+    filtroTipoProductosChange(){
+
     }
 
 }

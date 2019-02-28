@@ -39,11 +39,7 @@ export class ReportesOperacionSectorComponent implements OnInit, OnChanges {
     public barChartData:any[] = [ {data: [], label: 'Operaciones'} ];
     public showGraphic = false;
 
-    constructor(private authenticationService: AuthenticationService,
-        public dialog: MatDialog,
-        private messageHandler: MessageHandler,
-        private router: Router,
-        private paramsService: ParamsService,
+    constructor( public dialog: MatDialog,
         private baseService: BaseService) {
     }
 
@@ -153,13 +149,8 @@ export class ReportesOperacionSectorComponent implements OnInit, OnChanges {
         this.barChartData = [
             {data: [mozoCount, socioCount, cocineroCount, cerveceroCount, bartenderCount], label: 'Operaciones'}                    
           ];
-        //this.barChartData[0].data = [ mozoCount, socioCount, cocineroCount, cerveceroCount, bartenderCount];
         this.showGraphic = true,
-        /* this.totalData = response.map(pedido => {
-              let datos: any = pedido.payload.val()
-              return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente, datos.fechaEntrega);
-          })
-          this.mapData(); */
+    
         this.loading = false;
     }
 

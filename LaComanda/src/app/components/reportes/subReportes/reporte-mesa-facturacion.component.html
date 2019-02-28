@@ -1,0 +1,16 @@
+<div style="margin-top: 2em;">
+    <circle-loader [loading]="loading"></circle-loader>
+    <div class="layout-fill">
+        <div class="flex-v expand">
+            <div class="flex-h">
+                <div class="flex-v expand-w" style="color: white">
+                    <div style="display: flex; justify-content: center; margin-bottom: 3em;" *ngIf="showGraphic">
+                        <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                            [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

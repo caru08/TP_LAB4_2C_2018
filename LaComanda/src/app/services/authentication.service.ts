@@ -145,6 +145,13 @@ export class AuthenticationService {
     }
 
     private logFinSesion() {
+        if (this.user.rol == Diccionario.roles.cliente) {
+            this.setUser(null);
+            this.setEmailPass('', '');
+            this.MiAuth.auth.signOut();
+            this.logoutFromDatabase();
+            return;
+        }
         let logFin = Tools.deepCopy(this.loginInfo);
         let fecha = new Date();
         let fechaFin = Tools.parseServerFormatDate(fecha);
