@@ -81,7 +81,6 @@ export class HacerPedidoComponent implements OnInit {
         this.pedido.fecha = fecha2;
         this.baseService.addEntity(configs.apis.pedidos, this.pedido)
             .then(response => {
-                debugger;
                 let mesa = _.find(this.mesas, mesa =>{
                     return mesa.codigo == this.pedido.mesa
                 })
@@ -124,7 +123,6 @@ export class HacerPedidoComponent implements OnInit {
         }
         myReader.readAsDataURL(file);
       }
-
 
     private getProductos() {
         this.loading = true;

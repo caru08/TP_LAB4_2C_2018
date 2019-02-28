@@ -1,0 +1,73 @@
+<div class="flex-v expand-w">
+  <div class="flex-h flex-h-center" *ngIf="title || showAddButton">
+    <div class="flex-v small-titles flex-80" *ngIf="title">
+      {{ title }}
+    </div>
+    <div class="list-icon-container flex-20 expand-right"  *ngIf="showAddButton">
+      <button mat-mini-fab (click)="addButtonClick()" [disabled]="disabled" matTooltip="{{addTooltip}}" matTooltipPosition="right" >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div *ngIf="topHeader" class="flex-h expand-w row-header-size">
+    <div class="top-header-container flex-100">
+      <div *ngFor="let top of topHeader" [style.width.%]="top.size" [ngClass]="{'top-header': top.label, 'expand-center': top.align == 'center' }">
+        <div *ngIf="top.label">
+          {{top.label.toUpperCase()}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="flex-h small-circle-loader-container table-container first-item-panel">
+
+    <mat-table #table [dataSource]="dataSource" matSort matSortDisableClear matSortDirection="asc">
+      <div *ngFor="let column of columns">
+
+        <ng-container matColumnDef="{{column['name']}}">
+          <!--COLUMN WITH SORT ASC AND DEC-->
+          <div *ngIf="column.sort">
+            <mat-header-cell [style.width.%]="column.size" matTooltip="{{column.label}}" [ngClass]="{'expand-center':column.align == 'center'}"
+                             *matHeaderCellDef mat-sort-header  disableClear="true" class="primary-table-cell" >
+              <div class="flex-h flex-h-center size-h-95">
+                <div class="flex flex-50 title-header-container">
+                  {{(column.label).toUpperCase()}}
+                </div>
+                <div class="flex-50 icon-header-container flex-h expand-right">
+                  <mat-icon>swap_vert</mat-icon>
+                </div>
+              </div>
+            </mat-header-cell>
+          </div>
+          <!--COLUMN WITHOUT SORT ASC AND DEC-->
+          <div *ngIf="!column.sort">
+            <mat-header-cell [style.width.%]="column.size"  matTooltip="{{column.label}}" [ngClass]="{'expand-center':column.align == 'center'}"
+                            *matHeaderCellDef class="ordinary-table-cell">
+              <div class="title-header-container">
+                  {{(column.label).toUpperCase()}}
+              </div>
+            </mat-header-cell>
+          </div>
+
+          <mat-cell [style.width.%]="column.size" *matCellDef="let element" [ngClass]="{'primary-table-cell':column.sort, 'ordinary-table-cell': !column.sort }">
+            <div [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{column:column, element: element}"></div>
+          </mat-cell>
+        </ng-container>
+
+      </div>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[10, 20, 50]"
+                   [showFirstLastButtons]="true"
+                   [length]="collection.count">
+    </mat-paginator>
+
+  </div>
+</div>

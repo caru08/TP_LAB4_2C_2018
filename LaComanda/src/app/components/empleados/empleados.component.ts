@@ -1,3 +1,4 @@
+import { ParamsService } from './../../services/params.service';
 import { Producto } from './../../models/productos';
 import { BaseService } from './../../services/baseService.service';
 import { Diccionario } from '../common/diccionario';
@@ -10,6 +11,7 @@ import { configs } from 'src/app/globalConfigs';
 import { FormGroup } from '@angular/forms';
 import { CustomValidators } from "../common/validators";
 import * as _ from "lodash";
+import { Tools } from '../common/tools';
 
 
 @Component({
@@ -24,14 +26,17 @@ export class EmpleadosComponent implements OnInit {
   public loading: boolean;
   public listaItems: Array<any>;
   public showForm: boolean;
-  public model = { nombre: '', apellido: '', email: '', pass: '', secondpass: '', dni: '', key: '', rol: '', uid: '' };
+  public model = { nombre: '', apellido: '', email: '', pass: '', secondpass: '', dni: '', key: '', rol: '', uid: '', estado: '' };
   public isEdit: boolean;
   public errormessage = "";
   public roles = new Array();
+  public labeldEstadosUsuarios: any;
 
   constructor(private baseService: BaseService,
     private messageHandler: MessageHandler,
-    private autenticationService: AuthenticationService) {
+    private autenticationService: AuthenticationService,
+    private paramsService: ParamsService) {
+    this.labeldEstadosUsuarios = Diccionario.labeldEstadosUsuarios;
 
   }
 
@@ -49,20 +54,33 @@ export class EmpleadosComponent implements OnInit {
   addItem() {
     this.isEdit = false;
     this.formValidator.reset();
-    this.model = { nombre: '', apellido: '', email: '', pass: '', secondpass: '', dni: '', key: '', rol: '', uid: '' };
+    this.formValidator.controls['pass'].enable();
+    this.formValidator.controls['secondpass'].enable();
+    this.formValidator.controls['email'].enable();
+    this.model = { nombre: '', apellido: '', email: '', pass: '', secondpass: '', dni: '', key: '', rol: '', uid: '', estado: Diccionario.estadosUsuarios.activo };
     this.showForm = true;
   }
 
   editClick(item) {
+    if (item.email == this.autenticationService.getEmail()) {
+      this.messageHandler.showErrorMessage("No se puede editar el usuario de la actual sesión");
+      return;
+    }
     this.isEdit = true;
     this.showForm = true;
     this.formValidator.reset();
+    this.formValidator.controls['pass'].disable();
+    this.formValidator.controls['secondpass'].disable();
+    this.formValidator.controls['email'].disable();
     this.model.nombre = item.nombre;
     this.model.apellido = item.apellido;
+    this.model.email = item.email;
     this.model.dni = item.dni;
     this.model.rol = item.rol;
     this.model.key = item.key;
     this.model.uid = item.uid;
+    this.model.pass = item.pass;
+    this.model.estado = item.estado;
   }
 
 
@@ -74,57 +92,122 @@ export class EmpleadosComponent implements OnInit {
     }
   }
 
-  imageLoad(event) {
-    console.log("load", event);
-  }
-
   cancelClick() {
     this.showForm = false;
   }
 
-  saveClick() {
-    this.loading = true;
-    let pedido: any;
+  deleteClick(item) {
+    if (item.email == this.autenticationService.getEmail()) {
+      this.messageHandler.showErrorMessage("No se puede eliminar el usuario de la actual sesión");
+      return;
+    }
    
+    this.messageHandler.openConfirmDialog("¿Está seguro que desea eliminar el empleado?").subscribe(result => {
+      if(this.paramsService.accept){
+        this.loading = true;
+        this.autenticationService.deleteUser(item.email, item.pass)
+          .subscribe(response => {
+            this.baseService.deleteEntity(configs.apis.usuarios, item.key)
+              .then(response => {
+                this.loading = false;
+                this.messageHandler.showSucessMessage("El empleado fue eliminado");
+              }, error => {
+                this.loading = false;
+                this.messageHandler.showErrorMessage("Ocurrio un error al eliminar el empleado");
+              })
+          });
+      } else {
+        this.loading = false;
+      }
+    });
+  }
+
+  deshabilitarEmpleado() {
+    this.messageHandler.openConfirmDialog("¿Está seguro que desea deshabilitar el empleado?").subscribe(result => {
+      if(this.paramsService.accept){
+        this.model.estado = Diccionario.estadosUsuarios.suspendido;
+        this.edicionEmpleado("El empleado fue deshabilitado", "Ocurrió un error al deshabilitad el empleado");
+      }      
+    });
+  }
+
+  habilitarCuenta() {
+    this.messageHandler.openConfirmDialog("¿Está seguro que desea habilitar el empleado?")
+    .subscribe(result => {
+      if(this.paramsService.accept){
+        this.model.estado = Diccionario.estadosUsuarios.activo;
+        this.edicionEmpleado("El empleado fue habilitado", "Ocurrió un error al habilitar el empleado");
+      }
+    });
+  }
+
+  saveClick() {
+    if (this.isEdit) {
+      this.edicionEmpleado("El empleado se editó correctamente", "Ocurrió un error al editar el empleado");
+    } else {
       this.altaEmpleado();
-    
+    }
   }
 
   altaEmpleado() {
-    this.autenticationService.createUser(this.model.email, this.model.pass)
-      .subscribe(response => {
-        var lala = this.autenticationService.getEmail();
-        let cliente = new Usuario(this.model.nombre, this.model.apellido, this.model.dni, false, this.model.email, this.model.rol);
-        cliente.uid = response.user.uid;
-        this.baseService.addEntity(configs.apis.usuarios, cliente)
-          .then(response => {
+    try {
+      this.loading = true;
+      this.autenticationService.createUser(this.model.email, this.model.pass)
+        .subscribe(response => {
+          if (response.code) {
             this.loading = false;
-            this.messageHandler.showSucessMessage("Se agregó el empleado correctamente");
-            this.cancelClick();
-          }, error => {
-            this.autenticationService.singIn(this.autenticationService.getLoggedEmail(), this.autenticationService.getPass());
-            this.autenticationService.deleteUserLogged()
-              .then(response => {
-                this.loading = false;
-                this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado");
-              });
-          })
-      }, error => {
+            this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado. ", response);
+            return
+          }
+          let cliente = new Usuario(this.model.nombre, this.model.apellido, this.model.dni, false, this.model.email,
+            this.model.rol, response.user.uid, Diccionario.estadosUsuarios.activo, this.model.pass);
+          this.baseService.addEntity(configs.apis.usuarios, cliente)
+            .then(response => {
+              this.loading = false;
+              this.messageHandler.showSucessMessage("Se agregó el empleado correctamente");
+              this.cancelClick();
+            }, error => {
+              this.loading = false;
+              this.messageHandler.showSucessMessage("Ocurrió un error al agregar el empleado");
+            })
+        }, error => {
+          this.loading = false;
+          this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado. ", error);
+        })
+    } catch (error) {
+      this.loading = false;
+      this.messageHandler.showErrorMessage("Ocurrio un error al agregar el empleado", error);
+    }
+  }
+
+  edicionEmpleado(msjSuccess, msjError) {
+    let model = Tools.deepCopy(this.model);
+    delete model['secondpass'];
+    this.loading = true;
+    this.baseService.updateEntity(configs.apis.usuarios, this.model.key, model)
+      .then(response => {
         this.loading = false;
-        this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado. ", error);
+        this.messageHandler.showSucessMessage(msjSuccess);
+        this.cancelClick();
+      }, error => {
+
+        this.loading = false;
+        this.messageHandler.showErrorMessage(msjError);
+
       })
   }
 
   private getLista() {
     this.loading = true;
     this.baseService.getList(configs.apis.usuarios).subscribe(response => {
-      this.listaItems = _.filter(response, item => {
-        return item.payload.val().rol != Diccionario.roles.cliente
+      let lista = _.filter(response, item => {
+        return item.payload.val().rol != Diccionario.roles.cliente && item.payload.val().rol != Diccionario.roles.administrador
       }).map(item => {
         let datos = item.payload.val();
         datos['key'] = item.key;
         return datos;
       });
+      this.listaItems = lista;
       this.loading = false;
     })
   }

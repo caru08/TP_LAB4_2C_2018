@@ -8,15 +8,19 @@ export class Usuario {
     email:string;
     rol:string;
     anonimo:boolean;
+    estado: string;
+    pass:string;
 
-    constructor(nombre, apellido, dni, anonimo, email, rol?, uid?){
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.anonimo = anonimo;
-        this.rol = rol ? rol : Diccionario.roles.cliente
+    constructor(nombre?, apellido?, dni?, anonimo?, email?, rol?, uid?, estado?, pass?){
+        this.nombre = nombre ? nombre : '';
+        this.apellido = apellido ? apellido : '';
+        this.dni = dni ? dni : null;
+        this.anonimo = anonimo ? anonimo : false;
         this.email = email ? email : '';
+        this.rol = rol ? rol : Diccionario.roles.cliente;
         this.uid = uid ? uid : '';
+        this.estado = estado ? estado : Diccionario.estadosUsuarios.activo;
+        this.pass = pass ? pass: '';
     }
 
 }

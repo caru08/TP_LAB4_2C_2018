@@ -7,6 +7,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ParamsService {
 
+    accept:boolean;
+    cancel:boolean;
+
     constructor(){
 
     }

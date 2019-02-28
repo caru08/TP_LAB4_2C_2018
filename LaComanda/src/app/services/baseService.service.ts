@@ -24,6 +24,10 @@ export class BaseService {
         //return this.db.database.ref().child(ruta + key).update(data);
     }
 
+    public deleteEntity(ruta, key){
+        return this.db.list<any>(ruta + key).remove();
+    }
+
     public getList(path) { //subscribe
         return this.db.list<any>(path).snapshotChanges()
     }

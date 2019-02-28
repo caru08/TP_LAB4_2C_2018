@@ -1,0 +1,73 @@
+@import "../../../../styles/variables";
+
+:host{
+  width: 100%;
+  display: flex;
+  min-height: 250px;
+  max-height: 500px;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 50px;
+}
+
+.table-container .mat-table {
+  max-height: calc(100vh - 200px);
+  overflow-y: overlay;
+}
+
+.table-container .mat-table .mat-header-row {
+  position: absolute;
+  top: -50px;
+  left: 0px;
+  right: 0px;
+  background: inherit;
+}
+
+.mat-header-row{
+  border-bottom: 1px solid $second-detail-color;
+}
+
+.mat-header-row, .mat-row{
+  padding: 0 1em;
+}
+
+.primary-table-cell{
+  flex-grow: 2 !important;
+}
+
+.ordinary-table-cell{
+  flex-grow: 1 !important;
+}
+
+.top-header-container{
+  padding: 0 1em;
+  display: flex;
+  border-bottom: 1px solid $second-detail-color;
+}
+
+.top-header{
+  display: flex;
+  align-items: center;
+  min-height: 45px;
+  margin: 0px 2px;
+  color: $general-font-color;
+  font-weight: $bold-first-size;
+}
+
+.icon-header-container{
+  padding-left: 0.5em;
+  .mat-icon{
+    font-size: 20px;
+    color:$second-detail-color;
+  }
+}
+
+.title-header-container{
+  height: 24px;
+  display: flex;
+  align-items: center;;
+}

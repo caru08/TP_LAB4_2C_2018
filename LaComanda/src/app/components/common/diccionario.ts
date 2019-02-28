@@ -17,6 +17,16 @@ export class Diccionario {
         cerveza: 'cerveza'
     }
 
+    static estadosUsuarios = {
+        activo: 'activo',
+        suspendido: 'suspendido'
+    }
+
+    static labeldEstadosUsuarios = {
+        activo: 'Activo',
+        suspendido: 'Suspendido'
+    }
+
     static estadoProductos = {
         pedido: 'pedido',
         enPreparacion: 'enPreparacion',
@@ -28,7 +38,8 @@ export class Diccionario {
         listo: 'listo',
         cuentaSolicitada: 'cuentaSolicitada',
         entregado: 'entregado',
-        cerrado: 'cerrado'
+        cerrado: 'cerrado',
+        cancelado: 'cancelado'
     }
 
     static estadoMesas = {

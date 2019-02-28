@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
 
   saveClick() {
     this.loading = true;
-    this.authenticationService.singIn(this.model.email, this.model.pass)
+    this.authenticationService.singIn(this.model.email, this.model.pass, true)
       .then(response => {
-        this.authenticationService.setEmailPass(this.model.email, this.model.pass);
+        this.authenticationService.setEmailPass(this.model.email, this.model.pass);      
         this.loading = false;
         this.dialogRef.close();
       })

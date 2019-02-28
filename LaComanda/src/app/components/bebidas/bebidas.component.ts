@@ -46,7 +46,6 @@ export class BebibasComponent implements OnInit {
   }
 
   editClick(item) {
-    debugger;
     this.showForm = true;
     this.formValidator.reset();
     this.model = Tools.deepCopy(item);

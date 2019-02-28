@@ -1,16 +1,24 @@
+import { CrudTableComponent } from './components/common/lists/crud-table.component';
+import { ConfirmMessageComponent } from './components/common/messages/confirm-message.component';
 import { MesasComponent } from './components/mesas/mesas.component';
 import { HacerPedidoComponent } from './components/hacer-pedido/hacer-pedido.component';
-import { BrowserModule, HAMMER_GESTURE_CONFIG  } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule, ApplicationRef, NO_ERRORS_SCHEMA } from '@angular/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+
+
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { AppState, InternalStateType } from './app.service';
 import { AppComponent } from './app.component';
 import { RouterModule, PreloadAllModules } from '@angular/router';
-import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule,
-  MatExpansionModule,  MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule,
+import {
+  MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule,
+  MatExpansionModule, MatGridListModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule,
   MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSortModule,
-  MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatStepperModule, MatSnackBarModule, GestureConfig } from '@angular/material';
-  import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+  MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatStepperModule, MatSnackBarModule, GestureConfig
+} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ROUTES } from './app.routes';
 import { configs } from './globalConfigs';
 import { AngularFireModule } from 'angularfire2';
@@ -30,6 +38,7 @@ import '../styles/controllsStyle.scss';
 import '../styles/workspace.scss';
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
+import { DatePipe } from './pipes/date.pipe';
 import { RoutesHandler, AuthenticationService, BaseService, MessageHandler, ParamsService, MainGuard } from './services';
 
 import { HomeComponent } from './components/home.component';
@@ -50,7 +59,20 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { PedidosClienteComponent } from './components/pedidos-cliente/pedidos-cliente.component';
 import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta-cliente.component';
 import { CervezasComponent } from './components/cervezas/cervezas.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
+import { ReporteEmpleadoSesionComponent } from './components/reportes/subReportes/reporte-empleado-sesion.component';
 
+export const DateFormat = {
+  parse: {
+    dateInput: 'input',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11yLabel: 'MM/DD/YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
+  }
+};
 
 @NgModule({
   declarations: [
@@ -70,11 +92,16 @@ import { CervezasComponent } from './components/cervezas/cervezas.component';
     HacerPedidoComponent,
     HacerPedidoComponent,
     OrderByPipe,
+    DatePipe,
     MesasComponent,
     PedidosComponent,
     PedidosClienteComponent,
     EncuestaClienteComponent,
-    CervezasComponent
+    CervezasComponent,
+    ConfirmMessageComponent,
+    ReportesComponent,
+    ReporteEmpleadoSesionComponent,
+    CrudTableComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +137,7 @@ import { CervezasComponent } from './components/cervezas/cervezas.component';
     MatTooltipModule,
     MatSnackBarModule,
     BrowserAnimationsModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(ROUTES, {
       useHash: true,
@@ -130,17 +157,22 @@ import { CervezasComponent } from './components/cervezas/cervezas.component';
     MessageHandler,
     ParamsService,
     MainGuard,
-    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: DateFormat }
+
   ],
-  entryComponents:[
+  entryComponents: [
     LoginComponent,
     RegisterComponent,
     SuccessMessageComponent,
+    ConfirmMessageComponent,
     ConfirmDialogMessageComponent,
   ],
-  exports:[    
+  exports: [
     ContainerScrollBar,
     OrderByPipe,
+    DatePipe,
   ],
 
   bootstrap: [AppComponent]
@@ -150,7 +182,7 @@ export class AppModule {
   constructor(
     public appRef: ApplicationRef,
     public appState: AppState
-  ) {}
+  ) { }
 
   public hmrOnInit(store: StoreType) {
     if (!store || !store.state) {
@@ -188,7 +220,7 @@ export class AppModule {
     /**
      * Save input values
      */
-    store.restoreInputValues  = createInputTransfer();
+    store.restoreInputValues = createInputTransfer();
     /**
      * Remove styles
      */
@@ -202,4 +234,4 @@ export class AppModule {
     store.disposeOldHosts();
     delete store.disposeOldHosts;
   }
- }
+}

@@ -5,82 +5,82 @@ import { CustomValidators } from "../common/validators";
 import { Usuario } from './../../models/usuario';
 import { configs } from 'src/app/globalConfigs';
 import { AuthenticationService, MessageHandler, BaseService } from './../../services';
+import { Diccionario } from '../common/diccionario';
 
 @Component({
-  selector: 'register',
-  templateUrl: './register.component.html',
-  styleUrls: ['register.component.scss'],
+    selector: 'register',
+    templateUrl: './register.component.html',
+    styleUrls: ['register.component.scss'],
 })
 
 export class RegisterComponent implements OnInit {
 
-    public formValidator:FormGroup;
-    public model = { name:'', lastname: '', email: '', pass: '', secondpass: '', dni: ''};
-    public loading:boolean;
+    public formValidator: FormGroup;
+    public model = { name: '', lastname: '', email: '', pass: '', secondpass: '', dni: '' };
+    public loading: boolean;
     public errormessage = "";
 
-    constructor( public dialogRef: MatDialogRef<RegisterComponent>,
-        @Inject (MAT_DIALOG_DATA) public data: any,
+    constructor(public dialogRef: MatDialogRef<RegisterComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: any,
         private autenticationService: AuthenticationService,
         private baseService: BaseService,
         private messageHandler: MessageHandler
-    ){
+    ) {
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.setFormValidations();
     }
 
-    cancelClick(){
+    cancelClick() {
         this.dialogRef.close();
     }
 
-    saveClick(){
-        if(this.formValidator.valid && !this.errormessage){
+    saveClick() {
+        if (this.formValidator.valid && !this.errormessage) {
             this.loading = true;
             this.autenticationService.registerUserAndLogin(this.model.email, this.model.pass)
-            .then(response => {
-                this.autenticationService.setEmailPass(this.model.email, this.model.pass);
-                let cliente = new Usuario(this.model.name, this.model.lastname, this.model.dni,  false, this.model.email);
-                cliente.uid = this.autenticationService.getUID();
-                this.autenticationService.logInFromDataBase();
-                this.baseService.addEntity(configs.apis.usuarios, cliente)
-                .then(response =>{
-                    this.loading = false;
-                    this.autenticationService.setUser(cliente);
-                    this.messageHandler.showSucessMessage("Se registró correctamente");
-                    this.cancelClick();
+                .then(response => {
+                    this.autenticationService.setEmailPass(this.model.email, this.model.pass);
+                    let cliente = new Usuario(this.model.name, this.model.lastname, this.model.dni, false, this.model.email,
+                        Diccionario.roles.cliente, this.autenticationService.getUID(), Diccionario.estadosUsuarios.activo, this.model.pass);
+                    this.autenticationService.logInFromDataBase();
+                    this.baseService.addEntity(configs.apis.usuarios, cliente)
+                        .then(response => {
+                            this.loading = false;
+                            this.autenticationService.setUser(cliente);
+                            this.messageHandler.showSucessMessage("Se registró correctamente");
+                            this.cancelClick();
+                        }, error => {
+                            this.autenticationService.deleteUserLogged()
+                                .then(response => {
+                                    this.loading = false;
+                                    this.messageHandler.showErrorMessage("Ocurrió un error al registrarse");
+                                });
+                        })
                 }, error => {
-                    this.autenticationService.deleteUserLogged()
-                      .then(response => {
-                          this.loading = false;
-                        this.messageHandler.showErrorMessage("Ocurrió un error al registrarse");                
-                      });
-                  })
-                
-            }, error => {
-                this.loading = false;
-                this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado. ", error);
-              })
+                    this.loading = false;
+                    this.messageHandler.showErrorMessage("Ocurrió un error al agregar el empleado. ", error);
+                })
         }
     }
 
-    onfocusoutSecondPass(event){
-        if(this.model.pass !== this.model.secondpass){
+    onfocusoutSecondPass(event) {
+        if (this.model.pass !== this.model.secondpass) {
             this.errormessage = "Las contraseñas no coinciden"
-        }else{
+        } else {
             this.errormessage = "";
         }
     }
 
-    private setFormValidations(){
+    private setFormValidations() {
         this.formValidator = new FormGroup({
-          'email': CustomValidators.getRequiredEmailValidator(),
-          'pass': CustomValidators.getPassStringValidator(),
-          'secondpass': CustomValidators.getPassStringValidator(),
-          'name': CustomValidators.getSmallStringValidator(),
-          'lastname': CustomValidators.getSmallStringValidator(),
-          'dni': CustomValidators.getPositiveIntegerNumber(),
+            'email': CustomValidators.getRequiredEmailValidator(),
+            'pass': CustomValidators.getPassStringValidator(),
+            'secondpass': CustomValidators.getPassStringValidator(),
+            'name': CustomValidators.getSmallStringValidator(),
+            'lastname': CustomValidators.getSmallStringValidator(),
+            'dni': CustomValidators.getPositiveIntegerNumber(),
         });
-      }
+    }
 }

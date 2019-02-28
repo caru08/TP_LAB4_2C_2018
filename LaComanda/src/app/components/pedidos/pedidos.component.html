@@ -39,6 +39,16 @@
                                                 </div>
                                             </div>
                                             <div class="flex-30 flex-h"
+                                                *ngIf="item.estado == staticEstadoPedidos.enPreparacion && !isSocio">
+                                                <div class="flex-50 expand-right">
+                                                    <button mat-raised-button color="primary" style="margin-right: 1em;"
+                                                        (click)="cancelarPedido(item)"
+                                                        matTooltip="Pedir la cuenta del pedido">
+                                                        Cancelar Pedido
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="flex-30 flex-h"
                                                 *ngIf="item.estado == staticEstadoPedidos.cuentaSolicitada && isSocio">
                                                 <div class="flex-50 expand-right">
                                                     <button mat-raised-button color="primary" style="margin-right: 1em;"

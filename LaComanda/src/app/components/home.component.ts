@@ -1,3 +1,4 @@
+import { ParamsService } from 'src/app/services';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
     public dialog: MatDialog,
     private messageHandler: MessageHandler,
-    private router: Router) {
+    private router: Router,
+    private paramsService: ParamsService) {
     this.authenticationService.sessionChange.subscribe((user: Usuario) => this.initPage());
   }
 
@@ -52,7 +54,7 @@ export class HomeComponent implements OnInit {
 
   logoutClick() {
     this.messageHandler.openConfirmDialog("¿Está seguro que desea salir?").subscribe(result => {
-      if (result) {
+      if(this.paramsService.accept){
         this.authenticationService.logOut();
         this.router.navigate(['./']);
       }

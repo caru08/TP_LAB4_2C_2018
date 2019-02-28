@@ -1,3 +1,4 @@
+import { ConfirmMessageComponent } from './../components/common/messages/confirm-message.component';
 import { ConfirmDialogMessageComponent } from './../components/common/messages/confirm-dialog-message.component';
 import { Injectable } from "@angular/core";
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
@@ -59,10 +60,11 @@ export class MessageHandler {
     }
 
     public openConfirmDialog(message: string) {
-        let dialogRef = this.dialog.open(ConfirmDialogMessageComponent, {
-            data: { message: message }
-        });
-        return dialogRef.afterClosed();
+        let config = new MatSnackBarConfig();
+        config.data = message;
+        config.panelClass = 'confirm-snack';
+        let snackRef = this.snackBar.openFromComponent(ConfirmMessageComponent, config);
+        return snackRef.afterDismissed();
     }
 
 

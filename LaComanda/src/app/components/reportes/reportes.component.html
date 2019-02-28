@@ -1,0 +1,89 @@
+<div class="workspace-container">
+    <div class="workspace-content">
+        <circle-loader [loading]="loading"></circle-loader>
+        <div class="layout-fill">
+            <div class="flex-v expand">
+                <div class="flex-h">
+                    <div class="flex-v expand-w">
+                        <div ng-scrollster class="expand scrollable-container">
+                            <div style="color:white; margin-bottom: 1em;" class="titles">Reportes</div>
+                            <div class="flex-h expand-w">
+                                <mat-form-field class="first-item-panel" style="margin-right:1em;">
+                                    <mat-select placeholder="Seleccionar tipo de Reporte" [(ngModel)]="reporte"
+                                        (selectionChange)="tipoReporteChange()">
+                                        <mat-option *ngFor="let reporte of reportesList" [value]="reporte">
+                                            {{reporte.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="first-item-panel" style="margin-left:1em;">
+                                    <mat-select placeholder="Seleccionar subreporte" [(ngModel)]="subReporte"
+                                        (selectionChange)="subReporteChange()">
+                                        <mat-option *ngFor="let subreporte of reporte.subReportes" [value]="subreporte">
+                                            {{subreporte.label}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div class="search-button" *ngIf="subReporte.name">
+                                        <button mat-icon-button (click)="buscar()" matTooltip="Obtener Reporte">
+                                            <mat-icon class="icon-button">search</mat-icon>
+                                        </button>
+                                    </div>
+                            </div>
+                            <div style="margin-top: 1em;" class="flex-h">
+                                <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroFecha">
+                                    <mat-form-field>
+                                        <input matInput [matDatepicker]="pickerInicio"
+                                            placeholder="Seleccionar Fecha Inicio" [max]="maxDate"
+                                            [(ngModel)]="filtroFechaInicio">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerInicio></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroFecha">
+                                    <mat-form-field>
+                                        <input matInput [matDatepicker]="pickerFin" placeholder="Seleccionar Fecha Fin"
+                                            [max]="maxDate" [min]="filtroFechaInicio" [(ngModel)]="filtroFechaFin">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerFin></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroRol">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Seleccionar rol" [(ngModel)]="filtroRol"
+                                            (selectionChange)="filtroRolChange()">
+                                            <mat-option *ngFor="let rol of rolesList" [value]="rol.value">
+                                                {{rol.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroEmpleados">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Seleccionar empleado" [(ngModel)]="filtroEmpleado"
+                                            (selectionChange)="filtroEmpleadoChange()">
+                                            <mat-option *ngFor="let empleado of empleadosList" [value]="empleado.email">
+                                                {{empleado.nombre}} {{empleado.apellido}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>                              
+                            </div>
+
+                            <div *ngIf="mostrarReporte">
+                                <reporte-empleado-sesion *ngIf="subReporte.name == 'logSesion'"
+                                    [filtro-fecha-inicio]="filtroFechaInicio" [filtro-fecha-fin]="filtroFechaFin"
+                                    [filtro-rol]="filtroRol" [filtro-empleado]="filtroEmpleado">
+                                </reporte-empleado-sesion>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

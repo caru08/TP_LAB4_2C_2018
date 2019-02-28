@@ -14,9 +14,10 @@ export class Pedido {
     fecha: string;
     foto: string;
     cliente: string;
+    fechaEntrega:string;
     
 
-    constructor(key?, mesa?, estado?, productos?, mozo?, codigo?, fecha?, foto?, cliente?){
+    constructor(key?, mesa?, estado?, productos?, mozo?, codigo?, fecha?, foto?, cliente?, fechaEntrega?){
         this.key = key ? key : '';
         this.mesa = mesa ? mesa : '';
         this.estado = estado ? estado : '';
@@ -26,6 +27,7 @@ export class Pedido {
         this.fecha = fecha ? fecha : '';
         this.foto = foto ? foto : '';
         this.cliente = cliente ? cliente : '';
+        this.fechaEntrega = fechaEntrega ? fechaEntrega : '';
     }
 
     mapDataToServer(productos){

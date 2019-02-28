@@ -1,3 +1,6 @@
+
+import * as m from 'moment';
+
 export class Tools {
 
   static deepCopy(obj: any) {
@@ -55,6 +58,71 @@ export class Tools {
   static parseStringDateTimeToDateTime(fecha:string){
     var fechaArray = fecha.split('/');
 
+  }
+
+  static parseMomentDateToString(fecha){
+    let fechaString = Tools.parseServerFormatDate(fecha._d);
+    return fechaString;   
+  }
+
+  static sameDateString(fechaUno, fechaDos){
+    let fUno = fechaUno.split('/');
+    let fUnoYear = fUno[2].split(' ');
+    let fDos = fechaDos.split('/');
+    let fDosYear = fDos[2].split(' ');
+    if(fUnoYear[0] == fDosYear[0]){
+      if(fUno[0] == fDos[0]){
+        if(fUno[1] == fDos[1]){
+          return true;
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
+
+  static greaterThanDates(fichaLimite, fechaAComparar){
+    let fUno = fichaLimite.split('/');
+    let fUnoYear = fUno[2].split(' ');
+    let fDos = fechaAComparar.split('/');
+    let fDosYear = fDos[2].split(' ');
+    if(fUnoYear[0] == fDosYear[0] || fUnoYear[0] < fDosYear[0]){
+      if(fUno[0] == fDos[0] || fUno[0] < fDos[0]){
+        if(fUno[1] == fDos[1] || fUno[1] < fDos[1]){
+          return true;
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
+
+  static smallThanDates(fichaLimite, fechaAComparar){
+    let fUno = fichaLimite.split('/');
+    let fUnoYear = fUno[2].split(' ');
+    let fDos = fechaAComparar.split('/');
+    let fDosYear = fDos[2].split(' ');
+    if(fUnoYear[0] == fDosYear[0] || fUnoYear[0] > fDosYear[0]){
+      if(fUno[0] == fDos[0] || fUno[0] > fDos[0]){
+        if(fUno[1] == fDos[1] || fUno[1] > fDos[1]){
+          return true;
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+    }else{
+      return false;
+    }
   }
 
   static objectsAreEqual(object1, object2) {

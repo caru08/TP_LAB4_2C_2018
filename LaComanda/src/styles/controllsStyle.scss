@@ -127,6 +127,17 @@ input:-webkit-autofill {
     align-items: center !important;
 }
 
+.confirm-snack{
+  margin: 0px !important;
+    min-width: 400px !important;
+    min-height: 65px !important;
+    background-color: #2d2dd6 !important;
+    color: white !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 .error-snack{
   margin: 0px !important;
     min-width: 400px !important;

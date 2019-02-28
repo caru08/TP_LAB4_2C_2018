@@ -33,7 +33,8 @@ export class PedidosComponent implements OnInit {
         enPreparacion: 'En Preparación',
         listo: 'Listo para servir',
         entregado: 'Entregado',
-        cerrado: 'Cerrado'
+        cerrado: 'Cerrado',
+        cancelado: 'Cancelado'
     }
     public estadoProductos = {
         pedido: 'Pedido',
@@ -99,7 +100,9 @@ export class PedidosComponent implements OnInit {
     }
 
     pasarAEntregado(item) {
-        debugger;
+        let fecha = new Date();
+        let fechaString = Tools.parseServerFormatDate(fecha);
+        item.fechaEntrega = fechaString;
         item.estado = Diccionario.estadoPedidos.entregado;
         this.baseService.updateEntity(configs.apis.pedidos, item.key, item)
             .then(response => {
@@ -132,6 +135,17 @@ export class PedidosComponent implements OnInit {
         this.actualizarEstadoMesa(item, Diccionario.estadoMesas.clientePagando);
     }
 
+    cancelarPedido(item){
+        item.estado = Diccionario.estadoPedidos.cancelado;
+        this.baseService.updateEntity(configs.apis.pedidos, item.key, item)
+            .then(response => {
+                this.messageHandler.showSucessMessage("El pedido fue cancelado")
+            }, error => {
+                this.messageHandler.showErrorMessage("Ocurrió un error al cancelar el pedido")
+            })
+        this.actualizarEstadoMesa(item, Diccionario.estadoMesas.libre);
+    }
+
     private getPedidosMozo() {
         this.loading = true;
         this.baseService.getListByProperty(configs.apis.pedidos, 'mozo', this.autenticationService.getUID())
@@ -139,7 +153,7 @@ export class PedidosComponent implements OnInit {
                 this.pedidos = new Array<Pedido>();
                 let pedidos = response.map(pedido => {
                     let datos: any = pedido.payload.val()
-                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente);
+                    return new Pedido(pedido.key, datos.mesa, datos.estado, datos.productos, datos.mozo, datos.codigo, datos.fecha, datos.foto, datos.cliente, datos.fechaEntrega);
                 })
                 this.checkPedidosEstado(pedidos);
                 this.pedidos = pedidos;
@@ -273,6 +287,7 @@ export class PedidosComponent implements OnInit {
             if (pedido.estado !== Diccionario.estadoPedidos.listo
                 && pedido.estado !== Diccionario.estadoPedidos.entregado
                 && pedido.estado !== Diccionario.estadoPedidos.cuentaSolicitada
+                && pedido.estado !== Diccionario.estadoPedidos.cancelado
                 && pedido.estado !== Diccionario.estadoPedidos.cerrado) {
                 let pedidoListo = true;
                 for (let key in pedido.productos) {

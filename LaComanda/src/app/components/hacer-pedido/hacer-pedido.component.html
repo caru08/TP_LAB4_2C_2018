@@ -139,6 +139,12 @@
                                 <div style="color:white; margin-bottom: 1em;" class="titles">Pedido</div>
                                 <div class="flex-v expand-w">
                                     <mat-form-field class="first-item-panel">
+                                        <input matInput placeholder="Email cliente"
+                                            [(ngModel)]="pedido.cliente" type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex-v expand-w">
+                                    <mat-form-field class="first-item-panel">
                                         <mat-select placeholder="Seleccionar mesa" [(ngModel)]="pedido.mesa">
                                             <mat-option *ngFor="let mesa of mesas" [value]="mesa.codigo">
                                                 {{mesa.nombre}} - {{mesa.codigo}}
@@ -168,7 +174,7 @@
 
                                 <div class="flex-v expand-w expand-center actions-button-container">
                                     <button mat-raised-button color="primary" style="margin-right: 0.5em;"
-                                        [disabled]="!pedido.mesa || !productos.length" (click)="saveClick()">Guardar
+                                        [disabled]="!pedido.mesa || !pedido.cliente" (click)="saveClick()">Guardar
                                     </button>
                                 </div>
                             </div>

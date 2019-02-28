@@ -15,7 +15,8 @@ export const configs = {
     productos: 'productos/',
     mesas: 'mesas/',
     pedidos: 'pedidos/',
-    encuestaCliente: 'encuesta-cliente/'
+    encuestaCliente: 'encuesta-cliente/',
+    logSesiones: 'log-sesiones/'
   }
 
 };
