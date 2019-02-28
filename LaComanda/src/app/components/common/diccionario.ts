@@ -90,6 +90,10 @@ export class Diccionario {
         {
             name: 'Pedidos',
             path: '/pedidos'
+        },
+        {
+            name: 'Menu',
+            path: '/menu'
         }
     ];
     static cerveceroModules = [
@@ -100,6 +104,10 @@ export class Diccionario {
         {
             name: 'Pedidos',
             path: '/pedidos'
+        },
+        {
+            name: 'Menu',
+            path: '/menu'
         }
     ]
     static cocineroModules = [
@@ -114,7 +122,11 @@ export class Diccionario {
         {
             name: 'Pedidos',
             path: '/pedidos'
-        }
+        },
+        {
+            name: 'Menu',
+            path: '/menu'
+        },
     ]
     static administradorModules = [
         {
@@ -124,6 +136,10 @@ export class Diccionario {
         {
             name: 'Reportes',
             path: '/reportes'
+        },
+        {
+            name: 'Menu',
+            path: '/menu'
         }
     ]
     static socioModules = [
@@ -135,6 +151,10 @@ export class Diccionario {
             name: 'Pedidos',
             path: '/pedidos'
         },   
+        {
+            name: 'Menu',
+            path: '/menu'
+        }
     ]
 
 }
