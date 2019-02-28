@@ -24,22 +24,56 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 export class ReporteMesasFacturacionComponent implements OnInit, OnChanges {
 
+    @Input('filtro-factura') filtroFactura: string;
+    @Input('filtro-fecha-inicio') filtrofechainicio: any;
+    @Input('filtro-fecha-fin') filtrofechaFin: any;
     public loading: boolean;
     public showGraphic = false;
     public doughnutChartLabels: string[] = [];
     public doughnutChartData: number[] = [];
     public doughnutChartType: string = 'doughnut';
-  
+    public totalData = new Array<any>();
+    public tableDate = new Array<any>();
+    public contador: any;
+
+
     constructor(public dialog: MatDialog,
         private baseService: BaseService) {
     }
 
     ngOnInit() {
-        this.getData();
+        // this.getData();
     }
 
-    ngOnChanges() {
-
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes['filtroFactura'] && changes['filtroFactura'].currentValue) {
+            if (this.totalData.length) {
+                this.mapData();
+                return;
+            } else {
+                this.getData()
+                return;
+            }
+        }
+        if (changes['filtrofechainicio'] && changes['filtrofechainicio'].currentValue) {
+            if (this.totalData.length) {
+                this.mapData();
+                return;
+            } else {
+                this.getData()
+                return;
+            }
+        }
+        if (changes['filtrofechaFin'] && changes['filtrofechaFin'].currentValue) {
+            if (this.totalData.length) {
+                this.mapData();
+                return;
+            } else {
+                this.getData()
+                return;
+            }
+        }
+        this.getData();
     }
 
     getData() {
@@ -48,29 +82,97 @@ export class ReporteMesasFacturacionComponent implements OnInit, OnChanges {
             .subscribe(mesasResponse => {
                 this.baseService.getListByProperty(configs.apis.pedidos, 'estado', Diccionario.estadoPedidos.cerrado)
                     .subscribe(pedidosResponse => {
-                        let contador = {}
-                        debugger;
+                        this.contador = {}
                         this.doughnutChartLabels = new Array<string>();
                         this.doughnutChartData = new Array<number>();
 
                         mesasResponse.forEach(mesa => {
                             let datos = mesa.payload.val();
                             this.doughnutChartLabels.push(datos.nombre + ' - ' + datos.codigo);
-                            contador[datos.codigo] = 0;
+                            this.contador[datos.codigo] = 0;
                         })
                         pedidosResponse.forEach(pedido => {
                             let datos: any = pedido.payload.val();
+                            let total = 0;
                             datos.productos.forEach(producto => {
-                                contador[datos.mesa] += producto.precio;                                
+                                total += producto.precio;
                             });
+                            datos['total'] = total;
+                            this.totalData.push(datos);
                         })
-                        for (let key in contador) {
-                            this.doughnutChartData.push(contador[key])
-                        }
-                        this.showGraphic = true;
+                        this.mapData();
                         this.loading = false;;
                     })
 
             })
+    }
+
+    mapData() {
+        if (this.filtroFactura) {
+            this.clearContador();
+            switch (this.filtroFactura) {
+                case 'mayorFactura':
+                    this.totalData.forEach(pedido => {
+                        if (this.contador[pedido.mesa] < pedido.total) {
+                            this.contador[pedido.mesa] = pedido.total;
+                        }
+                    })
+                    break;
+            }
+        }else if(this.filtrofechaFin || this.filtrofechainicio){
+            this.clearContador();
+            if (this.filtrofechainicio && !this.filtrofechaFin) {
+                this.filtrarIgualAFecha();
+            } else if (this.filtrofechainicio && this.filtrofechaFin) {
+                this.filtrarEntreDosFechas();
+            } else if (!this.filtrofechainicio && this.filtrofechaFin) {
+                this.filtrarHastaUnaFecha();
+            } 
+            this.tableDate.forEach(pedido => {                
+                    this.contador[pedido.mesa] += pedido.total;                
+            })
+        } else {
+            this.totalData.forEach(pedido => {
+                this.contador[pedido.mesa] += pedido.total;
+            })
+        }
+        for (let key in this.contador) {
+            this.doughnutChartData.push(this.contador[key])
+        }
+        this.showGraphic = true;
+    }
+
+    private clearContador() {
+        for (let key in this.contador) {
+            this.contador[key] = 0;
+        }
+    }
+
+    private filtrarIgualAFecha() {
+        let fechaComparar = Tools.parseMomentDateToString(this.filtrofechainicio);
+        this.tableDate = _.filter(this.totalData, (pedido: any) => {
+            if (Tools.sameDateString(fechaComparar, pedido.fecha)) {
+                return pedido;
+            }
+        })
+    }
+
+    private filtrarEntreDosFechas() {
+        let fechaMinima = Tools.parseMomentDateToString(this.filtrofechainicio);
+        let fechaMaxima = Tools.parseMomentDateToString(this.filtrofechaFin);
+        this.tableDate = _.filter(this.totalData, (pedido: any) => {
+            if (Tools.greaterThanDates(fechaMinima, pedido.fecha) && Tools.smallThanDates(fechaMaxima, pedido.fecha)) {
+                return pedido;
+            }
+        })
+    }
+
+    private filtrarHastaUnaFecha() {
+        let fechaMaxima = Tools.parseMomentDateToString(this.filtrofechaFin);
+        this.tableDate = _.filter(this.totalData, (pedido: any) => {
+            if (Tools.smallThanDates(fechaMaxima, pedido.fecha)) {
+                return pedido;
+            }
+        })
     }
 }

@@ -1,0 +1,32 @@
+<div style="margin-top: 2em;">
+    <circle-loader [loading]="loading"></circle-loader>
+    <div class="layout-fill">
+        <div class="flex-v expand">
+            <div class="flex-h">
+                <div class="flex-v expand-w" style="color: white">
+                    <crud-table [collection]="tableDate ? tableDate : {}" [columns]="columns">
+                        <ng-template let-column="column" let-element="element">
+                            <div>
+                                <div *ngIf="column.name == 'codigo'">
+                                    {{element.codigo}}
+                                </div>
+                                <div *ngIf="column.name == 'fechaPedido'">
+                                    {{element.fechaPedido}}
+                                </div>
+                                <div *ngIf="column.name == 'fechaEntrega'">
+                                    {{element.fechaEntrega}}
+                                </div>
+                                <div *ngIf="column.name == 'tiempoElaboracion'">
+                                    {{element.tiempoElaboracion}}
+                                </div>  
+                                <div *ngIf="column.name == 'estadoEntrega'">
+                                    {{element.estadoEntrega ? 'Entregado a tiempo': 'Entregado con demora'}}
+                                </div>                        
+                            </div>
+                        </ng-template>
+                    </crud-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

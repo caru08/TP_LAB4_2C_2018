@@ -55,9 +55,16 @@ export class Tools {
     return newDate.getFullYear() + "/" + (newDate.getMonth() + 1) + "/" + newDate.getDate();
   }
 
-  static parseStringDateTimeToDateTime(fecha:string){
+  static parseStringDateTimeToDateTime(fecha:string): Date{
     var fechaArray = fecha.split('/');
-
+    var fechaArrayAno = fechaArray[2].split(' ');
+    var fechaArrayHoras = fechaArrayAno[1].split(':');
+    let date = new Date();
+    date.setFullYear(parseInt(fechaArrayAno[0]), parseInt(fechaArray[1]) - 1 , parseInt(fechaArray[0]))
+    date.setHours(parseInt(fechaArrayHoras[0]));
+    date.setMinutes(parseInt(fechaArrayHoras[1]));
+    date.setMilliseconds(0);
+    return date;
   }
 
   static parseMomentDateToString(fecha){

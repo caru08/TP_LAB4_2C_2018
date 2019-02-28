@@ -39,7 +39,6 @@ export class ReporteEmpleadoSesionComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        debugger;
         if (changes['filtrofechainicio'] && changes['filtrofechainicio'].currentValue) {
             if (this.totalData.length) {
                 this.mapData();

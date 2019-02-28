@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DatePipe {
     
     transform(data: any, format:string){
-        debugger;
         
 
     }

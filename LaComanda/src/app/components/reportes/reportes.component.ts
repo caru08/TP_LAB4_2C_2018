@@ -25,10 +25,12 @@ export class ReportesComponent implements OnInit {
     public filtroRol: any;
     public filtroEmpleado: any;
     public filtroTipoProducto: any;
+    public filtroFactura: any;
     public mostrarReporte: boolean;
     public maxDate = new Date();
     public rolesList = new Array<any>();
     public tiposDeProductos = new Array<any>();
+    public filtroFacturasList = new Array<any>();
     public empleadosList = new Array<any>();
     public empleadoSeleccionado: any;
     public reportesList = [
@@ -84,6 +86,8 @@ export class ReportesComponent implements OnInit {
                 {
                     label: 'Mesas que más facturaron',
                     name: 'mesasMayorFactura',
+                    filtroFacturas: 'filtroFacturas',
+                    filtroFecha: true,
                 }
             ]
         },
@@ -93,22 +97,22 @@ export class ReportesComponent implements OnInit {
                 {
                     label: 'Atención de Mozos',
                     name: 'encuestaMozos',
+                    filtro: 'mozo'
                 },
                 {
                     label: 'Satisfacción de la comida',
                     name: 'encuestaComida',
+                    filtro: 'comida'
                 },
                 {
                     label: 'Opiniones del Lugar',
                     name: 'encuestaRestaurante',
+                    filtro: 'restaurante'
                 },
                 {
                     label: 'Opiniones de las mesas',
-                    name: 'encuestaMesas'
-                },
-                {
-                    label: 'Comentarios',
-                    name: 'encuestaComentarios',
+                    name: 'encuestaMesas',
+                    filtro: 'mesa'
                 }
             ]
         }
@@ -128,6 +132,12 @@ export class ReportesComponent implements OnInit {
         for (let key in Diccionario.tipoProductos) {
             this.tiposDeProductos.push({ label: key, value: Diccionario.tipoProductos[key] });
         }
+        this.filtroFacturasList = [ 
+            { 
+                label: 'Con Mayor Factura',
+                name: 'mayorFactura'
+            }
+        ]
     }
 
     ngOnInit() {
@@ -147,9 +157,7 @@ export class ReportesComponent implements OnInit {
     }
 
     buscar() {
-       
-            this.mostrarReporte = true;
-        
+            this.mostrarReporte = true;        
     }
 
     tipoReporteChange() {
@@ -182,6 +190,19 @@ export class ReportesComponent implements OnInit {
 
     filtroTipoProductosChange(){
 
+    }
+
+    filtroTipoFacturacionChange(){
+        this.mostrarReporte = false;
+        this.filtroFechaInicio = '';
+        this.filtroFechaFin = '';
+    }
+
+    changeFecha(){
+        if(this.subReporte.name == 'mesasMayorFactura'){
+            this.filtroFactura = ''
+            this.mostrarReporte = false;
+        }
     }
 
 }

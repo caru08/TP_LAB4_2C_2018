@@ -35,7 +35,7 @@
                                     <mat-form-field>
                                         <input matInput [matDatepicker]="pickerInicio"
                                             placeholder="Seleccionar Fecha Inicio" [max]="maxDate"
-                                            [(ngModel)]="filtroFechaInicio">
+                                            [(ngModel)]="filtroFechaInicio" (dateChange)="changeFecha()">
                                         <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
                                         <mat-datepicker #pickerInicio></mat-datepicker>
                                     </mat-form-field>
@@ -43,7 +43,7 @@
                                 <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroFecha">
                                     <mat-form-field>
                                         <input matInput [matDatepicker]="pickerFin" placeholder="Seleccionar Fecha Fin"
-                                            [max]="maxDate" [min]="filtroFechaInicio" [(ngModel)]="filtroFechaFin">
+                                            [max]="maxDate" [min]="filtroFechaInicio" [(ngModel)]="filtroFechaFin" (dateChange)="changeFecha()">
                                         <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
                                         <mat-datepicker #pickerFin></mat-datepicker>
                                     </mat-form-field>
@@ -80,6 +80,16 @@
                                         </mat-select>
                                     </mat-form-field>
                                 </div>
+                                <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroFacturas">
+                                    <mat-form-field>
+                                        <mat-select placeholder="Seleccionar tipo de facturación" [(ngModel)]="filtroFactura"
+                                        (selectionChange)="filtroTipoFacturacionChange()">
+                                            <mat-option *ngFor="let factura of filtroFacturasList" [value]="factura.name">
+                                                {{factura.label}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
                             </div>
 
                             <div *ngIf="mostrarReporte">
@@ -101,7 +111,13 @@
                                 </reporte-pedidos-cancelados>   
                                 <reporte-mesas-usos *ngIf="subReporte.name == 'mesasUsadas'">                                    
                                 </reporte-mesas-usos>  
-                                <reporte-mesa-facturacion *ngIf="subReporte.name == 'mesasMayorFactura'"></reporte-mesa-facturacion>                                                        
+                                <reporte-mesa-facturacion *ngIf="subReporte.name == 'mesasMayorFactura'"
+                                [filtro-factura]='filtroFactura'  [filtro-fecha-inicio]="filtroFechaInicio" [filtro-fecha-fin]="filtroFechaFin"
+                                ></reporte-mesa-facturacion>   
+                                <reporte-encuestas *ngIf="subReporte.name == 'encuestaMozos' || subReporte.name == 'encuestaComida' 
+                                || subReporte.name == 'encuestaRestaurante' || subReporte.name == 'encuestaMesas'" [tipo-filtro]="subReporte.filtro">
+                                </reporte-encuestas>  
+                                <reporte-tiempo-entrega *ngIf="subReporte.name == 'pedidosEntrega'"></reporte-tiempo-entrega>                                                   
                             </div>
                         </div>
                     </div>

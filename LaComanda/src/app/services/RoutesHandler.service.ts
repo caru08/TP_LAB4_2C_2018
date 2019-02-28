@@ -68,7 +68,6 @@ export class MainGuard implements CanActivate, CanActivateChild {
       }
       return hasPermission;
       */
-    debugger;
     return true;
   }
 

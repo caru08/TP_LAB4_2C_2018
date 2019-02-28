@@ -48,7 +48,6 @@ export class ReporteMesasUsosComponent implements OnInit, OnChanges {
                 this.baseService.getListByProperty(configs.apis.pedidos, 'estado', Diccionario.estadoPedidos.cerrado)
                     .subscribe(pedidosResponse => {
                         let contador = {}
-                        debugger;
                         this.doughnutChartLabels = new Array<string>();
                         this.doughnutChartData = new Array<number>();
 

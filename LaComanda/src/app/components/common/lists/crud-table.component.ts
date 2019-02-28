@@ -28,7 +28,6 @@ export class CrudTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(){
-    debugger;
     this.setDataSource();
     this.setDisplayedColumns();
   }
@@ -50,7 +49,6 @@ export class CrudTableComponent implements OnInit, OnChanges {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.sort.sortChange.subscribe(() => {
-      debugger;
       this.paginator.pageIndex = 0
     });
     console.log('afterviewinit de crudtable');
