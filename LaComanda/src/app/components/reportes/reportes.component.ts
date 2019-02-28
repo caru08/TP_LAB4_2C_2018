@@ -42,11 +42,10 @@ export class ReportesComponent implements OnInit {
                 {
                     label: 'Cantidad de operaciones por sector',
                     name: 'pedidosSector',
-                    filtroFecha: true,
-                    filtroEmpleado: true
+                    filtroFecha: true
                 },
                 {
-                    label: 'Centidad de operaciones por empleado',
+                    label: 'Cantidad de operaciones de los empleado',
                     name: 'pedidosEmpleado'
                 }
             ]

@@ -36,6 +36,8 @@ import '../styles/font.scss';
 import '../styles/icons.scss';
 import '../styles/controllsStyle.scss';
 import '../styles/workspace.scss';
+import { ChartsModule } from 'ng2-charts';
+
 
 import { OrderByPipe } from './pipes/orderBy.pipe';
 import { DatePipe } from './pipes/date.pipe';
@@ -61,6 +63,7 @@ import { EncuestaClienteComponent } from './components/encuesta-cliente/encuesta
 import { CervezasComponent } from './components/cervezas/cervezas.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { ReporteEmpleadoSesionComponent } from './components/reportes/subReportes/reporte-empleado-sesion.component';
+import { ReportesOperacionSectorComponent } from './components/reportes/subReportes/reporte-operaciones-sector.component';
 
 export const DateFormat = {
   parse: {
@@ -101,7 +104,8 @@ export const DateFormat = {
     ConfirmMessageComponent,
     ReportesComponent,
     ReporteEmpleadoSesionComponent,
-    CrudTableComponent
+    CrudTableComponent,
+    ReportesOperacionSectorComponent
   ],
   imports: [
     BrowserModule,
@@ -139,6 +143,7 @@ export const DateFormat = {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     RouterModule.forRoot(ROUTES, {
       useHash: true,
       preloadingStrategy: PreloadAllModules,

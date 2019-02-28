@@ -25,10 +25,10 @@
                                     </mat-select>
                                 </mat-form-field>
                                 <div class="search-button" *ngIf="subReporte.name">
-                                        <button mat-icon-button (click)="buscar()" matTooltip="Obtener Reporte">
-                                            <mat-icon class="icon-button">search</mat-icon>
-                                        </button>
-                                    </div>
+                                    <button mat-icon-button (click)="buscar()" matTooltip="Obtener Reporte">
+                                        <mat-icon class="icon-button">search</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                             <div style="margin-top: 1em;" class="flex-h">
                                 <div class="size-h-30 filtro-container" *ngIf="subReporte.filtroFecha">
@@ -67,7 +67,7 @@
                                             </mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                </div>                              
+                                </div>
                             </div>
 
                             <div *ngIf="mostrarReporte">
@@ -75,10 +75,10 @@
                                     [filtro-fecha-inicio]="filtroFechaInicio" [filtro-fecha-fin]="filtroFechaFin"
                                     [filtro-rol]="filtroRol" [filtro-empleado]="filtroEmpleado">
                                 </reporte-empleado-sesion>
-
-
-
-
+                                <reporte-operacion-sector *ngIf="subReporte.name == 'pedidosSector'"
+                                    [filtro-fecha-inicio]="filtroFechaInicio" [filtro-fecha-fin]="filtroFechaFin"
+                                    [filtro-empleado]="filtroEmpleado">
+                                </reporte-operacion-sector>
                             </div>
                         </div>
                     </div>
