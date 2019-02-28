@@ -10,6 +10,7 @@ import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { HacerPedidoComponent } from './components/hacer-pedido/hacer-pedido.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { CervezasComponent } from './components/cervezas/cervezas.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 export const ROUTES: Routes = [
   {
@@ -42,6 +43,9 @@ export const ROUTES: Routes = [
   {
     path: 'reportes', component: ReportesComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
   },
+  {
+    path: 'menu', component: MenuComponent, pathMatch: 'full', canActivate: [MainGuard], canActivateChild: [MainGuard],
+  }
   
   
   

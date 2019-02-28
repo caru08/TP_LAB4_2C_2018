@@ -71,6 +71,7 @@ import { ReporteProductosVendidosComponent } from './components/reportes/subRepo
 import { ReportesPedidosCanceladosComponent } from './components/reportes/subReportes/reporte-pedidos-cancelados.component';
 import { ReporteMesasFacturacionComponent } from './components/reportes/subReportes/reporte-mesa-facturacion.component';
 import { ReporteEncuestasComponent } from './components/reportes/subReportes/reporte-encuestas.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 export const DateFormat = {
   parse: {
@@ -119,7 +120,8 @@ export const DateFormat = {
     ReporteMesasUsosComponent,
     ReporteMesasFacturacionComponent,
     ReporteEncuestasComponent,
-    ReporteTiempoEntregaComponent
+    ReporteTiempoEntregaComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
