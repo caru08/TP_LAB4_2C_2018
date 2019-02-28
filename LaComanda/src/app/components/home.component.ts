@@ -52,6 +52,10 @@ export class HomeComponent implements OnInit {
     //this.router.navigate([moduleItem.path]);
   }
 
+  buttonMenuClick(){
+    this.router.navigate(['./']);
+  }
+
   logoutClick() {
     this.messageHandler.openConfirmDialog("¿Está seguro que desea salir?").subscribe(result => {
       if(this.paramsService.accept){

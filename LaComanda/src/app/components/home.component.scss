@@ -1,3 +1,4 @@
+@import "../../styles/_variables.scss";
 
 
 :host{
@@ -8,4 +9,9 @@
 
 .module-container{
     margin: 0 1em;
+}
+
+.nav-bar-container{
+    height: 40px;
+    border-bottom: 2px solid $first-detail-color;;
 }

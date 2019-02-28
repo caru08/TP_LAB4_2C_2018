@@ -64,7 +64,7 @@ export class ReportesComponent implements OnInit {
                 {
                     label: 'Productos más vendidos',
                     name: 'productosMasVendidos',
-                    filtroTipoProducto: true,
+                   // filtroTipoProducto: true,
                 },
                 {
                     label: 'Tiempo de entrega de pedidos',

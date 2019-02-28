@@ -67,6 +67,7 @@ export class ReporteProductosVendidosComponent implements OnInit, OnChanges {
     getData() {
         this.baseService.getListByProperty(configs.apis.pedidos, 'estado', Diccionario.estadoPedidos.cerrado)
             .subscribe(response => {
+                debugger;
                 this.totalData = new Array<any>();
                 let contador = {}
                 response.forEach(pedido => {

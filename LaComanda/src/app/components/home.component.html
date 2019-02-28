@@ -1,9 +1,9 @@
 <header>
-  <div class="flex-h nav-bar-container nar-bar-container-border">
+  <div class="flex-h nav-bar-container nav-bar-container">
     <div class="flex-grow-0 nav-bar-menu-container">
-      <div class="row-container">
+      <div class="row-container flex-h-center">
         <div class="flex-grow-0">
-          <button mat-button class="full-row-button">
+          <button mat-button class="full-row-button" (click)="buttonMenuClick()">
             <mat-icon>menu</mat-icon>
           </button>
         </div>
@@ -11,19 +11,19 @@
         </div>
       </div>
     </div>
-    <div class="flex-grow-1 row-container expand-center">
+    <div class="flex-grow-1 row-container expand-center flex-h-center">
       <div *ngFor="let module of modules">
         <button mat-button class="full-row-button" class="module-container" (click)="moduleClick(module)">
           <span style="color:white;">{{module.name}}</span>
         </button>
       </div>
     </div>
-    <div class="expand-right" *ngIf="!isLogged">
+    <div class="expand-right flex-h-center" *ngIf="!isLogged">
       <button mat-button class="full-row-button" (click)="loginClick()">
         <span style="color:white;">Login</span>
       </button>
     </div>
-    <div class="expand-right" *ngIf="isLogged">
+    <div class="expand-right flex-h-center" *ngIf="isLogged">
       <button mat-button [matMenuTriggerFor]="menu" class="full-row-button" style="color:white">{{userName}}</button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="logoutClick()">Salir</button>

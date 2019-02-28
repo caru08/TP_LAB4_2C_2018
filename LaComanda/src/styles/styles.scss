@@ -65,6 +65,9 @@ main{
   font-family: "Roboto";
   overflow: hidden;
   flex: 1;
+  background-image: url('./../assets/imgs/fondoLaComanda.png') !important;
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .layout-fill{
