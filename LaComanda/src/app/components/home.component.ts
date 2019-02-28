@@ -216,8 +216,6 @@ export class HomeComponent implements OnInit {
    
     this.baseService.addEntity(configs.apis.pedidos, pedido)
     .then(res => {
-      debugger;
-
 
      })
      

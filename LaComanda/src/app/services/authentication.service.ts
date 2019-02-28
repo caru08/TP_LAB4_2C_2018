@@ -138,9 +138,10 @@ export class AuthenticationService {
     public logInicioSesion(usuario) {
         let fecha = new Date();
         let fechaString = Tools.parseServerFormatDate(fecha);
-        let logInicio = { fechaInicio: fechaString, usuarioId: usuario.uid, usuarioEmail: usuario.email, rol: usuario.rol, fechaFin: 'vacia' };
-        this.baseService.addEntity(configs.apis.logSesiones, logInicio)
+        this.loginInfo = { fechaInicio: fechaString, usuarioId: usuario.uid, usuarioEmail: usuario.email, rol: usuario.rol, fechaFin: 'vacia' };
+        this.baseService.addEntity(configs.apis.logSesiones, this.loginInfo)
             .then(response => {
+                this.loginInfo['key'] = response.key;                
             })
     }
 
@@ -158,10 +159,12 @@ export class AuthenticationService {
         logFin['fechaFin'] = fechaFin;
         this.baseService.updateEntity(configs.apis.logSesiones, logFin.key, logFin)
             .then(response => {
-                this.setUser(null);
-                this.setEmailPass('', '');
-                this.MiAuth.auth.signOut();
-                this.logoutFromDatabase();
+                setTimeout(()=>{
+                    this.setUser(null);
+                    this.setEmailPass('', '');
+                    this.MiAuth.auth.signOut();
+                    this.logoutFromDatabase();
+                }, 1)                
             });
     }
 
@@ -218,7 +221,7 @@ export class AuthenticationService {
                                 key: response[0].key, fechaInicio: dato.fechaInicio, usuarioId: dato.usuarioId,
                                 usuarioEmail: dato.usuarioEmail, rol: dato.rol, fechaFin: dato.fechaFin
                             };
-                            return;
+                            return false;
                         }
                     })
                 }
