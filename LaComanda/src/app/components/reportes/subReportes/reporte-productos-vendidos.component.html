@@ -5,7 +5,7 @@
             <div class="flex-h">
                 <div class="flex-v expand-w" style="color: white">
                     <div style="display: flex; justify-content: center; margin-bottom: 3em;" *ngIf="showGraphic">
-                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" style="width: 1000px; height: 500px;"
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
                             [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"
                             (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
                     </div>

@@ -2,12 +2,12 @@
     <div class="workspace-content">
         <circle-loader [loading]="loading"></circle-loader>
         <div class="layout-fill">
-            <div class="flex-v expand">
-                <div class="flex-h">
+            <div class="flex-v expand" style="padding: 0 2em;">
+                <div class="flex-h" style="padding-top: 1em;">
                     <div class="flex-80 titles">Comidas</div>
                     <div class="flex-20">
                         <div class="row-icon-container expand-right">
-                            <button mat-mini-fab (click)="addBebida()">
+                            <button mat-mini-fab (click)="addBebida()" [disabled]="showForm">
                                 <mat-icon>add</mat-icon>
                             </button>
                         </div>

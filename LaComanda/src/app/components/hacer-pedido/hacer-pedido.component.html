@@ -2,13 +2,13 @@
     <div class="workspace-content">
         <circle-loader [loading]="loading"></circle-loader>
         <div class="layout-fill">
-            <div class="flex-v expand">
+            <div class="flex-v expand" style="padding-right:2em; padding-left: 2em;">
                 <div class="flex-h">
                     <div class="flex-v expand-w">
                         <div ng-scrollster class="expand scrollable-container">
                             <div style="margin-right: 1em; margin-bottom: 1em;">
 
-                                <div style="color:white; margin-bottom: 1em;" class="titles">Cervezas</div>
+                                <div style="color:white; margin-bottom: 1em; padding-top: 1em;" class="titles">Cervezas</div>
                                 <div class="flex-60" *ngFor="let item of cervezasList | orderBy:'nombre':true">
                                     <div class="flex-h list-row-container">
                                         <div width="100" height="160">
@@ -136,46 +136,52 @@
                     <div *ngIf="productos.length" class="flex-40 columns-container">
                         <div class="flex-v flex-100">
                             <div ng-scrollster class="expand scrollable-container">
-                                <div style="color:white; margin-bottom: 1em;" class="titles">Pedido</div>
-                                <div class="flex-v expand-w">
-                                    <mat-form-field class="first-item-panel">
-                                        <input matInput placeholder="Email cliente"
-                                            [(ngModel)]="pedido.cliente" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex-v expand-w">
-                                    <mat-form-field class="first-item-panel">
-                                        <mat-select placeholder="Seleccionar mesa" [(ngModel)]="pedido.mesa">
-                                            <mat-option *ngFor="let mesa of mesas" [value]="mesa.codigo">
-                                                {{mesa.nombre}} - {{mesa.codigo}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div *ngFor="let producto of productos | orderBy:'tipo':true">
-                                    <div class="flex-h">
-                                        <div class="flex-70 flex-h-center" style="color:white">{{producto.nombre}}</div>
-                                        <div class="flex-30 expand-right" style="color:white">
-                                            <button mat-icon-button style="margin-right: 1em;"
-                                                (click)="removeItem(producto)" matTooltip="Editar">
-                                                <mat-icon class="icon-button">clear</mat-icon>
-                                            </button>
+                                <div>
+
+                                    <div style="color:white; margin-bottom: 1em; padding-top: 1em;" class="titles">Pedido</div>
+                                    <div class="flex-v expand-w">
+                                        <mat-form-field class="first-item-panel">
+                                            <input matInput placeholder="Email cliente" [(ngModel)]="pedido.cliente"
+                                                type="text">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="flex-v expand-w">
+                                        <mat-form-field class="first-item-panel">
+                                            <mat-select placeholder="Seleccionar mesa" [(ngModel)]="pedido.mesa">
+                                                <mat-option *ngFor="let mesa of mesas" [value]="mesa.codigo">
+                                                    {{mesa.nombre}} - {{mesa.codigo}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div *ngFor="let producto of productos | orderBy:'tipo':true">
+                                        <div class="flex-h">
+                                            <div class="flex-70 flex-h-center" style="color:white">{{producto.nombre}}
+                                            </div>
+                                            <div class="flex-30 expand-right" style="color:white">
+                                                <button mat-icon-button style="margin-right: 1em;"
+                                                    (click)="removeItem(producto)" matTooltip="Editar">
+                                                    <mat-icon class="icon-button">clear</mat-icon>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="flex-v expand-w flex-h-right actions-button-container" style="color:white">
-                                    Total: ${{getTotal()}}.-
-                                </div>
+                                    <div class="flex-v expand-w flex-h-right actions-button-container"
+                                        style="color:white">
+                                        Total: ${{getTotal()}}.-
+                                    </div>
 
-                                <div class="first-item-panel">
-                                    <input class="input-file" placeholder="Cargar foto" (change)="onFileChanged($event)"
-                                        type="file" (load)="imageLoad($event)" accept="image/jpeg,image/png">
-                                </div>
+                                    <div class="first-item-panel">
+                                        <input class="input-file" placeholder="Cargar foto"
+                                            (change)="onFileChanged($event)" type="file" (load)="imageLoad($event)"
+                                            accept="image/jpeg,image/png">
+                                    </div>
 
-                                <div class="flex-v expand-w expand-center actions-button-container">
-                                    <button mat-raised-button color="primary" style="margin-right: 0.5em;"
-                                        [disabled]="!pedido.mesa || !pedido.cliente" (click)="saveClick()">Guardar
-                                    </button>
+                                    <div class="flex-v expand-w expand-center actions-button-container">
+                                        <button mat-raised-button color="primary" style="margin-right: 0.5em;"
+                                            [disabled]="!pedido.mesa || !pedido.cliente" (click)="saveClick()">Guardar
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
