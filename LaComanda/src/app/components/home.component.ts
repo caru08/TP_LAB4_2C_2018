@@ -1,3 +1,4 @@
+import { BaseService } from './../services/baseService.service';
 import { ParamsService } from 'src/app/services';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +9,8 @@ import { RegisterComponent } from './login/register.component';
 import { Diccionario } from './common/diccionario';
 import { Usuario } from './../models/usuario';
 import { AuthenticationService } from './../services/authentication.service';
+import { configs } from '../globalConfigs';
+import { Tools } from './common/tools';
 
 @Component({
   selector: 'home',
@@ -26,7 +29,8 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog,
     private messageHandler: MessageHandler,
     private router: Router,
-    private paramsService: ParamsService) {
+    private paramsService: ParamsService,
+    private baseService: BaseService) {
     this.authenticationService.sessionChange.subscribe((user: Usuario) => this.initPage());
   }
 
@@ -49,7 +53,6 @@ export class HomeComponent implements OnInit {
 
   moduleClick(moduleItem) {
     this.router.navigate([moduleItem.path]);
-    //this.router.navigate([moduleItem.path]);
   }
 
   buttonMenuClick(){
@@ -63,8 +66,186 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['./']);
       }
     });
+  }
+
+
+  cargarDatos(){
+    let codigo = Tools.generateRandomString();
+    //mozo dos /mesa 4 /bartender dos y uno
+   /* let pedido = {
+      "cliente": "clienteuno@email.com",
+      "codigo": "OlmEG",
+      "estado": "cerrado",
+      "fecha": "3/2/2019 13:00",
+      "fechaEntrega": "3/2/2019 13:09",
+      "foto": "",
+      "key": "",
+      "mesa": "hZC8L",
+      "mozo": "JD3IRZMxAUU5D95ZJpkRF5gZWQu1",
+      "productos": [{
+        "empleado": "lElsl4ao88Y4I2N3CZcZPt57jlx2",
+        "estado": "listo",
+        "key": "0",
+        "nombre": "Cerveza  Artesanal Stout",
+        "precio": 80,
+        "tiempoElaboracion": 1,
+        "tiempoEmpleado": 1,
+        "tipo": "cerveza"
+      }, {
+        "empleado": "lElsl4ao88Y4I2N3CZcZPt57jlx2",
+        "estado": "listo",
+        "key": "1",
+        "nombre": "Cerveza Artesanal Honney",
+        "precio": 80,
+        "tiempoElaboracion": 1,
+        "tiempoEmpleado": 1,
+        "tipo": "cerveza"
+      }, {
+        "empleado": "gASPZgU3azaLYuRrrAcF6a8Wd412",
+        "estado": "listo",
+        "key": "2",
+        "nombre": "Cerveza Artesanal Ipa",
+        "precio": 80,
+        "tiempoElaboracion": 1,
+        "tiempoEmpleado": 5,
+        "tipo": "cerveza"
+      }, {
+        "empleado": "lElsl4ao88Y4I2N3CZcZPt57jlx2",
+        "estado": "listo",
+        "key": "3",
+        "nombre": "Cerveza Artesanal Ipa",
+        "precio": 80,
+        "tiempoElaboracion": 1,
+        "tiempoEmpleado": 1,
+        "tipo": "cerveza"
+      }, {
+        "empleado": "gASPZgU3azaLYuRrrAcF6a8Wd412",
+        "estado": "listo",
+        "key": "4",
+        "nombre": "Cerveza Artesanal Ipa",
+        "precio": 80,
+        "tiempoElaboracion": 1,
+        "tiempoEmpleado": 1,
+        "tipo": "cerveza"
+      }, {
+        "empleado": "gASPZgU3azaLYuRrrAcF6a8Wd412",
+        "estado": "listo",
+        "key": "5",
+        "nombre": "Cerveza Artesanal Ipa",
+        "precio": 80,
+        "tiempoElaboracion": 1,
+        "tiempoEmpleado": 1,
+        "tipo": "cerveza"
+      }]
+    }*/
+    let pedido = {
+      "cliente": "clientedos@email.com",
+      "codigo": "NU26e",
+      "estado": "cerrado",
+      "fecha": "10/2/2019 15:50",
+      "fechaEntrega": "10/2/2019 16:55",
+      "foto": "",
+      "key": "-LZpRL1pzCwVQnpxkVOw",
+      "mesa": "ep5je",
+      "mozo": "JD3IRZMxAUU5D95ZJpkRF5gZWQu1",
+      "productos": [{
+        "empleado": "4xUWOOZ6AjZRrKoI7hZasZXGWij2",
+        "estado": "listo",
+        "key": "0",
+        "nombre": "Imperial Rubia",
+        "precio": 90,
+        "tiempoElaboracion": 1,
+        "tiempoEmpleado": 1,
+        "tipo": "cerveza"
+      }, {
+        "empleado": "4xUWOOZ6AjZRrKoI7hZasZXGWij2",
+        "estado": "listo",
+        "key": "2",
+        "nombre": "Heineken",
+        "precio": 90,
+        "tiempoElaboracion": 1,
+        "tiempoEmpleado": 1,
+        "tipo": "cerveza"
+      }, {
+        "empleado": "u8QnMD6wRfWixNnf8eayOmhpdhu1",
+        "estado": "listo",
+        "key": "4",
+        "nombre": "Pollo grille con Fritas",
+        "precio": 200,
+        "tiempoElaboracion": 10,
+        "tiempoEmpleado": 10,
+        "tipo": "comida"
+      }, {
+        "empleado": "u8QnMD6wRfWixNnf8eayOmhpdhu1",
+        "estado": "listo",
+        "key": "5",
+        "nombre": "Fideos con Tuco",
+        "precio": 150,
+        "tiempoElaboracion": 15,
+        "tiempoEmpleado": 10,
+        "tipo": "comida"
+      }, {
+        "empleado": "u8QnMD6wRfWixNnf8eayOmhpdhu1",
+        "estado": "listo",
+        "key": "6",
+        "nombre": "Volcán de Chocolate ",
+        "precio": 150,
+        "tiempoElaboracion": 10,
+        "tiempoEmpleado": 15,
+        "tipo": "postre"
+      }, {
+        "empleado": "u8QnMD6wRfWixNnf8eayOmhpdhu1",
+        "estado": "listo",
+        "key": "7",
+        "nombre": "Volcán de Chocolate ",
+        "precio": 150,
+        "tiempoElaboracion": 10,
+        "tiempoEmpleado": 10,
+        "tipo": "postre"
+      }]
+    }
+
+    pedido.codigo = codigo;
+  /*  this.baseService.getListByProperty(configs.apis.pedidos, 'key', '-LZpRL1pzCwVQnpxkVOw')
+    .subscribe(res =>{
+      debugger
+      let datos = res[0].payload.val();
+      let json = JSON.stringify(datos);
+    })
+    */
+   
+    this.baseService.addEntity(configs.apis.pedidos, pedido)
+    .then(res => {
+      debugger;
+
+
+     })
+     
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   private openRegisterForm() {
     let dialogRef = this.dialog.open(RegisterComponent, {});

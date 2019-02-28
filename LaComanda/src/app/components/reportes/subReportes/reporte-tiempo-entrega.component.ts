@@ -30,6 +30,11 @@ export class ReporteTiempoEntregaComponent implements OnInit, OnChanges {
     public columns = new Array<TableColumn>();
     public tableDate = new Array<any>();
     public subscribeData: any;
+    public showGraphic = false;
+    public doughnutChartLabels: string[] = ['Con Demora', 'A Tiempo'];
+    public doughnutChartData: number[] = [];
+    public doughnutChartType: string = 'doughnut';
+  
 
     constructor(public dialog: MatDialog,
         private baseService: BaseService) {
@@ -54,22 +59,32 @@ export class ReporteTiempoEntregaComponent implements OnInit, OnChanges {
     }
 
     private getData(){
+        this.loading = true;
         this.baseService.getListByProperty(configs.apis.pedidos, 'estado', Diccionario.estadoPedidos.cerrado)
         .subscribe(response => {
+            let countConDemora = 0;
+            let countATiempo = 0;
             this.tableDate = response.map(pedido => {
                 let datos:any = pedido.payload.val();
                 let tiempoElaboracion = 0;
                 let enTiempo = false;
+               
                 datos.productos.forEach(producto => {
                     tiempoElaboracion += producto.tiempoEmpleado ? producto.tiempoEmpleado : producto.tiempoElaboracion;                    
                 });
-                let fechaPedido = Tools.parseStringDateTimeToDateTime(datos.fecha);
-                let fechaEntrega = datos.fechaEntrega ? Tools.parseStringDateTimeToDateTime(datos.fechaEntrega) : new Date();
-                let diff = fechaEntrega.getTime() - fechaPedido.getTime();
-                let diferencia = diff/1000;
+                let fechaPedido:any = Tools.parseStringDateTimeToDateTime(datos.fecha);
+                let fechaEntrega:any = datos.fechaEntrega ? Tools.parseStringDateTimeToDateTime(datos.fechaEntrega) : new Date();
+                //let diff = fechaEntrega - fechaPedido;
+                var diff = Math.abs(fechaEntrega - fechaPedido);
+                var diferencia = Math.floor((diff/1000)/60);
                 enTiempo = diferencia > tiempoElaboracion ? false : true;
-                return {codigo: datos.codigo, fechaPedido: datos.fecha, fechaEntrega: datos.fechaEntrega, tiempoElaboracion: tiempoElaboracion, estadoEntrega: enTiempo};
+                enTiempo ? countATiempo++ : countConDemora++;
+                return {codigo: datos.codigo, fechaPedido: datos.fecha, fechaEntrega: datos.fechaEntrega, tiempoElaboracion: tiempoElaboracion, 
+                    estadoEntrega: enTiempo, diferencia: diferencia};
             })
+            this.doughnutChartData.push(countConDemora, countATiempo);
+            this.showGraphic = true;
+            this.loading = false;
         })
     }
 }

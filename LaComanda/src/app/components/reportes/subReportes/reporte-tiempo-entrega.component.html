@@ -20,11 +20,18 @@
                                     {{element.tiempoElaboracion}}
                                 </div>  
                                 <div *ngIf="column.name == 'estadoEntrega'">
-                                    {{element.estadoEntrega ? 'Entregado a tiempo': 'Entregado con demora'}}
+                                    {{element.estadoEntrega ? 'Entregado a tiempo': ('Entregado con demora de ' + (element.diferencia - element.tiempoElaboracion) + ' minutos')  }}
                                 </div>                        
                             </div>
                         </ng-template>
                     </crud-table>
+                    <div class="flex-v expand-w" style="margin-top: 1em;">
+                            <div style="display: flex; justify-content: center; margin-bottom: 3em;" *ngIf="showGraphic">
+                                <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                                    [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

@@ -27,7 +27,8 @@ export class PedidosClienteComponent implements OnInit {
         enPreparacion: 'En Preparación',
         listo: 'Listo para servir',
         entregado: 'Entregado',
-        cerrado: 'Cerrado'
+        cerrado: 'Cerrado',
+        cancelado: 'Cancelado'
     };
     public staticEstadoPedidos: any;
     public pedido = new Pedido();
